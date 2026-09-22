@@ -1,0 +1,7 @@
+Projeto Está funcional 
+
+Crie uma cópia e agora você terá dois projetos 
+
+FRC_9460_Calibracao
+e
+FRC_9460_Competicao
