@@ -198,22 +198,53 @@ public class ModuleIOTalonFX implements ModuleIO {
                         0.124);
 
         // ============================================================
-        // 2 - LIMITE DE CORRENTE DO DRIVE
+        // 2 - LIMITES DE CORRENTE DO DRIVE
         // ============================================================
-
-        // O arquivo gerado pelo Phoenix Tuner
-        // utiliza limite de corrente de alimentação
-        // de 70 A.
         //
-        // Isso ajuda a controlar o consumo
-        // elétrico do Kraken.
-        CurrentLimitsConfigs driveCurrentLimits = new CurrentLimitsConfigs()
+        // Baseado no TunerConstants gerado pelo Phoenix Tuner:
+        //
+        // Supply Current = 70 A
+        // Stator / Slip Current = 120 A
+        //
+        // Supply:
+        // controla principalmente a corrente puxada da bateria.
+        //
+        // Stator:
+        // limita o torque produzido pelo Kraken.
+        // No Swerve da CTRE, esse valor corresponde ao conceito
+        // de kSlipCurrent.
+        //
+        // IMPORTANTE:
+        // 120 A é nosso valor inicial vindo do Tuner.
+        // Futuramente podemos medir o ponto real de patinagem
+        // e ajustar esse valor.
+        //
+        CurrentLimitsConfigs driveCurrentLimits =
+        new CurrentLimitsConfigs()
 
                 .withSupplyCurrentLimit(
-                        Amps.of(70))
+                Amps.of(70)
+                )
 
                 .withSupplyCurrentLimitEnable(
-                        true);
+                true
+                )
+
+                .withSupplyCurrentLowerLimit(
+                Amps.of(40)
+                )
+
+                .withSupplyCurrentLowerTime(
+                Seconds.of(1.0)
+                )
+
+                .withStatorCurrentLimit(
+                Amps.of(120)
+                )
+
+                .withStatorCurrentLimitEnable(
+                true
+                );
 
         // ============================================================
         // 3 - INVERSÃO DO MOTOR DE DRIVE
