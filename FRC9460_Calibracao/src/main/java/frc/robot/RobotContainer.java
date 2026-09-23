@@ -115,7 +115,7 @@ public class RobotContainer {
 
                             0.10
 
-                        ) * kMaxLinearSpeed;
+                        ) * kMaxLinearSpeed*0.50;
 
 
 
@@ -130,7 +130,7 @@ public class RobotContainer {
 
                             0.10
 
-                        ) * kMaxLinearSpeed;
+                        ) * kMaxLinearSpeed*0.50;
 
 
 
@@ -145,7 +145,7 @@ public class RobotContainer {
 
                             0.10
 
-                        ) * kMaxAngularSpeed;
+                        ) * kMaxAngularSpeed*0.50;
 
 
                     // ====================================================

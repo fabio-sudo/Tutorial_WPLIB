@@ -40,6 +40,10 @@ import org.littletonrobotics.junction.Logger;
 
 import frc.robot.subsystems.drive.Drive;
 
+
+//LOG
+import com.ctre.phoenix6.SignalLogger;
+
 // #endregion
 
 
@@ -152,13 +156,22 @@ public final class DriveSysId {
                     //
                     // ------------------------------------------------
 
-                    state ->
+                    state -> {
 
-                        Logger.recordOutput(
-                            "SysIdTestState",
-                            state.toString()
-                        )
-                ),
+                            // AdvantageKit
+                            Logger.recordOutput(
+                                "SysIdTestState",
+                                state.toString()
+                            );
+
+
+                            // CTRE .hoot
+                            SignalLogger.writeString(
+                                "state",
+                                state.toString()
+                            );
+                        }
+                    ),
 
 
 
