@@ -7,6 +7,7 @@ import static frc.robot.Constants.DriveConstants.kWheelRadiusMeters;
 
 import org.littletonrobotics.junction.Logger;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
@@ -45,6 +46,33 @@ public class Module {
     // 2 = Back Left
     // 3 = Back Right
     private final int index;
+
+
+    // 🆕 ============================================================
+    // 🆕 HOLD DO STEER QUANDO O ROBÔ ESTÁ PARADO
+    // 🆕 ============================================================
+    //
+    // Quando a velocidade solicitada estiver muito próxima de zero,
+    // o módulo mantém o último ângulo válido em vez de aceitar um
+    // novo ângulo gerado pela cinemática.
+    //
+    // Isso evita movimentos desnecessários do Steer quando o robô
+    // está parado.
+    //
+    // 🆕 Velocidade abaixo de 0,05 m/s = módulo considerado parado.
+    private static final double STOP_SPEED_THRESHOLD_MPS =
+        0.05;
+
+
+    // 🆕 Último ângulo válido solicitado ao Steer.
+    private Rotation2d lastDesiredAngle =
+        new Rotation2d();
+
+
+    // 🆕 Na primeira execução usamos o ângulo REAL atual do módulo.
+    // Isso evita que, ao ligar o robô, o módulo tente ir para 0°.
+    private boolean hasLastDesiredAngle =
+        false;
 
     // #endregion
 
@@ -145,6 +173,25 @@ public class Module {
                 );
 
 
+            // 🆕 ==========================================================
+            // 🆕 1.1 - INICIALIZA O ÚLTIMO ÂNGULO
+            // 🆕 ==========================================================
+            //
+            // Na primeira execução, não queremos mandar o Steer
+            // automaticamente para 0°.
+            //
+            // Portanto, o primeiro ângulo armazenado é exatamente
+            // o ângulo REAL em que o módulo já se encontra.
+            if (!hasLastDesiredAngle) {
+
+                lastDesiredAngle =
+                    currentAngle;
+
+                hasLastDesiredAngle =
+                    true;
+            }
+
+
 
             // ==========================================================
             // 2 - OTIMIZAÇÃO DO ESTADO
@@ -159,6 +206,51 @@ public class Module {
                     state,
                     currentAngle
                 );
+
+
+            // 🆕 ==========================================================
+            // 🆕 2.1 - HOLD DO ÚLTIMO ÂNGULO QUANDO PARADO
+            // 🆕 ==========================================================
+            //
+            // Se a velocidade desejada for praticamente zero,
+            // NÃO usamos um novo ângulo vindo da cinemática.
+            //
+            // Em vez disso:
+            //
+            // velocidade = 0 m/s
+            // ângulo      = último ângulo válido
+            //
+            // Quando o módulo volta a se movimentar, atualizamos
+            // normalmente o último ângulo desejado.
+            boolean holdingAngle =
+                Math.abs(
+                    optimizedState.speedMetersPerSecond
+                )
+                < STOP_SPEED_THRESHOLD_MPS;
+
+
+            if (holdingAngle) {
+
+                optimizedState =
+                    new SwerveModuleState(
+                        0.0,
+                        lastDesiredAngle
+                    );
+            }
+            else {
+
+                lastDesiredAngle =
+                    optimizedState.angle;
+            }
+
+
+            // 🆕 Log para verificar no AdvantageScope.
+            Logger.recordOutput(
+                "Drive/Module"
+                    + index
+                    + "/HoldingLastAngle",
+                holdingAngle
+            );
 
 
 
@@ -359,6 +451,180 @@ public class Module {
         }
 
         // #endregion
+
+
+
+    // #region CALIBRAÇÃO - ALINHAMENTO DO STEER
+
+    // ============================================================
+    // POSICIONAR STEER DIRETAMENTE PARA CALIBRAÇÃO
+    // ============================================================
+    //
+    // Diferente de setDesiredState(), este método NÃO utiliza:
+    //
+    // SwerveModuleState.optimize()
+    //
+    // Portanto:
+    //
+    // 0 rad = realmente pedir 0 rad ao controlador do Steer.
+    //
+    // Isso é importante nos testes de kS,
+    // pois queremos que todas as rodas estejam orientadas
+    // fisicamente para a mesma direção.
+    //
+    // ============================================================
+
+    public void setCalibrationTurnPosition(
+        double angleRadians
+    ) {
+
+        // Normaliza o ângulo entre -PI e +PI
+        double normalizedAngle =
+            MathUtil.angleModulus(
+                angleRadians
+            );
+
+                // 🆕 ============================================================
+                // 🆕 SINCRONIZA O HOLD COM O ÂNGULO DE CALIBRAÇÃO
+                // 🆕 ============================================================
+                //
+                // Se a calibração mover o Steer diretamente,
+                // atualizamos também o último ângulo conhecido.
+                //
+                // Assim, ao terminar o SysId/calibração,
+                // o módulo não tenta voltar para um ângulo antigo.
+                //
+                lastDesiredAngle =
+                    Rotation2d.fromRadians(
+                        normalizedAngle
+                    );
+
+                hasLastDesiredAngle =
+                    true;
+
+
+
+        // Envia diretamente para o IO.
+        //
+        // No robô real:
+        //
+        // ModuleIOTalonFX
+        //      ↓
+        // PositionVoltage
+        //      ↓
+        // Kraken do Steer
+        io.setTurnPosition(
+            normalizedAngle
+        );
+
+
+        // --------------------------------------------------------
+        // LOG
+        // --------------------------------------------------------
+
+        Logger.recordOutput(
+            "Drive/Module"
+                + index
+                + "/CalibrationTurnSetpointRad",
+            normalizedAngle
+        );
+    }
+
+
+
+    // ============================================================
+    // ERRO DO STEER DURANTE CALIBRAÇÃO
+    // ============================================================
+
+    public double getCalibrationTurnErrorRad(
+        double targetAngleRadians
+    ) {
+
+        return MathUtil.angleModulus(
+
+            targetAngleRadians
+                - inputs.turnPositionRad
+        );
+    }
+
+
+
+    // ============================================================
+    // VERIFICA SE O STEER ESTÁ ALINHADO
+    // ============================================================
+
+    public boolean isCalibrationTurnAligned(
+        double targetAngleRadians,
+        double toleranceRadians
+    ) {
+
+        double error =
+            getCalibrationTurnErrorRad(
+                targetAngleRadians
+            );
+
+
+        boolean aligned =
+            Math.abs(error)
+                <= toleranceRadians;
+
+
+        // --------------------------------------------------------
+        // LOGS
+        // --------------------------------------------------------
+
+        Logger.recordOutput(
+            "Drive/Module"
+                + index
+                + "/CalibrationTurnErrorRad",
+            error
+        );
+
+
+        Logger.recordOutput(
+            "Drive/Module"
+                + index
+                + "/CalibrationTurnAligned",
+            aligned
+        );
+
+        Logger.recordOutput(
+        "Drive/Module"
+            + index
+            + "/CalibrationTurnMeasuredRad",
+        MathUtil.angleModulus(
+            inputs.turnPositionRad
+        )
+    );
+
+
+        return aligned;
+    }
+
+    // #endregion
+
+
+
+    // #region SYSID - DADOS DO DRIVE
+
+    // ============================================================
+    // TENSÃO REAL APLICADA AO DRIVE
+    // ============================================================
+    //
+    // O SysId precisa saber qual tensão realmente chegou
+    // ao motor.
+    //
+    // Não usamos apenas a tensão solicitada porque nossa
+    // proteção pode manter o motor em 0 V enquanto o
+    // Steer ainda não estiver alinhado.
+    //
+    public double getDriveAppliedVolts() {
+
+        return inputs.driveAppliedVolts;
+    }
+
+    // #endregion
+    
 
 
     // #region ESTADO ATUAL DO MÓDULO

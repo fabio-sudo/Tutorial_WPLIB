@@ -47,10 +47,6 @@ public class Module {
     // 3 = Back Right
     private final int index;
 
-    // #endregion
-
-
-
     // #region CONSTRUTOR
 
     public Module(
@@ -160,8 +156,6 @@ public class Module {
                     state,
                     currentAngle
                 );
-
-
 
             // ==========================================================
             // 3 - COMPENSAÇÃO POR COSSENO
@@ -392,6 +386,7 @@ public class Module {
             MathUtil.angleModulus(
                 angleRadians
             );
+
 
 
         // Envia diretamente para o IO.

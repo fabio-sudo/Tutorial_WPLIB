@@ -183,19 +183,22 @@ public class ModuleIOTalonFX implements ModuleIO {
         Slot0Configs driveGains = new Slot0Configs()
 
                 .withKP(
-                        0.1)
+                0.10)
 
                 .withKI(
-                        0.0)
+                0.0)
 
                 .withKD(
-                        0.0)
+                0.0)
 
                 .withKS(
-                        0.0)
+                0.26)
 
                 .withKV(
-                        0.124);
+                0.108)
+
+                .withKA(
+                0.0);
 
         // ============================================================
         // 2 - LIMITES DE CORRENTE DO DRIVE

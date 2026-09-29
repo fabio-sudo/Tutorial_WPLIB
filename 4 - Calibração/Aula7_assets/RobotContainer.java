@@ -37,9 +37,6 @@ import frc.robot.calibration.SwerveCalibrationCommands;
 //CALIBRAÇÃO
 import frc.robot.calibration.CalibrationCommands;
 
-//Curva de Aceleração e Suavisação
-import edu.wpi.first.math.filter.SlewRateLimiter;
-
 // #endregion
 
 
@@ -72,28 +69,11 @@ public class RobotContainer {
     // #region CONTROLE DO MOTORISTA
 
     // Controle Xbox conectado na porta definida
+    // em OperatorConstants
     private final CommandXboxController m_driverController =
         new CommandXboxController(
             OperatorConstants.kDriverControllerPort
         );
-
-
-    // ============================================================
-    // SUAVIZAÇÃO DO SWERVE
-    // ============================================================
-
-    // Frente / trás
-    private final SlewRateLimiter vxLimiter =
-        new SlewRateLimiter(3.0);
-
-    // Movimento lateral
-    private final SlewRateLimiter vyLimiter =
-        new SlewRateLimiter(3.0);
-
-    // Rotação
-    private final SlewRateLimiter omegaLimiter =
-        new SlewRateLimiter(4.0);
-
 
     // #endregion
 
@@ -129,128 +109,92 @@ public class RobotContainer {
             drive.runEnd(
 
                 () -> {
-        // ====================================================
-        // MOVIMENTO PARA FRENTE / TRÁS
-        // ====================================================
 
-        double vxInput =
-            -MathUtil.applyDeadband(
 
-                m_driverController.getLeftY(),
+                    // ====================================================
+                    // MOVIMENTO PARA FRENTE / TRÁS
+                    // ====================================================
 
-                0.10
+                    double vx =
+                        -MathUtil.applyDeadband(
 
-            );
+                            m_driverController.getLeftY(),
 
-        // Curva quadrática para deixar o centro mais suave
-        vxInput =
-            Math.copySign(
-                vxInput * vxInput,
-                vxInput
-            );
+                            0.10
 
-        double vx =
-            vxLimiter.calculate(vxInput)
-                * kMaxLinearSpeed;
+                        ) * kMaxLinearSpeed*0.50;
 
 
 
-        // ====================================================
-        // MOVIMENTO LATERAL
-        // ====================================================
+                    // ====================================================
+                    // MOVIMENTO LATERAL
+                    // ====================================================
 
-        double vyInput =
-            -MathUtil.applyDeadband(
+                    double vy =
+                        -MathUtil.applyDeadband(
 
-                m_driverController.getLeftX(),
+                            m_driverController.getLeftX(),
 
-                0.10
+                            0.10
 
-            );
-
-        // Curva quadrática
-        vyInput =
-            Math.copySign(
-                vyInput * vyInput,
-                vyInput
-            );
-
-        double vy =
-            vyLimiter.calculate(vyInput)
-                * kMaxLinearSpeed;
+                        ) * kMaxLinearSpeed*0.50;
 
 
 
-        // ====================================================
-        // ROTAÇÃO DO ROBÔ
-        // ====================================================
+                    // ====================================================
+                    // ROTAÇÃO DO ROBÔ
+                    // ====================================================
 
-        double omegaInput =
-            -MathUtil.applyDeadband(
+                    double omega =
+                        -MathUtil.applyDeadband(
 
-                m_driverController.getRightX(),
+                            m_driverController.getRightX(),
 
-                0.10
+                            0.10
 
-            );
-
-        // Curva quadrática
-        omegaInput =
-            Math.copySign(
-                omegaInput * omegaInput,
-                omegaInput
-            );
-
-        double omega =
-            omegaLimiter.calculate(omegaInput)
-                * kMaxAngularSpeed;
+                        ) * kMaxAngularSpeed*0.50;
 
 
+                    // ====================================================
+                    // ESCOLHE O MODO DE DIREÇÃO
+                    // ====================================================
 
-        // ====================================================
-        // ESCOLHE O MODO DE DIREÇÃO
-        // ====================================================
+                    if (fieldRelativeEnabled) {
 
-        if (fieldRelativeEnabled) {
+                        // -----------------------------------------------
+                        // FIELD RELATIVE
+                        // -----------------------------------------------
 
-            // -----------------------------------------------
-            // FIELD RELATIVE
-            // -----------------------------------------------
+                        drive.driveFieldRelative(
+                            vx,
+                            vy,
+                            omega
+                        );
 
-            drive.driveFieldRelative(
-                vx,
-                vy,
-                omega
-            );
+                    } else {
 
-        } else {
+                        // -----------------------------------------------
+                        // ROBOT RELATIVE
+                        // -----------------------------------------------
 
-            // -----------------------------------------------
-            // ROBOT RELATIVE
-            // -----------------------------------------------
+                        drive.drive(
+                            vx,
+                            vy,
+                            omega
+                        );
+                    }
 
-            drive.drive(
-                vx,
-                vy,
-                omega
-            );
-        }
-
-        },
-
-        // Quando o comando terminar
-        // ou for interrompido
-        drive::stop
-
-        )
-
+                },
+                // Quando o comando terminar
+                // ou for interrompido
+                drive::stop
+            )
         );
 
 
         // Configura os botões do controle
         configureBindings();
-
-        }
+    }
 
     // #endregion
 

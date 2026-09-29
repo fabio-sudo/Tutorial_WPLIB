@@ -28,15 +28,18 @@ public final class Constants {
 
   public static class DriveConstants {
 
+
     // #region GEOMETRIA DO ROBÔ
 
     // Distância entre os módulos dianteiros e traseiros
     // Medida de centro a centro dos módulos
-    public static final double kWheelBaseMeters = 0.58;
+    public static final double kWheelBaseMeters =
+    0.5461;
 
     // Distância entre os módulos da esquerda e direita
     // Medida de centro a centro dos módulos
-    public static final double kTrackWidthMeters = 0.54;
+    public static final double kTrackWidthMeters =
+    0.5461;
 
     // Raio da roda do módulo Swerve
     public static final double kWheelRadiusMeters = 0.0508;
