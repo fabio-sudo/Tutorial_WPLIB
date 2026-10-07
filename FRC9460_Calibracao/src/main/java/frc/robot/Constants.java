@@ -57,7 +57,6 @@ public final class Constants {
     // #endregion
 
 
-
   // ============================================================
   // CONTROLE DO DRIVE
   // ============================================================
@@ -83,7 +82,122 @@ public final class Constants {
   
   // #endregion
   
+
+
     }
+
+
+  //#region Limelight
+
+  public static class LimelightConstants {
+  // ============================================================
+  // Lime Ligh Constants
+  // ============================================================
+
+      public static final String REAR_NAME = "limelight-rear";
+
+      public static final int[] VALID_TAG_IDS = {25, 26, 9, 10};
+
+      public static final int IMU_MODE = 0;
+
+      public static final double REAR_FORWARD = -0.29;
+      public static final double REAR_RIGHT = 0.16;
+      public static final double REAR_UP = 0.46;
+
+      public static final double REAR_ROLL = 0.0;
+      public static final double REAR_PITCH = 4.0;
+      public static final double REAR_YAW = 180.0;
+
+    // ============================================================
+    // VALIDAÇÃO DO MEGATAG2
+    // ============================================================
+
+    // Distância máxima média das AprilTags
+    // para aceitarmos uma medição de visão.
+    public static final double MAX_TAG_DISTANCE_METERS =4.0;
+
+
+    // ============================================================
+    // LIMITE DE VELOCIDADE ANGULAR PARA VISÃO
+    // ============================================================
+    //
+    // Acima desse valor a imagem pode sofrer blur durante
+    // a rotação e a pose do MegaTag2 fica menos confiável.
+    //
+    // Unidade: graus por segundo.
+    //
+    // ============================================================
+
+   
+   //720 o que usamos para testes
+    public static final double MAX_VISION_YAW_RATE_DEG_PER_SEC =
+        720.0;
+
+  }
+  
+  //#region
   
     // #endregion
 }
+
+
+
+
+
+
+
+
+
+
+//=====================================Anotações
+//ROBOT CONFIG  = PathPlanner
+
+
+//Limite tenção Bateria
+//As vezes a bateria esta com 13v ou 12 então manda mais doque 12
+
+//slowrate -- Swerve Função quadratica
+
+
+//Optimize Cocene scale
+
+
+//================Limelight
+//Confiar menos no giroscopio da camera usar o pision
+//Pega somente X e Y
+//Despreza a rotação
+//Usar bloco Try Cath Exception = Limelight 
+//Constantes no codigo
+//MegaTag 1 não precisa do pision
+//Megata 2 precisa do pision sexta posicao e o angulo
+//Enquanto for falso que esta vendo a limelight ele fica procurando 
+//Quando acha deixa de procurar pega os valores dela
+//TimeStamp volta no tempo
+
+//=================Posicao da arena e robo
+//Yaw 180 uma alinaça 0 arena uim
+//Teste para robo fica lado certo da arena
+
+
+
+
+//=====Sistematiza 
+//Monitoramento de Log
+
+
+
+
+//==========Perguntar
+//Cabibrar
+//Picos Voltagem
+//Alinhar quando começa jogar as rodas na posicao 0
+
+
+//Paphplanner
+//Tem como passar o x e y e ele desviar dos objetos automaticamente 
+//Ele gera um json com as config do robo peso medidas
+//PaphToPose mandar robo por coordenadas 
+//PID de trajetoria do robo = robot config
+
+
+//Java Teste de unidades

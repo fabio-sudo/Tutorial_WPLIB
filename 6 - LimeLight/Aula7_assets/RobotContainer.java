@@ -60,6 +60,8 @@ public class RobotContainer {
     private final Drive drive =
         new Drive();
 
+
+
     
     // ============================================================
     // LIMELIGHT VISION
@@ -95,15 +97,15 @@ public class RobotContainer {
 
     // Frente / trás
     private final SlewRateLimiter vxLimiter =
-        new SlewRateLimiter(2.0);
+        new SlewRateLimiter(3.0);
 
     // Movimento lateral
     private final SlewRateLimiter vyLimiter =
-        new SlewRateLimiter(2.0);
+        new SlewRateLimiter(3.0);
 
     // Rotação
     private final SlewRateLimiter omegaLimiter =
-        new SlewRateLimiter(2.0);
+        new SlewRateLimiter(4.0);
 
 
     // #endregion
@@ -671,7 +673,7 @@ public class RobotContainer {
                                 drive
                             )
                             .withTimeout(
-                                150.0//Quantidade tempo que metodo roda deposi destroy
+                                25.0
                             )
                         );
 

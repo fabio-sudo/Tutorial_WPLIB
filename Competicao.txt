@@ -1,0 +1,110 @@
+TalonFX      
+
+//DEixar Coast nos módulos na rotação
+
+  MotorOutputConfigs steerMotorOutput = new MotorOutputConfigs()
+
+                .withInverted(
+
+                        steerInverted
+
+                                ? InvertedValue.Clockwise_Positive
+
+                                : InvertedValue.CounterClockwise_Positive).withNeutralMode(NeutralModeValue.Coast);//======================COAST
+
+
+
+
+Ajustar ================ TalonFX
+
+        // ============================================================
+        // 4 - LIMITE DE CORRENTE DO STEER
+        // ============================================================
+
+        // O projeto gerado pelo Phoenix Tuner
+        // usa 60 A de limite de corrente
+        // no estator do Steer. karaquem X60
+        CurrentLimitsConfigs steerCurrentLimits = new CurrentLimitsConfigs()
+
+        .withStatorCurrentLimit(
+                Amps.of(60))
+
+        .withStatorCurrentLimitEnable(
+                true)
+
+        .withSupplyCurrentLimit(
+                Amps.of(70))
+
+        .withSupplyCurrentLimitEnable(
+                true);
+
+
+
+
+
+//=========================================Pigeon
+ // #region CONSTRUTOR
+
+    public GyroIOPigeon2(
+        int pigeonId
+    ) {
+
+        pigeon =
+            new Pigeon2(
+                pigeonId
+            );
+
+
+        // NEW ============================================================
+        // NEW - CALIBRAÇÃO DO GIROSCÓPIO NO EIXO Z
+        // NEW ============================================================
+        //
+        // Resultado dos testes físicos de 10 voltas:
+        //
+        // Esperado:
+        // 3600 graus
+        //
+        // Média medida:
+        // aproximadamente 3542 graus
+        //
+        // Correção calculada:
+        // aproximadamente 5.78 graus por volta
+        //
+        // O eixo Z corresponde ao Yaw do robô.
+        //
+        // IMPORTANTE:
+        // Este é nosso PRIMEIRO valor de calibração.
+        // Depois vamos repetir o teste das 10 voltas
+        // para validar se a correção ficou correta.
+        //
+        // ================================================================
+
+        GyroTrimConfigs gyroTrimConfigs =
+            new GyroTrimConfigs()
+
+                .withGyroScalarZ(
+                    -5.48
+                );
+
+
+        // NEW ============================================================
+        // NEW - APLICA A CALIBRAÇÃO NO PIGEON 2
+        // NEW ============================================================
+
+        pigeon
+            .getConfigurator()
+            .apply(
+                gyroTrimConfigs
+            );
+
+        // NEW ============================================================
+    }
+
+    // #endregion
+
+
+
+
+
+
+

@@ -1559,153 +1559,131 @@ public class Drive extends SubsystemBase {
 
     }
 
-        // ============================================================
-        // FUSÃO DE VISÃO - MEGATAG2
-        // ============================================================
-        //
-        // Versão padrão.
-        // Mantém o comportamento atual usando 0.70 m.
-        //
-        // Depois o Vision.java poderá chamar a outra versão
-        // passando uma confiança calculada dinamicamente.
-        //
-        // ============================================================
+    // ============================================================
 
-        public void addVisionMeasurement(
+    // FUSÃO DE VISÃO - MEGATAG2
 
-                Pose2d visionPose,
+    // ============================================================
 
-                double timestampSeconds
+    //
 
-        ) {
+    // Recebe uma medição de posição da Limelight.
 
-            addVisionMeasurement(
+    //
 
-                    visionPose,
+    // IMPORTANTE:
 
-                    timestampSeconds,
+    //
 
-                    0.70
+    // A validação das AprilTags será realizada pelo Vision.java.
 
-            );
+    //
 
-        }
+    // O PoseEstimator combina:
 
+    //
 
-        // ============================================================
-        // NEW - FUSÃO DE VISÃO COM CONFIANÇA CONFIGURÁVEL
-        // ============================================================
-        //
-        // xyStdDevMeters:
-        //
-        // valor menor = confia MAIS na Limelight
-        //
-        // valor maior = confia MENOS na Limelight
-        //
-        // ============================================================
+    // - Pigeon 2
 
-        public void addVisionMeasurement(
+    // - Encoders dos módulos
 
-                Pose2d visionPose,
+    // - Posição medida pelo MegaTag2
 
-                double timestampSeconds,
+    //
 
-                double xyStdDevMeters
+    // O timestamp permite compensar o atraso da câmera.
 
-        ) {
+    //
 
-            // ========================================================
-            // 1 - PROTEÇÃO DOS DADOS RECEBIDOS
-            // ========================================================
+    // ============================================================
 
-            if (visionPose == null
+    public void addVisionMeasurement(
 
-                    || !Double.isFinite(
-                            visionPose.getX()
-                    )
+            Pose2d visionPose,
 
-                    || !Double.isFinite(
-                            visionPose.getY()
-                    )
+            double timestampSeconds
 
-                    || !Double.isFinite(
-                            visionPose
-                                    .getRotation()
-                                    .getRadians()
-                    )
+    ) {
 
-                    || !Double.isFinite(
-                            timestampSeconds
-                    )
+        // ========================================================
 
-                    || !Double.isFinite(
-                            xyStdDevMeters
-                    )
+        // 1 - PROTEÇÃO DOS DADOS RECEBIDOS
 
-                    || xyStdDevMeters <= 0.0) {
+        // ========================================================
 
-                return;
-            }
+        if (visionPose == null
 
+                || !Double.isFinite(visionPose.getX())
 
-            // ========================================================
-            // 2 - ENVIA A MEDIÇÃO AO POSE ESTIMATOR
-            // ========================================================
-            //
-            // X e Y:
-            //
-            // utilizam a confiança fornecida pelo Vision.java.
-            //
-            // Theta:
-            //
-            // praticamente ignorado.
-            //
-            // A orientação continua sendo fornecida
-            // principalmente pelo Pigeon 2.
-            //
-            // ========================================================
+                || !Double.isFinite(visionPose.getY())
 
-            poseEstimator.addVisionMeasurement(
+                || !Double.isFinite(visionPose.getRotation().getRadians())
 
-                    visionPose,
+                || !Double.isFinite(timestampSeconds)) {
 
-                    timestampSeconds,
-
-                    VecBuilder.fill(
-
-                            xyStdDevMeters,
-
-                            xyStdDevMeters,
-
-                            9999999.0
-
-                    )
-
-            );
-
-
-            // ========================================================
-            // 3 - ATUALIZA A POSE DO DRIVE
-            // ========================================================
-
-            pose =
-                    poseEstimator.getEstimatedPosition();
-
-
-            // ========================================================
-            // 4 - ADVANTAGEKIT
-            // ========================================================
-
-            Logger.recordOutput(
-
-                    "Drive/Vision/XYStdDevMeters",
-
-                    xyStdDevMeters
-
-            );
+            return;
 
         }
-        
+
+        // ========================================================
+
+        // 2 - ENVIA A MEDIÇÃO AO POSE ESTIMATOR
+
+        // ========================================================
+
+        //
+
+        // Desvio padrão inicial:
+
+        //
+
+        // X = 0.70 metro
+
+        // Y = 0.70 metro
+
+        // Theta = confiança praticamente nula na rotação
+
+        //
+
+        // A orientação continuará sendo fornecida principalmente
+
+        // pelo Pigeon 2, como recomendado para MegaTag2.
+
+        //
+
+        // Esses valores poderão ser ajustados após os testes.
+
+        //
+
+        // ========================================================
+
+        poseEstimator.addVisionMeasurement(
+
+                visionPose,
+
+                timestampSeconds,
+
+                VecBuilder.fill(
+
+                        0.70,
+
+                        0.70,
+
+                        9999999.0
+
+                )
+
+        );
+
+        // ========================================================
+
+        // 3 - SINCRONIZA A POSE ATUAL
+
+        // ========================================================
+
+        pose = poseEstimator.getEstimatedPosition();
+
+    }
 
     // ============================================================
 
@@ -1760,25 +1738,6 @@ public class Drive extends SubsystemBase {
     }
 
     // #endregion
-
-
-    // #region VELOCIDADE ANGULAR DO ROBÔ
-
-    public double getYawVelocityDegreesPerSecond() {
-
-        if (!Double.isFinite(
-            gyroInputs.yawVelocityRadPerSec
-        )) {
-
-            return Double.NaN;
-        }
-
-        return Math.toDegrees(
-            gyroInputs.yawVelocityRadPerSec
-        );
-    }
-
-// #endregion
 
     // #region RESET GIRO MANUAL ACUMULADO
 

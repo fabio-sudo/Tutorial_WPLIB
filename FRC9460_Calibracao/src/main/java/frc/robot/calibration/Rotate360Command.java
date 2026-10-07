@@ -7,9 +7,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 import frc.robot.subsystems.drive.Drive;
 
-
 public class Rotate360Command extends Command {
-
 
     // ============================================================
     // DRIVE
@@ -22,32 +20,30 @@ public class Rotate360Command extends Command {
     // CONFIGURAÇÃO DO TESTE
     // ============================================================
 
-    // Uma volta completa
+    // Quantidade de voltas desejadas
+    private static final double TARGET_TURNS =
+        10.0;
+
+    // 10 voltas = 20 * PI rad = 3600 graus
     private static final double TARGET_ROTATION_RAD =
-        2.0 * Math.PI;
+        TARGET_TURNS * 2.0 * Math.PI;
 
-
-    // Velocidade angular máxima do teste
-    //
+    //====================================================================== Velocidade angular máxima do teste
     // 0.50 rad/s ≈ 28.6 graus/s
     private static final double MAX_OMEGA_RAD_PER_SEC =
-        0.50;
-
+       1.8;
 
     // Velocidade mínima para vencer atrito
     private static final double MIN_OMEGA_RAD_PER_SEC =
         0.10;
 
-
     // Controle proporcional
     private static final double TURN_KP =
         1.0;
 
-
     // Tolerância final
     private static final double TOLERANCE_RAD =
         Math.toRadians(2.0);
-
 
 
     // ============================================================
@@ -57,26 +53,29 @@ public class Rotate360Command extends Command {
     // Yaw quando o teste começa
     private double startYawRad;
 
+    // Yaw da leitura anterior
+    private double previousYawRad;
 
     // Yaw atual do Pigeon
     private double currentYawRad;
 
+    // Variação de yaw entre dois ciclos
+    private double deltaYawRad;
 
-    // Diferença assinada desde o início
+    // Rotação acumulada com sinal
     private double signedRotationRad;
 
-
-    // Quanto o robô realmente girou
+    // Rotação acumulada total
     private double traveledRotationRad;
 
+    // Quantidade acumulada de voltas
+    private double accumulatedTurns;
 
-    // Erro restante até 360°
+    // Erro restante
     private double errorRad;
-
 
     // Omega enviado ao drivetrain
     private double commandedOmega;
-
 
 
     // ============================================================
@@ -95,14 +94,12 @@ public class Rotate360Command extends Command {
     }
 
 
-
     // ============================================================
     // INITIALIZE
     // ============================================================
 
     @Override
     public void initialize() {
-
 
         // --------------------------------------------------------
         // Guarda a orientação inicial
@@ -113,64 +110,79 @@ public class Rotate360Command extends Command {
                 .getRotation()
                 .getRadians();
 
-
         currentYawRad =
             startYawRad;
 
+        previousYawRad =
+            startYawRad;
+
+        deltaYawRad =
+            0.0;
 
         signedRotationRad =
             0.0;
 
-
         traveledRotationRad =
             0.0;
 
+        accumulatedTurns =
+            0.0;
 
         errorRad =
             TARGET_ROTATION_RAD;
-
 
         commandedOmega =
             0.0;
 
 
-
         // --------------------------------------------------------
-        // LOGS
+        // LOGS INICIAIS
         // --------------------------------------------------------
 
         Logger.recordOutput(
-            "Validation/Rotate360/Active",
+            "Validation/Rotate10Turns/Active",
             true
         );
 
-
         Logger.recordOutput(
-            "Validation/Rotate360/StartYawRad",
+            "Validation/Rotate10Turns/StartYawRad",
             startYawRad
         );
 
-
         Logger.recordOutput(
-            "Validation/Rotate360/StartYawDegrees",
+            "Validation/Rotate10Turns/StartYawDegrees",
             Math.toDegrees(
                 startYawRad
             )
         );
 
-
         Logger.recordOutput(
-            "Validation/Rotate360/TargetDegrees",
-            360.0
+            "Validation/Rotate10Turns/TargetTurns",
+            TARGET_TURNS
         );
 
+        Logger.recordOutput(
+            "Validation/Rotate10Turns/TargetDegrees",
+            Math.toDegrees(
+                TARGET_ROTATION_RAD
+            )
+        );
 
         Logger.recordOutput(
-            "Validation/Rotate360/Finished",
+            "Validation/Rotate10Turns/AccumulatedDegrees",
+            0.0
+        );
+
+        Logger.recordOutput(
+            "Validation/Rotate10Turns/AccumulatedTurns",
+            0.0
+        );
+
+        Logger.recordOutput(
+            "Validation/Rotate10Turns/Finished",
             false
         );
     }
-
 
 
     // ============================================================
@@ -179,7 +191,6 @@ public class Rotate360Command extends Command {
 
     @Override
     public void execute() {
-
 
         // ========================================================
         // 1 - LÊ O PIGEON
@@ -191,32 +202,46 @@ public class Rotate360Command extends Command {
                 .getRadians();
 
 
+        // ========================================================
+        // 2 - CALCULA A VARIAÇÃO DESDE O ÚLTIMO CICLO
+        // ========================================================
+        //
+        // angleModulus mantém cada pequeno delta entre
+        // -PI e +PI.
+        //
+        // Isso permite acumular várias voltas mesmo quando
+        // a leitura passa de +180 para -180.
+        //
+        // ========================================================
+
+        deltaYawRad =
+            MathUtil.angleModulus(
+                currentYawRad - previousYawRad
+            );
+
+        signedRotationRad +=
+            deltaYawRad;
+
+        previousYawRad =
+            currentYawRad;
+
 
         // ========================================================
-        // 2 - CALCULA QUANTO GIRAMOS
+        // 3 - ROTAÇÃO TOTAL ACUMULADA
         // ========================================================
 
-        signedRotationRad =
-            currentYawRad
-                - startYawRad;
-
-
-        /*
-         * Para o teste de uma volta completa,
-         * queremos saber a quantidade física girada.
-         *
-         * Não importa neste momento se o sentido
-         * do Pigeon aparece positivo ou negativo.
-         */
         traveledRotationRad =
             Math.abs(
                 signedRotationRad
             );
 
+        accumulatedTurns =
+            traveledRotationRad
+                / (2.0 * Math.PI);
 
 
         // ========================================================
-        // 3 - ERRO PARA 360°
+        // 4 - ERRO PARA 10 VOLTAS
         // ========================================================
 
         errorRad =
@@ -224,18 +249,14 @@ public class Rotate360Command extends Command {
                 - traveledRotationRad;
 
 
-
         // ========================================================
-        // 4 - CONTROLE PROPORCIONAL
+        // 5 - CONTROLE PROPORCIONAL
         // ========================================================
 
         commandedOmega =
             TURN_KP
                 * errorRad;
 
-
-
-        // Limita velocidade máxima
         commandedOmega =
             MathUtil.clamp(
                 commandedOmega,
@@ -244,9 +265,8 @@ public class Rotate360Command extends Command {
             );
 
 
-
         // ========================================================
-        // 5 - VELOCIDADE MÍNIMA
+        // 6 - VELOCIDADE MÍNIMA
         // ========================================================
 
         if (
@@ -273,9 +293,8 @@ public class Rotate360Command extends Command {
         }
 
 
-
         // ========================================================
-        // 6 - ENVIA PARA O SWERVE
+        // 7 - ENVIA PARA O SWERVE
         // ========================================================
 
         drive.setCalibrationChassisSpeeds(
@@ -285,13 +304,12 @@ public class Rotate360Command extends Command {
         );
 
 
-
         // ========================================================
-        // 7 - LOGS
+        // 8 - LOGS - ADVANTAGESCOPE
         // ========================================================
 
         Logger.recordOutput(
-            "Validation/Rotate360/CurrentYawDegrees",
+            "Validation/Rotate10Turns/CurrentYawDegrees",
             Math.toDegrees(
                 currentYawRad
             )
@@ -299,23 +317,78 @@ public class Rotate360Command extends Command {
 
 
         Logger.recordOutput(
-            "Validation/Rotate360/SignedRotationDegrees",
+            "Validation/Rotate10Turns/DeltaYawDegrees",
+            Math.toDegrees(
+                deltaYawRad
+            )
+        );
+
+
+        Logger.recordOutput(
+            "Validation/Rotate10Turns/SignedAccumulatedDegrees",
             Math.toDegrees(
                 signedRotationRad
             )
         );
 
 
+        // ========================================================
+        // GRAUS ACUMULADOS
+        // ========================================================
+
         Logger.recordOutput(
-            "Validation/Rotate360/TraveledDegrees",
+            "Validation/Rotate10Turns/AccumulatedDegrees",
             Math.toDegrees(
                 traveledRotationRad
             )
         );
 
 
+        // ========================================================
+        // VOLTAS ACUMULADAS
+        // ========================================================
+        //
+        // Exemplo:
+        //
+        // 1.00 = uma volta
+        // 2.50 = duas voltas e meia
+        // 10.0 = teste completo
+        //
+        // ========================================================
+
         Logger.recordOutput(
-            "Validation/Rotate360/ErrorDegrees",
+            "Validation/Rotate10Turns/AccumulatedTurns",
+            accumulatedTurns
+        );
+
+
+        // ========================================================
+        // VOLTAS COMPLETAS
+        // ========================================================
+
+        Logger.recordOutput(
+            "Validation/Rotate10Turns/CompletedFullTurns",
+            Math.floor(
+                accumulatedTurns
+            )
+        );
+
+
+        // ========================================================
+        // VOLTAS RESTANTES
+        // ========================================================
+
+        Logger.recordOutput(
+            "Validation/Rotate10Turns/RemainingTurns",
+            Math.max(
+                0.0,
+                TARGET_TURNS - accumulatedTurns
+            )
+        );
+
+
+        Logger.recordOutput(
+            "Validation/Rotate10Turns/ErrorDegrees",
             Math.toDegrees(
                 errorRad
             )
@@ -323,14 +396,17 @@ public class Rotate360Command extends Command {
 
 
         Logger.recordOutput(
-            "Validation/Rotate360/CommandedOmega",
+            "Validation/Rotate10Turns/CommandedOmega",
             commandedOmega
         );
 
 
-        // Pose da odometria
+        // ========================================================
+        // POSE
+        // ========================================================
+
         Logger.recordOutput(
-            "Validation/Rotate360/PoseDegrees",
+            "Validation/Rotate10Turns/PoseDegrees",
             drive
                 .getPose()
                 .getRotation()
@@ -339,7 +415,7 @@ public class Rotate360Command extends Command {
 
 
         Logger.recordOutput(
-            "Validation/Rotate360/PoseX",
+            "Validation/Rotate10Turns/PoseX",
             drive
                 .getPose()
                 .getX()
@@ -347,13 +423,12 @@ public class Rotate360Command extends Command {
 
 
         Logger.recordOutput(
-            "Validation/Rotate360/PoseY",
+            "Validation/Rotate10Turns/PoseY",
             drive
                 .getPose()
                 .getY()
         );
     }
-
 
 
     // ============================================================
@@ -369,7 +444,6 @@ public class Rotate360Command extends Command {
     }
 
 
-
     // ============================================================
     // END
     // ============================================================
@@ -379,10 +453,8 @@ public class Rotate360Command extends Command {
         boolean interrupted
     ) {
 
-
         // Para imediatamente
         drive.stopCalibration();
-
 
 
         // ========================================================
@@ -390,25 +462,25 @@ public class Rotate360Command extends Command {
         // ========================================================
 
         Logger.recordOutput(
-            "Validation/Rotate360/Active",
+            "Validation/Rotate10Turns/Active",
             false
         );
 
 
         Logger.recordOutput(
-            "Validation/Rotate360/Finished",
+            "Validation/Rotate10Turns/Finished",
             !interrupted
         );
 
 
         Logger.recordOutput(
-            "Validation/Rotate360/Interrupted",
+            "Validation/Rotate10Turns/Interrupted",
             interrupted
         );
 
 
         Logger.recordOutput(
-            "Validation/Rotate360/FinalYawDegrees",
+            "Validation/Rotate10Turns/FinalYawDegrees",
             Math.toDegrees(
                 currentYawRad
             )
@@ -416,7 +488,7 @@ public class Rotate360Command extends Command {
 
 
         Logger.recordOutput(
-            "Validation/Rotate360/FinalSignedRotationDegrees",
+            "Validation/Rotate10Turns/FinalSignedAccumulatedDegrees",
             Math.toDegrees(
                 signedRotationRad
             )
@@ -424,7 +496,7 @@ public class Rotate360Command extends Command {
 
 
         Logger.recordOutput(
-            "Validation/Rotate360/FinalTraveledDegrees",
+            "Validation/Rotate10Turns/FinalAccumulatedDegrees",
             Math.toDegrees(
                 traveledRotationRad
             )
@@ -432,7 +504,13 @@ public class Rotate360Command extends Command {
 
 
         Logger.recordOutput(
-            "Validation/Rotate360/FinalErrorDegrees",
+            "Validation/Rotate10Turns/FinalAccumulatedTurns",
+            accumulatedTurns
+        );
+
+
+        Logger.recordOutput(
+            "Validation/Rotate10Turns/FinalErrorDegrees",
             Math.toDegrees(
                 errorRad
             )
@@ -440,7 +518,7 @@ public class Rotate360Command extends Command {
 
 
         Logger.recordOutput(
-            "Validation/Rotate360/FinalPoseDegrees",
+            "Validation/Rotate10Turns/FinalPoseDegrees",
             drive
                 .getPose()
                 .getRotation()
@@ -449,7 +527,7 @@ public class Rotate360Command extends Command {
 
 
         Logger.recordOutput(
-            "Validation/Rotate360/FinalPoseX",
+            "Validation/Rotate10Turns/FinalPoseX",
             drive
                 .getPose()
                 .getX()
@@ -457,7 +535,7 @@ public class Rotate360Command extends Command {
 
 
         Logger.recordOutput(
-            "Validation/Rotate360/FinalPoseY",
+            "Validation/Rotate10Turns/FinalPoseY",
             drive
                 .getPose()
                 .getY()

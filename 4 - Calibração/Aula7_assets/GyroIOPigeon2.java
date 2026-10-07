@@ -60,7 +60,7 @@ public class GyroIOPigeon2 implements GyroIO {
             new GyroTrimConfigs()
 
                 .withGyroScalarZ(
-                    -5.48
+                    -6.24
                 );
 
 

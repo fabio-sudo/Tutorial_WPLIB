@@ -152,10 +152,14 @@ public class Module {
             // Se necessário, o WPILib inverte a velocidade
             // da roda para evitar que o Steer gire demais.
             SwerveModuleState optimizedState =
-                SwerveModuleState.optimize(
-                    state,
-                    currentAngle
+                new SwerveModuleState(
+                    state.speedMetersPerSecond,
+                    state.angle
                 );
+
+            optimizedState.optimize(
+                currentAngle
+            );
 
             // ==========================================================
             // 3 - COMPENSAÇÃO POR COSSENO
