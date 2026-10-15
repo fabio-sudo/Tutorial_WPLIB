@@ -16,6 +16,7 @@ import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.drive.Drive;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.DriverStation;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -43,6 +44,14 @@ import edu.wpi.first.math.filter.SlewRateLimiter;
 //Limelight Vision
 import frc.robot.subsystems.vision.Vision;
 
+
+//Virtualização limelight
+import org.littletonrobotics.junction.Logger;
+
+import edu.wpi.first.wpilibj.RobotBase;
+
+import frc.robot.subsystems.vision.VisionSimulationScenario;
+
 // #endregion
 
 
@@ -61,12 +70,23 @@ public class RobotContainer {
         new Drive();
 
     
-    // ============================================================
-    // LIMELIGHT VISION
-    // ============================================================
+        // ============================================================
+        // CENÁRIO DE VISÃO PARA SIMULAÇÃO
+        // ============================================================
 
-    private final Vision vision =
-        new Vision(drive);
+        // Cria o cenário somente na simulação normal.
+        // No replay, as entradas virão do arquivo gravado.
+        private final VisionSimulationScenario visionSimulation =
+            RobotBase.isSimulation() && !Logger.hasReplaySource()
+                ? new VisionSimulationScenario()
+                : null;
+
+        // Na simulação, usamos explicitamente as duas câmeras virtuais.
+        // Nas demais execuções, usamos a configuração existente do Vision.
+        private final Vision vision =
+            visionSimulation != null
+                ? new Vision(drive, visionSimulation.getCameras())
+                : new Vision(drive);
 
     // #endregion
 
@@ -140,6 +160,11 @@ public class RobotContainer {
             drive.runEnd(
 
                 () -> {
+        if (!DriverStation.isTeleopEnabled()) {
+            drive.stop();
+            resetDriverLimiters();
+            return;
+        }
         // ====================================================
         // MOVIMENTO PARA FRENTE / TRÁS
         // ====================================================
@@ -228,7 +253,7 @@ public class RobotContainer {
             // FIELD RELATIVE
             // -----------------------------------------------
 
-            drive.driveFieldRelative(
+            drive.driveDriverRelative(
                 vx,
                 vy,
                 omega
@@ -274,23 +299,41 @@ public class RobotContainer {
      */
     private void configureBindings() {
 
+        // Seta para baixo sem Start: manter o freio em X no teleoperado.
+        // Start + seta para baixo continua reservado ao seed da visão.
+        m_driverController.povDown()
+            .and(m_driverController.start().negate())
+            .and(DriverStation::isTeleopEnabled)
+            .whileTrue(
+                drive.xLockCommand()
+                    .finallyDo(interrupted -> resetDriverLimiters())
+            );
+
 
         // ============================================================
-        // BOTÃO Y - ZERO HEADING
+        // BOTÃO Y - ZERO DA REFERÊNCIA DO PILOTO
         // ============================================================
 
-        // Define a orientação atual do robô
-        // como a nova referência de 0 graus
-        //
-        // Muito útil para Field Relative
+        // Preserva a pose de campo enviada à Limelight. Exige robô parado.
         m_driverController
             .y()
+            .and(m_driverController.start().negate())
+            .and(() -> DriverStation.isDisabled() || DriverStation.isTeleopEnabled())
             .onTrue(
-
                 drive.runOnce(
-                    drive::zeroHeading
-                )
+                    () -> {
+                        drive.zeroDriverHeading();
+                        resetDriverLimiters();
+                    }
+                ).ignoringDisable(true)
             );
+
+        // Start + Y: definir 0 graus de CAMPO, desabilitado e parado.
+        // Antes de usar, apontar a frente do robô para +X do campo azul.
+        m_driverController.y()
+            .and(m_driverController.start())
+            .and(DriverStation::isDisabled)
+            .onTrue(drive.runOnce(drive::zeroHeading).ignoringDisable(true));
 
             // ============================================================
             // BOTÃO X - ALTERNA FIELD / ROBOT RELATIVE
@@ -701,16 +744,22 @@ public class RobotContainer {
                         );
 
                         }
-                        // #endregion
+    
+    //#endregion
+    
+    // #endregion
 
 
-                        // #region AUTÔNOMO
+    // #region AUTÔNOMO
 
-                        /**
-                         * Retorna o comando utilizado
-                         * durante o período autônomo.
-                         */
-                        public Command getAutonomousCommand() {
+                         private void resetDriverLimiters() {
+                             vxLimiter.reset(0.0);
+                             vyLimiter.reset(0.0);
+                             omegaLimiter.reset(0.0);
+                         }
+
+                         /** Retorna o comando utilizado durante o período autônomo. */
+                         public Command getAutonomousCommand() {
 
                             return Autos.exampleAuto(
                                 m_exampleSubsystem
@@ -719,4 +768,18 @@ public class RobotContainer {
                         }
 
     // #endregion
+
+
+// ============================================================
+// ATUALIZAÇÃO DA VISÃO VIRTUAL
+// ============================================================
+
+public void updateVisionSimulation() {
+    if (visionSimulation != null && drive.isSimulationReferenceReady()) {
+        // A referência movimenta as câmeras; a estimativa serve apenas para comparação.
+        visionSimulation.update(drive.getSimulationPose(), drive.getPose());
+    }
+}
+
+
 }

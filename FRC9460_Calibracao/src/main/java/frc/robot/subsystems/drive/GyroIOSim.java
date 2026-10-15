@@ -39,6 +39,10 @@ public class GyroIOSim implements GyroIO {
         // ========================================================
 
         inputs.connected = true;
+        inputs.configurationOk = true;
+        inputs.status = "SIM";
+        inputs.yawSignalAgeSeconds = 0.0;
+        inputs.yawVelocitySignalAgeSeconds = 0.0;
 
         inputs.yawPositionRad =
                 yawPositionRad;
@@ -61,15 +65,7 @@ public class GyroIOSim implements GyroIO {
     }
 
     
-    // ============================================================
-    // ZERA O GYRO
-    // ============================================================
-        @Override
-        public void resetYaw() {
-
-        yawPositionRad = 0.0;
-        yawVelocityRadPerSec = 0.0;
-        }
+    // O reset usa o mesmo offset do estimador que no robô real.
 
 
 }

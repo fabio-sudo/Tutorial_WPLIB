@@ -13,6 +13,10 @@ public interface GyroIO {
 
         // Indica se o gyro está conectado
         public boolean connected = false;
+        public boolean configurationOk = false;
+        public String status = "NO_DATA";
+        public double yawSignalAgeSeconds = 0.0;
+        public double yawVelocitySignalAgeSeconds = 0.0;
 
         // Ângulo atual do robô
         public double yawPositionRad = 0.0;
@@ -36,10 +40,6 @@ public interface GyroIO {
     default void setSimYawVelocity(
             double yawVelocityRadPerSec) {}
 
-    
-    // ============================================================
-    // ZERA O GYRO
-    // ============================================================
-
-    default void resetYaw() {}
+    // O reset da orientação é feito no estimador em Drive.
+    // A leitura bruta do sensor permanece contínua para odometria e logging.
 }

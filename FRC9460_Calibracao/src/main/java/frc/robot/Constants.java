@@ -133,21 +133,42 @@ public final class Constants {
     public static final double MAX_VISION_YAW_RATE_DEG_PER_SEC =
         720.0;
 
+
+    // #region NEW - LIMITES TEMPORAIS DA VISÃO
+
+    // Idade máxima da captura: 0.250 s = 250 ms.
+    public static final double MAX_VISION_CAPTURE_AGE_SECONDS = 0.250;
+
+    // Margem para timestamp à frente: 0.020 s = 20 ms.
+    public static final double MAX_VISION_FUTURE_TOLERANCE_SECONDS = 0.020;
+
+    // #endregion
+
+
+    // #region NEW - LIMELIGHT FRONTAL PROVISÓRIA
+
+    public static final String FRONT_NAME = "limelight-front";
+
+    public static final int[] FRONT_VALID_TAG_IDS = {25, 26, 9, 10};
+
+    // Valores provisórios baseados na câmera traseira.
+    // Substituir pelas medidas reais da câmera frontal.
+    public static final double FRONT_FORWARD = 0.29;
+    public static final double FRONT_RIGHT = 0.16;
+    public static final double FRONT_UP = 0.46;
+
+    public static final double FRONT_ROLL = 0.0;
+    public static final double FRONT_PITCH = 4.0;
+    public static final double FRONT_YAW = 0.0;
+
+    // #endregion
+
   }
   
   //#region
   
     // #endregion
 }
-
-
-
-
-
-
-
-
-
 
 //=====================================Anotações
 //ROBOT CONFIG  = PathPlanner
@@ -201,3 +222,9 @@ public final class Constants {
 
 
 //Java Teste de unidades
+
+
+
+//===============================Importanta
+//Tests 
+//SysId Translator State para para achar PID

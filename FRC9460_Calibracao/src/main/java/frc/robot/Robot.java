@@ -132,6 +132,10 @@ public Robot() {
   public void simulationInit() {}
 
   /** This function is called periodically whilst in simulation. */
-  @Override
-  public void simulationPeriodic() {}
+@Override
+public void simulationPeriodic() {
+    // Produz as próximas leituras das câmeras virtuais.
+    m_robotContainer.updateVisionSimulation();
+}
+
 }
