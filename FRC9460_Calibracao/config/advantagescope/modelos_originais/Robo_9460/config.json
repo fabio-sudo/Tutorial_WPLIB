@@ -1,0 +1,11 @@
+{
+  "name": "FRC9460 - Robo 2026",
+  "isFTC": false,
+  "disableSimplification": false,
+  "rotations": [
+    { "axis": "x", "degrees": 90 }
+  ],
+  "position": [0.2392278313, -0.2445016244, 0.1248366562],
+  "cameras": [],
+  "components": []
+}

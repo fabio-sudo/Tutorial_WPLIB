@@ -14,6 +14,12 @@ import frc.robot.commands.ExampleCommand;
 
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.drive.Drive;
+import frc.robot.subsystems.telescopio.Telescopio;
+import frc.robot.subsystems.telescopio.TelescopioDashboard;
+import frc.robot.subsystems.telescopio_9458.Telescopio_9458;
+import frc.robot.subsystems.telescopio_9458.TelescopioDashboard_9458;
+import frc.robot.subsystems.shooter.Shooter;
+import frc.robot.subsystems.shooter.ShooterDashboard;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -31,6 +37,7 @@ import frc.robot.calibration.DriveTwoMetersCommand;
 import frc.robot.calibration.Rotate360Command;
 
 import frc.robot.calibration.DriveSysId;
+import frc.robot.calibration.Telescopio9458SysId;
 
 // 🆕 Comandos de calibração do Swerve
 import frc.robot.calibration.SwerveCalibrationCommands;
@@ -69,6 +76,16 @@ public class RobotContainer {
     private final Drive drive =
         new Drive();
 
+    // Simulação e replay do telescópio; hardware real permanece sem configuração CAN.
+    private final Telescopio telescopio = new Telescopio(Telescopio.createIO());
+    private final TelescopioDashboard telescopioDashboard =
+        new TelescopioDashboard(telescopio);
+
+    // Telescópio 9458 em bancada: TalonFX CAN 5 no real, simulação física no desktop.
+    private final Telescopio_9458 telescopio9458 = new Telescopio_9458(Telescopio_9458.createIO());
+    private final TelescopioDashboard_9458 telescopio9458Dashboard =
+        new TelescopioDashboard_9458(telescopio9458);
+
     
         // ============================================================
         // CENÁRIO DE VISÃO PARA SIMULAÇÃO
@@ -88,6 +105,18 @@ public class RobotContainer {
                 ? new Vision(drive, visionSimulation.getCameras())
                 : new Vision(drive);
 
+    // Shooter: mira no hub com a pose do Drive (odometria + Limelight).
+    // Só atira depois que a Limelight corrigiu a pose ao menos uma vez.
+    private final Shooter shooter = new Shooter(
+        Shooter.createPivotIO(),
+        Shooter.createTopIO(),
+        Shooter.createTowerIO(),
+        Shooter.createCentrifugeIO(),
+        drive::getPose,
+        drive::getFieldRelativeSpeeds,
+        drive::hasVisionCorrectionSinceReset);
+    private final ShooterDashboard shooterDashboard = new ShooterDashboard(shooter);
+
     // #endregion
 
     // ============================================================
@@ -99,6 +128,15 @@ public class RobotContainer {
             drive
         );
 
+    // ============================================================
+    // SYSID DO TELESCÓPIO 9458
+    // ============================================================
+
+    private final Telescopio9458SysId telescopio9458SysId =
+        new Telescopio9458SysId(
+            telescopio9458
+        );
+
 
     // #region CONTROLE DO MOTORISTA
 
@@ -106,6 +144,13 @@ public class RobotContainer {
     private final CommandXboxController m_driverController =
         new CommandXboxController(
             OperatorConstants.kDriverControllerPort
+        );
+
+    // Controle do operador (porta 1): shooter. O controle do piloto
+    // já usa quase todos os botões no Drive, telescópios e calibração.
+    private final CommandXboxController m_operatorController =
+        new CommandXboxController(
+            OperatorConstants.kOperatorControllerPort
         );
 
 
@@ -352,6 +397,143 @@ public class RobotContainer {
                         }
                     )
                 );
+
+
+        // ============================================================
+        // TELESCÓPIO - RB ABRE / LB FECHA (SEGURAR)
+        // ============================================================
+        //
+        // Segurou RB: abre até o fim de curso.
+        // Segurou LB: fecha até o batente.
+        // Soltou: o perfil freia e o telescópio mantém a altura.
+        //
+        // Sem BACK e sem START: BACK + LB/RB é SysId e
+        // START + LB/RB é calibração do steer.
+        // Os dois bumpers juntos não movem o telescópio.
+        //
+        // ============================================================
+
+        Trigger telescopioLiberado =
+            m_driverController.back().negate()
+                .and(m_driverController.start().negate())
+                .and(DriverStation::isTeleopEnabled);
+
+        m_driverController
+            .rightBumper()
+            .and(m_driverController.leftBumper().negate())
+            .and(telescopioLiberado)
+            .whileTrue(telescopio.extendWhileHeldCommand());
+
+        m_driverController
+            .leftBumper()
+            .and(m_driverController.rightBumper().negate())
+            .and(telescopioLiberado)
+            .whileTrue(telescopio.retractWhileHeldCommand());
+
+
+        // ============================================================
+        // TELESCÓPIO 9458 - RT ABRE / LT FECHA (SEGURAR)
+        // ============================================================
+        //
+        // Segurou RT: abre até 0,946 m na ponta (5 cm antes do batente de 0,996 m).
+        // Segurou LT: fecha até o batente.
+        // Soltou: o perfil freia e o telescópio mantém a altura.
+        //
+        // Mesma liberação dos bumpers: BACK + LT/RT é SysId e
+        // START + LT/RT é calibração do steer.
+        // Os dois gatilhos juntos não movem o telescópio.
+        //
+        // ============================================================
+
+        m_driverController
+            .rightTrigger()
+            .and(m_driverController.leftTrigger().negate())
+            .and(telescopioLiberado)
+            .whileTrue(telescopio9458.extendWhileHeldCommand());
+
+        m_driverController
+            .leftTrigger()
+            .and(m_driverController.rightTrigger().negate())
+            .and(telescopioLiberado)
+            .whileTrue(telescopio9458.retractWhileHeldCommand());
+
+
+        // ============================================================
+        // TELESCÓPIO 9458 - R1 / L1 NO MODO TEST: PASSOS DE 10 CM (SEGURAR)
+        // ============================================================
+        //
+        // Somente no modo TEST da Driver Station:
+        //
+        // R1 (RB): sobe 10 cm a partir da altura atual e mantém.
+        // L1 (LB): desce 10 cm e mantém.
+        //
+        // Cada aperto é mais um passo, dentro do curso (0 a 0,946 m).
+        // Soltou antes de chegar: o perfil freia e para ali.
+        //
+        // No Test, R1/L1 sozinhos estão livres: o telescópio 9460
+        // só usa no Teleop. Sem BACK e sem START: BACK + R1/L1 é o
+        // SysId do swerve e START + R1/L1 é a calibração do steer.
+        // Os dois juntos não fazem nada.
+        //
+        // SysId do 9458: a rotina continua em telescopio9458SysId.
+        // Para calibrar de novo, troque os comandos abaixo por
+        // telescopio9458SysId.quasistaticUpAndDown() (R1) e
+        // telescopio9458SysId.dynamicUpAndDown() (L1).
+        //
+        // ============================================================
+
+        Trigger teste9458Liberado =
+            new Trigger(DriverStation::isTestEnabled)
+                .and(m_driverController.back().negate())
+                .and(m_driverController.start().negate());
+
+        teste9458Liberado
+            .and(m_driverController.rightBumper())
+            .and(m_driverController.leftBumper().negate())
+            .whileTrue(telescopio9458.stepUpWhileHeldCommand());
+
+        teste9458Liberado
+            .and(m_driverController.leftBumper())
+            .and(m_driverController.rightBumper().negate())
+            .whileTrue(telescopio9458.stepDownWhileHeldCommand());
+
+
+        // ============================================================
+        // SHOOTER - CONTROLE DO OPERADOR (PORTA 1)
+        // ============================================================
+        //
+        // RB segurado: mira no hub, acelera e atira quando pronto.
+        // LB segurado: só mira (rodas paradas).
+        // A segurado: pivô manual lento pelo analógico direito (teste).
+        // BACK + START com o robô DESABILITADO: centro atual vira o zero.
+        //
+        // Antes de ligar o robô, centralizar o shooter à mão:
+        // não existe sensor, o zero é onde ele estiver ao ligar.
+        //
+        // ============================================================
+
+        Trigger operadorTeleop = new Trigger(DriverStation::isTeleopEnabled);
+
+        m_operatorController.rightBumper()
+            .and(operadorTeleop)
+            .whileTrue(shooter.trackAndShootCommand());
+
+        m_operatorController.leftBumper()
+            .and(m_operatorController.rightBumper().negate())
+            .and(operadorTeleop)
+            .whileTrue(shooter.aimAtHubCommand());
+
+        m_operatorController.a()
+            .and(m_operatorController.leftBumper().negate())
+            .and(m_operatorController.rightBumper().negate())
+            .and(operadorTeleop)
+            .whileTrue(shooter.manualPivotCommand(
+                () -> -MathUtil.applyDeadband(m_operatorController.getRightX(), 0.10)));
+
+        m_operatorController.back()
+            .and(m_operatorController.start())
+            .and(DriverStation::isDisabled)
+            .onTrue(shooter.zeroPivotHereCommand());
 
 
         // ============================================================

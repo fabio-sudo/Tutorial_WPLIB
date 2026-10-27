@@ -10,10 +10,13 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 // ============================================================
 // ADVANTAGEKIT - LOGGING E TELEMETRIA
 // ============================================================
+import java.time.LocalDateTime;
 import org.littletonrobotics.junction.LoggedRobot;
+import org.littletonrobotics.junction.LogFileUtil;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
+import org.littletonrobotics.junction.wpilog.WPILOGReader;
 
 /**
  * The methods in this class are called automatically corresponding to each mode, as described in
@@ -38,7 +41,10 @@ public Robot() {
     // Informações que ficarão gravadas nos logs
     Logger.recordMetadata("ProjectName", "FRC9460");
 
-    if (isReal()) {
+    LoggingConstants.Mode mode = LoggingConstants.getMode();
+    Logger.recordMetadata("RunMode", mode.name());
+
+    if (mode == LoggingConstants.Mode.REAL) {
 
         // ROBÔ REAL
         // Grava os logs em um pendrive conectado ao roboRIO
@@ -48,11 +54,27 @@ public Robot() {
         // Permite visualizar no AdvantageScope em tempo real
         Logger.addDataReceiver(new NT4Publisher());
 
-    } else {
+    } else if (mode == LoggingConstants.Mode.SIM) {
 
         // SIMULAÇÃO
-        // Envia os dados da simulação para o AdvantageScope
+        // Guarda também os inputs: depois poderemos recalcular a fusão
+        // sem executar novamente o mundo óptico ou movimentar o controle.
+        // Arquivo: logs/simulacao/Simulacao_aa-MM-dd_HH-mm-ss.wpilog.
+        Logger.addDataReceiver(new WPILOGWriter(
+            LoggingConstants.simulationLogPath(LocalDateTime.now()),
+            WPILOGWriter.AdvantageScopeOpenBehavior.NEVER));
+        // Envia os dados da simulação para o AdvantageScope.
         Logger.addDataReceiver(new NT4Publisher());
+    } else {
+        // REPLAY: usa o relógio e os sensores gravados. Não cria as câmeras
+        // PhotonLib, dispositivos CAN ou sensores de motores simulados.
+        setUseTiming(false);
+        String logPath = LoggingConstants.requireReplayLog(
+            LogFileUtil.findReplayLog()).toString();
+        Logger.recordMetadata("ReplaySource", logPath);
+        Logger.setReplaySource(new WPILOGReader(logPath));
+        Logger.addDataReceiver(new WPILOGWriter(
+            LogFileUtil.addPathSuffix(logPath, LoggingConstants.REPLAY_OUTPUT_SUFFIX)));
     }
 
     // Inicia o sistema de logging do AdvantageKit

@@ -10,9 +10,21 @@ java {
 
 def ROBOT_MAIN_CLASS = "frc.robot.Main"
 
+// Replay é explícito e vale somente para a execução solicitada.
+// Exemplo: simulateJava -PreplayLog="C:/caminho/coleta.wpilog"
+def replayRequested = project.hasProperty("replayLog") || "REPLAY".equalsIgnoreCase(System.getenv("FRC9460_MODE")?.trim())
+
+tasks.withType(JavaExec).configureEach {
+    if (project.hasProperty("replayLog")) {
+        environment "FRC9460_MODE", "REPLAY"
+        environment "AKIT_LOG_PATH", project.file(project.property("replayLog")).absolutePath
+    }
+}
+
 task(replayWatch, type: JavaExec) {
     mainClass = "org.littletonrobotics.junction.ReplayWatch"
     classpath = sourceSets.main.runtimeClasspath
+    environment "FRC9460_MODE", "REPLAY"
 }
 
 
@@ -93,11 +105,77 @@ dependencies {
 test {
     useJUnitPlatform()
     systemProperty 'junit.jupiter.extensions.autodetection.enabled', 'true'
+    exclude '**/VisionReplayIntegrationTest.class'
+    exclude '**/TelescopioLogIntegrationTest.class'
+    exclude '**/TelescopioReplayIntegrationTest.class'
+    exclude '**/Telescopio9458LogIntegrationTest.class'
+    exclude '**/ShooterLogIntegrationTest.class'
 }
 
+// O Logger é global e só inicia uma vez por JVM. O teste de arquivo/replay
+// usa outro processo para não alterar o relógio dos testes de simulação normal.
+def visionReplayTest = tasks.register('visionReplayTest', Test) {
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+    useJUnitPlatform()
+    include '**/VisionReplayIntegrationTest.class'
+    environment 'HALSIM_EXTENSIONS', ''
+    systemProperty 'replay.validationDir', layout.buildDirectory.dir('replay-validation').get().asFile.absolutePath
+    outputs.dir(layout.buildDirectory.dir('replay-validation'))
+}
+tasks.named('check') { dependsOn visionReplayTest }
+
+// Cada teste de arquivo usa uma JVM própria, pois o Logger é global.
+def telescopioLogTest = tasks.register('telescopioLogTest', Test) {
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+    useJUnitPlatform()
+    include '**/TelescopioLogIntegrationTest.class'
+    environment 'HALSIM_EXTENSIONS', ''
+    systemProperty 'telescopio.validationDir', layout.buildDirectory.dir('telescopio-validation').get().asFile.absolutePath
+    outputs.file(layout.buildDirectory.file('telescopio-validation/Telescopio9460-Simulacao.wpilog'))
+}
+def telescopioReplayTest = tasks.register('telescopioReplayTest', Test) {
+    dependsOn telescopioLogTest
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+    useJUnitPlatform()
+    include '**/TelescopioReplayIntegrationTest.class'
+    environment 'HALSIM_EXTENSIONS', ''
+    systemProperty 'telescopio.validationDir', layout.buildDirectory.dir('telescopio-validation').get().asFile.absolutePath
+    inputs.file(layout.buildDirectory.file('telescopio-validation/Telescopio9460-Simulacao.wpilog'))
+    outputs.file(layout.buildDirectory.file('telescopio-validation/Telescopio9460-Replay.wpilog'))
+}
+tasks.named('check') { dependsOn telescopioReplayTest }
+
+// Integração do 9458 em JVM isolada: Logger global, painel e duas poses 3D via NT.
+def telescopio9458LogTest = tasks.register('telescopio9458LogTest', Test) {
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+    useJUnitPlatform()
+    include '**/Telescopio9458LogIntegrationTest.class'
+    environment 'HALSIM_EXTENSIONS', ''
+    systemProperty 'telescopio9458.validationDir', layout.buildDirectory.dir('telescopio9458-validation').get().asFile.absolutePath
+    outputs.file(layout.buildDirectory.file('telescopio9458-validation/FisicoVirtual9458-Teste.wpilog'))
+}
+tasks.named('check') { dependsOn telescopio9458LogTest }
+
+// Shooter em JVM isolada: grava um tiro e confere as chaves do layout FRC9460-Shooter.
+def shooterLogTest = tasks.register('shooterLogTest', Test) {
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+    useJUnitPlatform()
+    include '**/ShooterLogIntegrationTest.class'
+    environment 'HALSIM_EXTENSIONS', ''
+    systemProperty 'shooter.validationDir', layout.buildDirectory.dir('shooter-validation').get().asFile.absolutePath
+    inputs.file('config/advantagescope/layouts/FRC9460-Shooter.json')
+    outputs.file(layout.buildDirectory.file('shooter-validation/Shooter-Teste.wpilog'))
+}
+tasks.named('check') { dependsOn shooterLogTest }
+
 // Simulation configuration (e.g. environment variables).
-wpi.sim.addGui().defaultEnabled = true
-wpi.sim.addDriverstation()
+wpi.sim.addGui().defaultEnabled = !replayRequested
+wpi.sim.addDriverstation().defaultEnabled = false
 
 // Setting up my Jar File. In this case, adding all libraries into the main jar ('fat jar')
 // in order to make them all available at runtime. Also adding the manifest so WPILib
@@ -115,6 +193,11 @@ jar {
 deployArtifact.jarTask = jar
 wpi.java.configureExecutableTasks(jar)
 wpi.java.configureTestTasks(test)
+wpi.java.configureTestTasks(visionReplayTest.get())
+wpi.java.configureTestTasks(telescopioLogTest.get())
+wpi.java.configureTestTasks(telescopioReplayTest.get())
+wpi.java.configureTestTasks(telescopio9458LogTest.get())
+wpi.java.configureTestTasks(shooterLogTest.get())
 
 // Configure string concat to always inline compile
 tasks.withType(JavaCompile) {

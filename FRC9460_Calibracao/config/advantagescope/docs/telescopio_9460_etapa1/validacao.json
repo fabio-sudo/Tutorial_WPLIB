@@ -1,0 +1,32 @@
+{
+  "glbImportsSucceeded": 3,
+  "trianglesPerPart": [
+    1151304,
+    54080,
+    15664
+  ],
+  "floorZ": -1.1279865793872226e-17,
+  "assemblyHeightMeters": 2.114500045776367,
+  "componentTransformsReconstructDefaultAssembly": true,
+  "sourceUnchanged": true,
+  "courseSnapshots": [
+    {
+      "seconds": 0,
+      "n2Meters": 0,
+      "n3RelativeMeters": 0,
+      "heightMeters": 0.8624999523162842
+    },
+    {
+      "seconds": 6,
+      "n2Meters": 0.624,
+      "n3RelativeMeters": 0,
+      "heightMeters": 1.4864999055862427
+    },
+    {
+      "seconds": 10,
+      "n2Meters": 0.624,
+      "n3RelativeMeters": 0.628,
+      "heightMeters": 2.114500045776367
+    }
+  ]
+}

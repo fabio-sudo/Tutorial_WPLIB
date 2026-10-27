@@ -17,6 +17,9 @@ public final class Constants {
   public static class OperatorConstants {
     //Porta onde controle está do xBox
     public static final int kDriverControllerPort = 0;
+
+    // Segundo controle (operador): shooter.
+    public static final int kOperatorControllerPort = 1;
   }
 
 
@@ -112,8 +115,8 @@ public final class Constants {
     // VALIDAÇÃO DO MEGATAG2
     // ============================================================
 
-    // Distância máxima média das AprilTags
-    // para aceitarmos uma medição de visão.
+    // Referência de distância preferida no diagnóstico do Vision.
+    // Não representa o alcance físico da lente nem rejeita a pose sozinha.
     public static final double MAX_TAG_DISTANCE_METERS =4.0;
 
 

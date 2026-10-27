@@ -5,10 +5,43 @@ package frc.robot.subsystems.vision;
 import org.littletonrobotics.junction.AutoLog;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
 
 // #endregion
 
 public interface VisionIO {
+
+    // #region - OBSERVAÇÕES DE LOCALIZAÇÃO
+
+    /** Identifica o algoritmo que produziu a medição. */
+    public enum PoseObservationType {
+        MEGATAG_2,
+        PHOTONVISION
+    }
+
+    /**
+     * Uma medição de localização produzida pela câmera.
+     *
+     * @param timestampSeconds instante da captura no relógio do robô, em segundos;
+     *                         a latência não deve ser descontada novamente
+     * @param pose pose estimada do robô no referencial azul do campo; mantida em
+     *             3D para validar altura e inclinação antes da conversão para 2D
+     * @param ambiguity ambiguidade da solução, especialmente relevante quando
+     *                  somente uma AprilTag foi utilizada
+     * @param tagCount quantidade de tags efetivamente utilizadas na estimativa
+     * @param averageTagDistanceMeters distância média das tags utilizadas, em metros
+     * @param type algoritmo que produziu a medição
+     */
+    public record PoseObservation(
+        double timestampSeconds,
+        Pose3d pose,
+        double ambiguity,
+        int tagCount,
+        double averageTagDistanceMeters,
+        PoseObservationType type
+    ) {}
+
+    // #endregion
 
     // #region - ENTRADAS DA CÂMERA
 
@@ -45,6 +78,29 @@ public interface VisionIO {
         // Dados utilizados para calcular a confiança.
         public int tagCount = 0;
         public double avgTagDistanceMeters = 0.0;
+
+        // #region - LEITURA DE OBSERVAÇÕES EM LOTE
+
+        /*
+         * false: utiliza os campos individuais existentes.
+         * true: utiliza poseObservations.
+         *
+         * Diferencia um IO com leitura individual de um IO em lote que
+         * simplesmente não recebeu observações neste ciclo.
+         */
+        public boolean usesObservationBatch = false;
+
+        /*
+         * Observações novas recebidas desde a leitura anterior.
+         * O IO deve esvaziar seu lote depois de entregá-lo e publicar um
+         * array vazio quando não houver novas observações.
+         *
+         * O @AutoLog registra o lote junto das demais entradas, permitindo
+         * recuperar as mesmas observações durante o replay do AdvantageKit.
+         */
+        public PoseObservation[] poseObservations = new PoseObservation[0];
+
+        // #endregion
     }
 
     // #endregion

@@ -1,8 +1,13 @@
 package frc.robot.subsystems.vision;
 
+import static frc.robot.subsystems.vision.VisionConstants.*;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.EnumSet;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -13,12 +18,15 @@ import java.util.function.DoubleSupplier;
 import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.LimelightConstants;
 import frc.robot.subsystems.drive.Drive;
+import frc.robot.subsystems.vision.VisionIO.PoseObservation;
+import frc.robot.subsystems.vision.VisionIO.PoseObservationType;
 
 /**
  * Gerencia as câmeras independentemente e envia suas medições ao único
@@ -28,23 +36,8 @@ public class Vision extends SubsystemBase {
 
     // #region CONFIGURAÇÃO
 
-    // A frontal já é suportada, mas seus valores de montagem ainda são exemplos.
-    // Troque para true depois de medir e corrigir as constantes FRONT_*.
-    private static final boolean FRONT_CAMERA_ENABLED = false;
-
-    // Segura medições até terem pelo menos 80 ms de idade, dando tempo para
-    // ordenar capturas que chegaram por caminhos diferentes. Não espera uma
-    // resposta da outra câmera. Acrescenta atraso à correção, não à odometria.
-    private static final double REORDER_SECONDS = 0.080;
-    private static final double PAIR_WINDOW_SECONDS = 0.020;
-    private static final double MAX_QUEUED_AGE_SECONDS = 0.500;
-    private static final int MAX_PENDING_FRAMES = 128;
-
-    // Comparação entre câmeras: parâmetros iniciais para validar em campo.
-    // Limiar = margem + multiplicador * combinação dos desvios de X/Y.
-    // Não é um certificado de precisão nem um limite oficial da Limelight.
-    private static final double DISAGREEMENT_MARGIN_METERS = 0.15;
-    private static final double DISAGREEMENT_STD_MULTIPLIER = 3.0;
+    // Valores de aceitação, confiança e fila centralizados em VisionConstants.
+    // A decisão e o cálculo continuam neste subsistema.
 
     private final Drive drive;
     private final DoubleSupplier clock;
@@ -59,11 +52,19 @@ public class Vision extends SubsystemBase {
 
     private static final class CameraState {
         final VisionCamera camera;
-        double lastObservedTimestamp = Double.NEGATIVE_INFINITY;
+        // Memória limitada de capturas vistas, inclusive as rejeitadas. Um
+        // timestamp futuro inválido não pode bloquear capturas corretas menores.
+        final Set<Double> observedTimestamps = new LinkedHashSet<>();
+        PoseObservation latestObservation;
+        final List<Pose3d> validatedPoses = new ArrayList<>();
+        final List<Pose3d> rejectedPoses = new ArrayList<>();
+        final List<Pose2d> appliedPoses = new ArrayList<>();
+        String lastAppliedAlgorithm = "NONE";
+        long receivedCount;
         double lastSeedCaptureTimestamp = Double.NEGATIVE_INFINITY;
         double lastConflictTimestamp = Double.NEGATIVE_INFINITY;
-        double lastBaseStdDev = 1.2;
-        double lastAppliedStdDev = 1.2;
+        double lastBaseStdDev = SINGLE_TAG_FAR_STD_DEV_METERS;
+        double lastAppliedStdDev = SINGLE_TAG_FAR_STD_DEV_METERS;
         double lastPoseError = 0.0;
         double lastGap = -1.0;
         boolean newMeasurement;
@@ -80,7 +81,23 @@ public class Vision extends SubsystemBase {
 
     // Snapshot imutável: a próxima leitura não modifica um frame já na fila.
     private record Measurement(CameraState state, Pose2d pose, double timestamp,
-            double stdDev, int tagCount, long sequence) {
+            double stdDev, int tagCount, PoseObservationType type, long sequence) {
+    }
+
+    /** Motivos dos filtros, registrados para a última observação da câmera. */
+    private enum ObservationRejection {
+        DISCONNECTED("Disconnected"), NO_ESTIMATE("NoEstimate"), NO_POSE("NoPose"),
+        NO_TAGS("NoTags"), INVALID_POSE("InvalidPose"),
+        INVALID_DISTANCE("InvalidDistanceData"), INVALID_TIMESTAMP("InvalidTimestamp"),
+        ROTATION("Rotation"), STALE("StaleMeasurement"), FUTURE("FutureTimestamp"),
+        UNKNOWN_TYPE("UnknownType"), AMBIGUITY("Ambiguity"), HEIGHT("Height"),
+        TILT("Tilt"), OUTSIDE_FIELD("OutsideField");
+
+        final String logName;
+
+        ObservationRejection(String logName) {
+            this.logName = logName;
+        }
     }
 
     // #endregion
@@ -115,7 +132,10 @@ public class Vision extends SubsystemBase {
     private static VisionCamera[] createDefaultCameras() {
         List<VisionCamera> result = new ArrayList<>();
         result.add(new VisionCamera("Rear", createIO(false)));
-        if (FRONT_CAMERA_ENABLED) {
+        // Replay precisa ler a frontal quando ela estiver presente no arquivo,
+        // mesmo que a câmera física esteja desativada neste computador.
+        // Sem esses inputs no log, o IO vazio permanece desconectado.
+        if (FRONT_CAMERA_ENABLED || Logger.hasReplaySource()) {
             result.add(new VisionCamera("Front", createIO(true)));
         }
         return result.toArray(VisionCamera[]::new);
@@ -155,6 +175,9 @@ public class Vision extends SubsystemBase {
             state.measurementAccepted = false;
             state.camerasDisagree = false;
             state.fusionResult = "NO_NEW_FRAME";
+            state.validatedPoses.clear();
+            state.rejectedPoses.clear();
+            state.appliedPoses.clear();
             state.camera.updateInputs(yaw, yawRate);
             validateAndQueue(state, now, yawRate);
         }
@@ -181,7 +204,7 @@ public class Vision extends SubsystemBase {
             state.camera.lastRawVisionFrameTime = -1.0;
             state.camera.lastValidFrameTime = -1.0;
             state.lastSeedCaptureTimestamp = Double.NEGATIVE_INFINITY;
-            // Não zeramos lastObservedTimestamp: o mesmo frame não vira novo
+            // Não zeramos observedTimestamps: o mesmo frame não vira novo
             // só porque o piloto solicitou um reset do estimador.
         }
     }
@@ -193,70 +216,169 @@ public class Vision extends SubsystemBase {
     private void validateAndQueue(CameraState state, double now, double yawRate) {
         VisionCamera camera = state.camera;
         VisionIO.VisionIOInputs in = camera.inputs;
-        String p = camera.logPrefix + "/MegaTag2/";
-        double timestamp = in.captureTimestampSeconds;
-        // O helper já descontou a latência. Não descontar novamente.
-        double captureAge = in.readTimestampSeconds - timestamp;
 
-        boolean noEstimate = !in.hasPoseEstimate;
-        boolean noPose = !in.hasPose || in.pose == null;
-        boolean noTags = in.tagCount <= 0;
-        boolean invalidPose = !noPose && (!Double.isFinite(in.pose.getX())
-                || !Double.isFinite(in.pose.getY())
-                || !Double.isFinite(in.pose.getRotation().getRadians()));
-        boolean invalidDistance = !Double.isFinite(in.avgTagDistanceMeters)
-                || in.avgTagDistanceMeters < 0.0;
-        boolean invalidTimestamp = !Double.isFinite(timestamp) || timestamp <= 0.0
-                || !Double.isFinite(in.readTimestampSeconds) || !Double.isFinite(captureAge);
-        boolean rotation = !drive.isGyroHealthy() || !Double.isFinite(yawRate)
-                || Math.abs(yawRate) > LimelightConstants.MAX_VISION_YAW_RATE_DEG_PER_SEC;
-        boolean stale = !invalidTimestamp
-                && captureAge > LimelightConstants.MAX_VISION_CAPTURE_AGE_SECONDS;
-        boolean future = !invalidTimestamp
-                && captureAge < -LimelightConstants.MAX_VISION_FUTURE_TOLERANCE_SECONDS;
-
-        camera.visionValidNow = !(noEstimate || noPose || noTags || invalidPose
-                || invalidDistance || invalidTimestamp || rotation || stale || future);
-        Logger.recordOutput(p + "Reject/NoEstimate", noEstimate);
-        Logger.recordOutput(p + "Reject/NoPose", noPose);
-        Logger.recordOutput(p + "Reject/NoTags", noTags);
-        Logger.recordOutput(p + "Reject/InvalidPose", invalidPose);
-        Logger.recordOutput(p + "Reject/InvalidDistanceData", invalidDistance);
-        Logger.recordOutput(p + "Reject/InvalidTimestamp", invalidTimestamp);
-        Logger.recordOutput(p + "Reject/Rotation", rotation);
-        Logger.recordOutput(p + "Reject/StaleMeasurement", stale);
-        Logger.recordOutput(p + "Reject/FutureTimestamp", future);
-        Logger.recordOutput(p + "RotationRateValid", !rotation);
-        Logger.recordOutput(camera.logPrefix + "/Timing/CaptureAgeSeconds", captureAge);
-        Logger.recordOutput(camera.logPrefix + "/Timing/CaptureTimestampAvailable", !invalidTimestamp);
-
-        // Detecta mudança de frame, sem exigir que o timestamp observado cresça.
-        // Um timestamp futuro rejeitado não pode bloquear os próximos corretos.
-        // O mesmo frame rejeitado e congelado não vira novo só porque o tempo passou.
-        // O Drive continua impedindo a aplicação duplicada ou fora de ordem.
-        boolean unseen = Double.isFinite(timestamp) && timestamp > 0.0
-                && Double.compare(timestamp, state.lastObservedTimestamp) != 0;
-        if (unseen) {
-            state.lastObservedTimestamp = timestamp;
+        if (in.usesObservationBatch) {
+            // A leitura já passou por Logger.processInputs. No replay, estes
+            // mesmos lotes vêm do log, sem consultar PhotonLib ou o cenário.
+            PoseObservation[] observations = in.poseObservations;
+            if (observations != null && observations.length > 0) {
+                state.latestObservation = observations[observations.length - 1];
+                // Ordena uma cópia: não modifica as entradas registradas.
+                Arrays.stream(observations)
+                        .sorted(Comparator.nullsLast(Comparator.comparingDouble(
+                                PoseObservation::timestampSeconds)))
+                        .forEach(observation -> considerObservation(state, observation,
+                                true, observation != null && observation.pose() != null, now, yawRate));
+            }
+            // Lote vazio significa nenhuma medição nova. Os campos individuais
+            // servem aos indicadores; nunca viram um frame substituto para fusão.
+        } else {
+            // Compatibilidade com os IOs Limelight e com logs anteriores.
+            state.latestObservation = new PoseObservation(in.captureTimestampSeconds,
+                    in.pose == null ? null : new Pose3d(in.pose), 0.0, in.tagCount,
+                    in.avgTagDistanceMeters, PoseObservationType.MEGATAG_2);
+            if (in.hasPoseEstimate || (Double.isFinite(in.captureTimestampSeconds)
+                    && in.captureTimestampSeconds > 0.0)) {
+                considerObservation(state, state.latestObservation,
+                        in.hasPoseEstimate, in.hasPose, now, yawRate);
+            }
         }
-        if (!camera.visionValidNow || !unseen) {
-            state.fusionResult = camera.visionValidNow ? "REPEATED_FRAME" : "INVALID_FRAME";
+
+        // Mantém Valid/Seed coerentes entre frames (25 FPS versus ciclo de 50 Hz).
+        // Perder as tags, desconectar ou envelhecer a captura invalida o estado.
+        PoseObservation statusObservation = state.latestObservation;
+        if (!in.hasPoseEstimate || !in.hasPose) {
+            // Um frame novo sem solução não entra no lote, mas deve atualizar
+            // NoTags/NoPose e o timestamp dos indicadores de disponibilidade.
+            statusObservation = new PoseObservation(in.captureTimestampSeconds,
+                    null, 0.0, in.tagCount, in.avgTagDistanceMeters,
+                    in.usesObservationBatch ? PoseObservationType.PHOTONVISION : PoseObservationType.MEGATAG_2);
+        }
+        var reasons = validateObservation(state, statusObservation,
+                in.hasPoseEstimate, in.hasPose, now, yawRate);
+        camera.visionValidNow = reasons.isEmpty();
+        for (ObservationRejection reason : ObservationRejection.values()) {
+            boolean rejected = reasons.contains(reason);
+            Logger.recordOutput(camera.logPrefix + "/Fusion/Reject/" + reason.logName, rejected);
+            // Alias para as abas AdvantageScope já configuradas no projeto.
+            Logger.recordOutput(camera.logPrefix + "/MegaTag2/Reject/" + reason.logName, rejected);
+        }
+        double captureAge = now - in.captureTimestampSeconds;
+        Logger.recordOutput(camera.logPrefix + "/MegaTag2/RotationRateValid",
+                !reasons.contains(ObservationRejection.ROTATION));
+        Logger.recordOutput(camera.logPrefix + "/Timing/CaptureAgeSeconds", captureAge);
+        Logger.recordOutput(camera.logPrefix + "/Timing/CaptureTimestampAvailable",
+                !reasons.contains(ObservationRejection.INVALID_TIMESTAMP));
+    }
+
+    /** Aplica os mesmos filtros temporais às leituras individuais e aos lotes. */
+    private EnumSet<ObservationRejection> validateObservation(CameraState state,
+            PoseObservation observation, boolean hasEstimate, boolean hasPose,
+            double now, double yawRate) {
+        EnumSet<ObservationRejection> reasons = EnumSet.noneOf(ObservationRejection.class);
+        Pose3d pose = observation == null ? null : observation.pose();
+        double timestamp = observation == null ? Double.NaN : observation.timestampSeconds();
+        double distance = observation == null ? Double.NaN : observation.averageTagDistanceMeters();
+        int tagCount = observation == null ? 0 : observation.tagCount();
+
+        if (!state.camera.inputs.connected)
+            reasons.add(ObservationRejection.DISCONNECTED);
+        if (!hasEstimate || observation == null)
+            reasons.add(ObservationRejection.NO_ESTIMATE);
+        if (!hasPose || pose == null)
+            reasons.add(ObservationRejection.NO_POSE);
+        if (tagCount <= 0)
+            reasons.add(ObservationRejection.NO_TAGS);
+        boolean finitePose = pose != null && Double.isFinite(pose.getX())
+                && Double.isFinite(pose.getY()) && Double.isFinite(pose.getZ())
+                && Double.isFinite(pose.getRotation().getX())
+                && Double.isFinite(pose.getRotation().getY())
+                && Double.isFinite(pose.getRotation().getZ());
+        if (pose != null && !finitePose)
+            reasons.add(ObservationRejection.INVALID_POSE);
+        if (!Double.isFinite(distance) || distance < 0.0)
+            reasons.add(ObservationRejection.INVALID_DISTANCE);
+        boolean validTime = Double.isFinite(timestamp) && timestamp > 0.0
+                && Double.isFinite(state.camera.inputs.readTimestampSeconds);
+        if (!validTime)
+            reasons.add(ObservationRejection.INVALID_TIMESTAMP);
+        if (!drive.isGyroHealthy() || !Double.isFinite(yawRate)
+                || Math.abs(yawRate) > LimelightConstants.MAX_VISION_YAW_RATE_DEG_PER_SEC) {
+            reasons.add(ObservationRejection.ROTATION);
+        }
+        if (validTime && now - timestamp > LimelightConstants.MAX_VISION_CAPTURE_AGE_SECONDS) {
+            reasons.add(ObservationRejection.STALE);
+        }
+        if (validTime && timestamp - now > LimelightConstants.MAX_VISION_FUTURE_TOLERANCE_SECONDS) {
+            reasons.add(ObservationRejection.FUTURE);
+        }
+        if (observation != null && observation.type() == null)
+            reasons.add(ObservationRejection.UNKNOWN_TYPE);
+
+        // MegaTag2 permanece com os filtros existentes. PhotonLib também precisa
+        // avaliar a solução 3D e a ambiguidade do fallback com uma única tag.
+        if (observation != null && observation.type() == PoseObservationType.PHOTONVISION) {
+            if (tagCount == 1 && (!Double.isFinite(observation.ambiguity())
+                    || observation.ambiguity() < 0.0
+                    || observation.ambiguity() > MAX_PHOTON_SINGLE_TAG_AMBIGUITY)) {
+                reasons.add(ObservationRejection.AMBIGUITY);
+            }
+            if (finitePose) {
+                if (Math.abs(pose.getZ()) > MAX_PHOTON_HEIGHT_METERS)
+                    reasons.add(ObservationRejection.HEIGHT);
+                if (Math.abs(pose.getRotation().getX()) > MAX_PHOTON_TILT_RADIANS
+                        || Math.abs(pose.getRotation().getY()) > MAX_PHOTON_TILT_RADIANS) {
+                    reasons.add(ObservationRejection.TILT);
+                }
+                if (pose.getX() < 0.0 || pose.getX() > VisionFieldConstants.FIELD_LENGTH_METERS
+                        || pose.getY() < 0.0 || pose.getY() > VisionFieldConstants.FIELD_WIDTH_METERS) {
+                    reasons.add(ObservationRejection.OUTSIDE_FIELD);
+                }
+            }
+        }
+        return reasons;
+    }
+
+    private void considerObservation(CameraState state, PoseObservation observation,
+            boolean hasEstimate, boolean hasPose, double now, double yawRate) {
+        double timestamp = observation == null ? Double.NaN : observation.timestampSeconds();
+        if (Double.isFinite(timestamp) && timestamp > 0.0) {
+            if (!state.observedTimestamps.add(timestamp)) {
+                state.fusionResult = "REPEATED_FRAME";
+                return;
+            }
+            if (state.observedTimestamps.size() > MAX_REMEMBERED_TIMESTAMPS) {
+                var oldest = state.observedTimestamps.iterator();
+                oldest.next();
+                oldest.remove();
+            }
+        }
+        state.receivedCount++;
+        var reasons = validateObservation(state, observation, hasEstimate, hasPose, now, yawRate);
+        if (!reasons.isEmpty()) {
+            if (observation != null && observation.pose() != null) {
+                state.rejectedPoses.add(observation.pose());
+            }
+            reject(state, "INVALID_FRAME");
             return;
         }
 
         state.newMeasurement = true;
+        state.validatedPoses.add(observation.pose());
+        VisionCamera camera = state.camera;
         camera.lastMegaTag2TimestampSeconds = timestamp;
         state.lastGap = camera.lastSeenVisionFrameTime < 0.0
                 ? -1.0
                 : now - camera.lastSeenVisionFrameTime;
         camera.lastSeenVisionFrameTime = now;
-        state.lastBaseStdDev = calculateVisionXYStdDev(in.tagCount, in.avgTagDistanceMeters);
+        state.lastBaseStdDev = calculateVisionXYStdDev(
+                observation.tagCount(), observation.averageTagDistanceMeters());
         if (pending.size() >= MAX_PENDING_FRAMES) {
             reject(state, "QUEUE_FULL");
             return;
         }
-        pending.add(new Measurement(state, in.pose, timestamp, state.lastBaseStdDev,
-                in.tagCount, sequence++));
+        pending.add(new Measurement(state, observation.pose().toPose2d(), timestamp, state.lastBaseStdDev,
+                observation.tagCount(), observation.type(), sequence++));
         state.queuedCount++;
         state.fusionResult = "QUEUED";
     }
@@ -264,9 +386,13 @@ public class Vision extends SubsystemBase {
     /** Valores iniciais do projeto: menor desvio dá mais peso à medição. */
     private static double calculateVisionXYStdDev(int tagCount, double distance) {
         if (tagCount >= 2) {
-            return distance <= 2.0 ? 0.25 : distance <= 3.0 ? 0.40 : 0.60;
+            return distance <= NEAR_TAG_DISTANCE_METERS ? MULTI_TAG_NEAR_STD_DEV_METERS
+                    : distance <= MEDIUM_TAG_DISTANCE_METERS ? MULTI_TAG_MEDIUM_STD_DEV_METERS
+                            : MULTI_TAG_FAR_STD_DEV_METERS;
         }
-        return distance <= 2.0 ? 0.60 : distance <= 3.0 ? 0.85 : 1.20;
+        return distance <= NEAR_TAG_DISTANCE_METERS ? SINGLE_TAG_NEAR_STD_DEV_METERS
+                : distance <= MEDIUM_TAG_DISTANCE_METERS ? SINGLE_TAG_MEDIUM_STD_DEV_METERS
+                        : SINGLE_TAG_FAR_STD_DEV_METERS;
     }
 
     // #endregion
@@ -285,7 +411,9 @@ public class Vision extends SubsystemBase {
             List<Measurement> batch = new ArrayList<>();
             while (!pending.isEmpty() && pending.peek().timestamp() <= end) {
                 Measurement m = pending.remove();
-                if (now - m.timestamp() > MAX_QUEUED_AGE_SECONDS) {
+                if (!m.state().camera.inputs.connected) {
+                    reject(m.state(), "DISCONNECTED");
+                } else if (now - m.timestamp() > MAX_QUEUED_AGE_SECONDS) {
                     reject(m.state(), "EXPIRED_IN_QUEUE");
                 } else if (drive.samplePoseAt(m.timestamp()).isEmpty()) {
                     reject(m.state(), "NO_ODOMETRY_AT_CAPTURE");
@@ -365,6 +493,8 @@ public class Vision extends SubsystemBase {
             }
             state.measurementAccepted = true;
             state.lastAppliedStdDev = effectiveStdDev;
+            state.lastAppliedAlgorithm = m.type().name();
+            state.appliedPoses.add(m.pose());
             VisionCamera camera = state.camera;
             camera.latestValidVisionPose = m.pose();
             camera.latestValidTagCount = m.tagCount();
@@ -437,6 +567,32 @@ public class Vision extends SubsystemBase {
                 LimelightConstants.MAX_VISION_CAPTURE_AGE_SECONDS);
         Logger.recordOutput(root + "/Timing/FutureToleranceSeconds",
                 LimelightConstants.MAX_VISION_FUTURE_TOLERANCE_SECONDS);
+
+        // Caminhos comuns aos algoritmos. Os aliases MegaTag2 abaixo preservam
+        // as abas antigas; ObservationType identifica a origem da medição.
+        String fusion = root + "/Fusion/";
+        Logger.recordOutput(fusion + "ObservationType", state.latestObservation == null
+                || state.latestObservation.type() == null ? "NONE" : state.latestObservation.type().name());
+        Logger.recordOutput(fusion + "LastAppliedAlgorithm", state.lastAppliedAlgorithm);
+        Logger.recordOutput(fusion + "Valid", c.visionValidNow);
+        Logger.recordOutput(fusion + "NewMeasurement", state.newMeasurement);
+        Logger.recordOutput(fusion + "MeasurementAccepted", state.measurementAccepted);
+        Logger.recordOutput(fusion + "FusionResult", state.fusionResult);
+        Logger.recordOutput(fusion + "ReceivedCount", state.receivedCount);
+        Logger.recordOutput(fusion + "AcceptedCount", drive.getVisionAcceptedCount(c.name));
+        Logger.recordOutput(fusion + "QueuedCount", state.queuedCount);
+        Logger.recordOutput(fusion + "RejectedCount", state.rejectedCount);
+        Logger.recordOutput(fusion + "Reject/CamerasDisagree", state.camerasDisagree);
+        Logger.recordOutput(fusion + "XYStdDevMeters", state.lastAppliedStdDev);
+        Logger.recordOutput(fusion + "PoseErrorMeters", state.lastPoseError);
+        Logger.recordOutput(fusion + "BatchSize", in.usesObservationBatch && in.poseObservations != null
+                ? in.poseObservations.length
+                : 0);
+        Logger.recordOutput(fusion + "ValidatedPoses", state.validatedPoses.toArray(Pose3d[]::new));
+        Logger.recordOutput(fusion + "RejectedPoses", state.rejectedPoses.toArray(Pose3d[]::new));
+        // AppliedPoses é um pulso da aplicação no Drive, depois da janela de
+        // reordenação. Os arrays ficam vazios no próximo ciclo sem observações.
+        Logger.recordOutput(fusion + "AppliedPoses", state.appliedPoses.toArray(Pose2d[]::new));
         Logger.recordOutput(p + "Valid", c.visionValidNow);
         Logger.recordOutput(p + "NewMeasurement", state.newMeasurement);
         // Accepted é um pulso de aplicação, alguns ciclos depois de NewMeasurement.

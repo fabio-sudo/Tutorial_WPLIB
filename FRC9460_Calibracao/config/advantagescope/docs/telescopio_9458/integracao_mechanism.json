@@ -1,0 +1,25 @@
+{
+  "originalHashes": {
+    "gerar_log_demo_componentes.py": "7259bd794d39352367cef5ab70521b3b6c8f212edb76a493832d61f8e6cd2434",
+    "preparar_simulacao_3d.py": "35a7892bcf36997a7bf3552f099c70b64721b5bf6fe0de98e816c5074edb21c5",
+    "FRC9460-Simulacao3D.json": "101fefc2f6a79bbafedb19b4cfd63831b8309d6cc8d7bc2e306f4b67ab69a4a4",
+    "demo/FRC9460-Componentes-Demo.wpilog": "0d2d901bef8d922a5447bdf59d52f2256733e7819cc63322053c8828cca7e2c1"
+  },
+  "originalTabs": 40,
+  "totalTabs": 41,
+  "originalTabsPreserved": true,
+  "mechanismKey": "/RealOutputs/Telescopio9458/Mecanismo2d",
+  "existing3DModelReused": true,
+  "javaChanged": false,
+  "demoStageTravelMeters": 0.55,
+  "realTravelConfirmed": false,
+  "backup": "C:\\Users\\Admin\\Desktop\\Tutorial WPLIB\\Tutorial_WPLIB\\FRC9460_Calibracao\\config\\advantagescope\\backup-telescopio-9458-20261020-113822",
+  "assetHashesUnchanged": {
+    "C:\\Users\\Admin\\Desktop\\Tutorial WPLIB\\Tutorial_WPLIB\\FRC9460_Calibracao\\config\\advantagescope\\Telescopio_9458\\Telescopio.glb": "21121287894bf80710381693b9a76837c6855f87c8c68572f63f7518bf54dcec",
+    "C:\\Users\\Admin\\Desktop\\Tutorial WPLIB\\Tutorial_WPLIB\\FRC9460_Calibracao\\config\\advantagescope\\assets\\Robot_Telescopio_9458\\config.json": "4d2d64fc9b329f4b66941a5e539207c1601551fe94ea899d20a89ebd5173428a",
+    "C:\\Users\\Admin\\Desktop\\Tutorial WPLIB\\Tutorial_WPLIB\\FRC9460_Calibracao\\config\\advantagescope\\assets\\Robot_Telescopio_9458\\model.glb": "44755df4517e354ee6f6dfb8966ba357a5065101b1a66ac438278df3554fdc87",
+    "C:\\Users\\Admin\\Desktop\\Tutorial WPLIB\\Tutorial_WPLIB\\FRC9460_Calibracao\\config\\advantagescope\\assets\\Robot_Telescopio_9458\\model_0.glb": "de018532e557a4e273677454b5776d165df8000bcdbadca4a58b51dea5e9f9e5",
+    "C:\\Users\\Admin\\Desktop\\Tutorial WPLIB\\Tutorial_WPLIB\\FRC9460_Calibracao\\config\\advantagescope\\assets\\Robot_Telescopio_9458\\model_1.glb": "730d1e9eeb845bd9bb36df3fb9fc24d42cef6b043542e5cd0fa640578b5da611"
+  },
+  "installed": true
+}

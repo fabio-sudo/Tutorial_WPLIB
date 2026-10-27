@@ -1,0 +1,45 @@
+{
+  "name": "FRC9460 - Telescopio - Etapa 1",
+  "isFTC": false,
+  "disableSimplification": false,
+  "rotations": [
+    {
+      "axis": "x",
+      "degrees": 90
+    }
+  ],
+  "position": [
+    -0.00937783463124725,
+    2.2459532329557885e-06,
+    0.39641442604719107
+  ],
+  "cameras": [],
+  "components": [
+    {
+      "zeroedRotations": [
+        {
+          "axis": "x",
+          "degrees": 90
+        }
+      ],
+      "zeroedPosition": [
+        0.006822773030080512,
+        0.04515449509492642,
+        -0.6888180970427327
+      ]
+    },
+    {
+      "zeroedRotations": [
+        {
+          "axis": "x",
+          "degrees": 90
+        }
+      ],
+      "zeroedPosition": [
+        -0.00047205968796574377,
+        0.045154495094926375,
+        -1.3584867900281066
+      ]
+    }
+  ]
+}

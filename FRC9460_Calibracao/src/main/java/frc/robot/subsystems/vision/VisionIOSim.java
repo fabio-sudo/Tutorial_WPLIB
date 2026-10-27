@@ -2,10 +2,13 @@ package frc.robot.subsystems.vision;
 
 // #region  - IMPORTS
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.wpilibj.Timer;
 
 // #endregion
@@ -14,8 +17,12 @@ public class VisionIOSim implements VisionIO {
 
     // #region  - ESTADO DA CÂMERA SIMULADA
 
-    // Guarda o último frame publicado pelo cenário de teste.
+    // Último frame, usado nos indicadores e gráficos individuais da câmera.
     private final VisionIOInputs frame = new VisionIOInputs();
+
+    // Cada instância possui seu próprio lote. Nenhuma câmera aguarda a outra.
+    // O cenário e o Vision acessam este IO na thread principal do robô.
+    private final List<PoseObservation> pendingObservations = new ArrayList<>();
 
     // Fornece o relógio utilizado para calcular a idade do frame.
     private final DoubleSupplier timestampSupplier;
@@ -36,11 +43,12 @@ public class VisionIOSim implements VisionIO {
 
         // A câmera virtual começa conectada, sem estimativa.
         frame.connected = true;
+        frame.usesObservationBatch = true;
     }
 
     // #endregion
 
-    // #region  - PUBLICAÇÃO DE UM FRAME
+    // #region  - PUBLICAÇÃO DE FRAMES CONTROLADOS
 
     /*
      * O cenário de teste chama este método quando deseja
@@ -52,6 +60,11 @@ public class VisionIOSim implements VisionIO {
      * avgTagDistanceMeters: distância média das tags.
      * captureTimestampSeconds: instante da captura.
      * latencyMilliseconds: latência informada pela câmera.
+     *
+     * Mantém a API dos testes controlados existentes, que representam
+     * uma medição MegaTag2 em 2D. Cada pose disponível também entra no lote.
+     * Para estimativas PhotonLib, utilize publishObservation, preservando 3D,
+     * ambiguidade e identificação do algoritmo.
      *
      * Os valores são entregues ao Vision para validação.
      * Assim, também podemos publicar dados inválidos
@@ -70,6 +83,73 @@ public class VisionIOSim implements VisionIO {
             return;
         }
 
+        updateLatestFrame(pose, tagCount, primaryTagId, avgTagDistanceMeters,
+            captureTimestampSeconds, latencyMilliseconds);
+
+        if (frame.hasPoseEstimate) {
+            pendingObservations.add(new PoseObservation(
+                captureTimestampSeconds,
+                new Pose3d(pose),
+                0.0,
+                tagCount,
+                avgTagDistanceMeters,
+                PoseObservationType.MEGATAG_2
+            ));
+        }
+    }
+
+    // #endregion
+
+    // #region  - PUBLICAÇÃO DE OBSERVAÇÕES PHOTONLIB
+
+    /**
+     * Enfileira uma estimativa completa produzida pelo cenário PhotonLib.
+     *
+     * O timestamp já deve estar no mesmo relógio utilizado pelo Vision/Drive.
+     * A latência é apenas informativa e não altera esse timestamp.
+     * As verificações de qualidade da medição pertencem ao Vision;
+     * o IO preserva os valores numéricos recebidos, inclusive para testes.
+     *
+     * Os indicadores individuais representam o último frame publicado;
+     * o lote conserva todas as observações recebidas entre duas leituras.
+     */
+    public void publishObservation(
+        PoseObservation observation,
+        int primaryTagId,
+        double latencyMilliseconds
+    ) {
+        Objects.requireNonNull(observation, "A observação não pode ser null");
+        Objects.requireNonNull(observation.pose(), "A pose não pode ser null");
+        Objects.requireNonNull(observation.type(), "O algoritmo não pode ser null");
+
+        if (!frame.connected) {
+            return;
+        }
+
+        updateLatestFrame(
+            observation.pose().toPose2d(),
+            observation.tagCount(),
+            primaryTagId,
+            observation.averageTagDistanceMeters(),
+            observation.timestampSeconds(),
+            latencyMilliseconds
+        );
+        pendingObservations.add(observation);
+    }
+
+    // #endregion
+
+    // #region  - INDICADORES DO ÚLTIMO FRAME
+
+    // Atualiza os campos individuais sem alterar as observações já na fila.
+    private void updateLatestFrame(
+        Pose2d pose,
+        int tagCount,
+        int primaryTagId,
+        double avgTagDistanceMeters,
+        double captureTimestampSeconds,
+        double latencyMilliseconds
+    ) {
         // Avança somente quando um novo frame é publicado.
         frame.heartbeat += 1.0;
 
@@ -157,6 +237,12 @@ public class VisionIOSim implements VisionIO {
 
         inputs.avgTagDistanceMeters =
             frame.avgTagDistanceMeters;
+
+        // Um novo array preserva o lote entregue, mesmo após limpar a fila.
+        // A próxima consulta recebe somente as observações que chegarem depois.
+        inputs.usesObservationBatch = frame.usesObservationBatch;
+        inputs.poseObservations = pendingObservations.toArray(PoseObservation[]::new);
+        pendingObservations.clear();
     }
 
     // #endregion
@@ -165,6 +251,24 @@ public class VisionIOSim implements VisionIO {
 
     public void setConnected(boolean connected) {
         frame.connected = connected;
+
+        if (!connected) {
+            // Não entrega observações pendentes de uma câmera desconectada.
+            // Reconectar também exige um novo frame para recuperar os alvos.
+            pendingObservations.clear();
+            frame.hasTarget = false;
+            frame.txDegrees = 0.0;
+            frame.tyDegrees = 0.0;
+            frame.targetAreaPercent = 0.0;
+            frame.tagId = -1;
+            frame.hasPoseEstimate = false;
+            frame.hasPose = false;
+            frame.pose = new Pose2d();
+            frame.captureTimestampSeconds = 0.0;
+            frame.latencyMilliseconds = 0.0;
+            frame.tagCount = 0;
+            frame.avgTagDistanceMeters = 0.0;
+        }
     }
 
     // #endregion

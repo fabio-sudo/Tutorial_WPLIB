@@ -1,0 +1,1362 @@
+{
+  "hubs": [
+    {
+      "x": -8,
+      "y": -8,
+      "width": 1552,
+      "height": 832,
+      "state": {
+        "sidebar": {
+          "width": 300,
+          "expanded": [
+            "/RealOutputs",
+            "/RealOutputs/Vision",
+            "/Vision"
+          ]
+        },
+        "tabs": {
+          "selected": 0,
+          "tabs": [
+            {
+              "type": 3,
+              "title": "CAM 1 - Campo 3D",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Robot/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Robo 2026"
+                    }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "/RealOutputs/Vision/Rear/MegaTag2/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Robo 2026",
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "/RealOutputs/Vision/Front/MegaTag2/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Robo 2026",
+                      "color": "#e48b32"
+                    }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/RejectedPoses",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Robo 2026",
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "/RealOutputs/Vision/Front/Fusion/RejectedPoses",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Robo 2026",
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "/RealOutputs/Vision/Simulation/ReferencePose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Robo 2026",
+                      "color": "#00bcd4"
+                    }
+                  },
+                  {
+                    "type": "vision",
+                    "logKey": "/RealOutputs/Vision/Simulation/Photon/Rear/TagPoses",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "vision",
+                    "logKey": "/RealOutputs/Vision/Simulation/Photon/Front/TagPoses",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "axes",
+                    "logKey": "/RealOutputs/Vision/Simulation/Rear/CameraPose",
+                    "logType": "Pose3d",
+                    "visible": true,
+                    "options": {}
+                  },
+                  {
+                    "type": "axes",
+                    "logKey": "/RealOutputs/Vision/Simulation/Front/CameraPose",
+                    "logType": "Pose3d",
+                    "visible": true,
+                    "options": {}
+                  }
+                ],
+                "game": "FRC:2026 Field"
+              },
+              "controllerUUID": "ff5ffaac2f694e78b5c22523a833f5a9",
+              "renderer": {
+                "cameraIndex": -2,
+                "orbitFov": 50,
+                "cameraPosition": [
+                  2.5,
+                  1.8,
+                  3.5
+                ],
+                "cameraTarget": [
+                  0,
+                  0.3,
+                  0
+                ]
+              },
+              "controlsHeight": 260
+            },
+            {
+              "type": 2,
+              "title": "CAM 2 - Campo 2D",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Robot/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "bumpers": ""
+                    }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "/RealOutputs/Vision/Rear/MegaTag2/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "/RealOutputs/Vision/Front/MegaTag2/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32"
+                    }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "/RealOutputs/Vision/Simulation/ReferencePose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4"
+                    }
+                  },
+                  {
+                    "type": "vision",
+                    "logKey": "/RealOutputs/Vision/Simulation/Photon/Rear/TagPoses",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "vision",
+                    "logKey": "/RealOutputs/Vision/Simulation/Photon/Front/TagPoses",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "arrow",
+                    "logKey": "/RealOutputs/Vision/Simulation/Rear/CameraPose",
+                    "logType": "Pose3d",
+                    "visible": true,
+                    "options": {
+                      "position": "center"
+                    }
+                  },
+                  {
+                    "type": "arrow",
+                    "logKey": "/RealOutputs/Vision/Simulation/Front/CameraPose",
+                    "logType": "Pose3d",
+                    "visible": true,
+                    "options": {
+                      "position": "center"
+                    }
+                  }
+                ],
+                "field": "FRC:2026 Field",
+                "orientation": 0,
+                "size": "large"
+              },
+              "controllerUUID": "5f5847c7c92b440e823cc7c769d2a451",
+              "renderer": null,
+              "controlsHeight": 200
+            },
+            {
+              "type": 1,
+              "title": "CAM 3 - Conexao e tags",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Vision/Rear/MegaTag2/TagCount",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Vision/Front/MegaTag2/TagCount",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/Rear/Camera/Heartbeat",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/Front/Camera/Heartbeat",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Camera/Connected",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Front/Camera/Connected",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/HasTarget",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Front/HasTarget",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "d9c1713767594724ad4ea4c8e9800147",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "CAM 4 - Tempo",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/Rear/Timing/ReportedLatencyMs",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/Front/Timing/ReportedLatencyMs",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/Rear/Timing/CaptureAgeSeconds",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/Front/Timing/CaptureAgeSeconds",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/Rear/Timing/CaptureAgeLimitSeconds",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/Reject/StaleMeasurement",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Front/Fusion/Reject/StaleMeasurement",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/Reject/FutureTimestamp",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Front/Fusion/Reject/FutureTimestamp",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "715fd7a193a5445ea0dddd437bb2165c",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "CAM 5 - Fusao",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/AcceptedCount",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Vision/Front/Fusion/AcceptedCount",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/RejectedCount",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Vision/Front/Fusion/RejectedCount",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/MeasurementAccepted",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Front/Fusion/MeasurementAccepted",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/FusionResult",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Front/Fusion/FusionResult",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "2237181d6ce64822ad26245f90d4c6bf",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "CAM 6 - Qualidade",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/Rear/MegaTag2/AvgTagDist",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/Front/MegaTag2/AvgTagDist",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/PoseErrorMeters",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/Front/Fusion/PoseErrorMeters",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/XYStdDevMeters",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/Front/Fusion/XYStdDevMeters",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/Summary/CameraDifferenceMeters",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/Summary/CameraDifferenceLimitMeters",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "324bb2a7424a4b27a8fcfe0ebd54d43d",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "CAM - Rejeicoes Rear",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/RejectedCount",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/AcceptedCount",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/Reject/Disconnected",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/Reject/NoEstimate",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/Reject/NoPose",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/Reject/NoTags",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/Reject/InvalidPose",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/Reject/InvalidDistanceData",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/Reject/InvalidTimestamp",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/Reject/Rotation",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/Reject/StaleMeasurement",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/Reject/FutureTimestamp",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/Reject/UnknownType",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/Reject/Ambiguity",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/Reject/Height",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/Reject/Tilt",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/Reject/OutsideField",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/Reject/CamerasDisagree",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "3879377f96a345ae8c7e24bbb37069fc",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "CAM - Rejeicoes Front",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Vision/Front/Fusion/RejectedCount",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Vision/Front/Fusion/AcceptedCount",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Front/Fusion/Reject/Disconnected",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Front/Fusion/Reject/NoEstimate",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Front/Fusion/Reject/NoPose",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Front/Fusion/Reject/NoTags",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Front/Fusion/Reject/InvalidPose",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Front/Fusion/Reject/InvalidDistanceData",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Front/Fusion/Reject/InvalidTimestamp",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Front/Fusion/Reject/Rotation",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Front/Fusion/Reject/StaleMeasurement",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Front/Fusion/Reject/FutureTimestamp",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Front/Fusion/Reject/UnknownType",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Front/Fusion/Reject/Ambiguity",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Front/Fusion/Reject/Height",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Front/Fusion/Reject/Tilt",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Front/Fusion/Reject/OutsideField",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Front/Fusion/Reject/CamerasDisagree",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "f8ffa8dc596e4a988c59a9c69d76f8b6",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 4,
+              "title": "CAM - Entradas Rear",
+              "controller": [
+                "/Vision/Rear/Inputs/Connected",
+                "/Vision/Rear/Inputs/Heartbeat",
+                "/Vision/Rear/Inputs/HasTarget",
+                "/Vision/Rear/Inputs/TagId",
+                "/Vision/Rear/Inputs/TagCount",
+                "/Vision/Rear/Inputs/TxDegrees",
+                "/Vision/Rear/Inputs/TyDegrees",
+                "/Vision/Rear/Inputs/TargetAreaPercent",
+                "/Vision/Rear/Inputs/AvgTagDistanceMeters",
+                "/Vision/Rear/Inputs/LatencyMilliseconds",
+                "/Vision/Rear/Inputs/CaptureTimestampSeconds",
+                "/Vision/Rear/Inputs/HasPoseEstimate",
+                "/Vision/Rear/Inputs/Pose"
+              ],
+              "controllerUUID": "69530deb78394443b516446ee3dc93af",
+              "renderer": null,
+              "controlsHeight": 0
+            },
+            {
+              "type": 4,
+              "title": "CAM - Entradas Front",
+              "controller": [
+                "/Vision/Front/Inputs/Connected",
+                "/Vision/Front/Inputs/Heartbeat",
+                "/Vision/Front/Inputs/HasTarget",
+                "/Vision/Front/Inputs/TagId",
+                "/Vision/Front/Inputs/TagCount",
+                "/Vision/Front/Inputs/TxDegrees",
+                "/Vision/Front/Inputs/TyDegrees",
+                "/Vision/Front/Inputs/TargetAreaPercent",
+                "/Vision/Front/Inputs/AvgTagDistanceMeters",
+                "/Vision/Front/Inputs/LatencyMilliseconds",
+                "/Vision/Front/Inputs/CaptureTimestampSeconds",
+                "/Vision/Front/Inputs/HasPoseEstimate",
+                "/Vision/Front/Inputs/Pose"
+              ],
+              "controllerUUID": "c3248bddbbb049d894fd0615ed2f1000",
+              "renderer": null,
+              "controlsHeight": 0
+            },
+            {
+              "type": 3,
+              "title": "SIM CAM - Visao da camera Rear",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "cameraOverride",
+                    "logKey": "/RealOutputs/Vision/Simulation/Rear/CameraPose",
+                    "logType": "Pose3d",
+                    "visible": true,
+                    "options": {}
+                  },
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Robot/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Robo 2026"
+                    }
+                  },
+                  {
+                    "type": "vision",
+                    "logKey": "/RealOutputs/Vision/Simulation/Photon/Rear/TagPoses",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "game": "FRC:2026 Field"
+              },
+              "controllerUUID": "e0d31998728d459b82edd75b0cca9362",
+              "renderer": {
+                "cameraIndex": -2,
+                "orbitFov": 50,
+                "cameraPosition": [
+                  2.5,
+                  1.8,
+                  3.5
+                ],
+                "cameraTarget": [
+                  0,
+                  0.3,
+                  0
+                ]
+              },
+              "controlsHeight": 260
+            },
+            {
+              "type": 3,
+              "title": "SIM CAM - Visao da camera Front",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "cameraOverride",
+                    "logKey": "/RealOutputs/Vision/Simulation/Front/CameraPose",
+                    "logType": "Pose3d",
+                    "visible": true,
+                    "options": {}
+                  },
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Robot/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Robo 2026"
+                    }
+                  },
+                  {
+                    "type": "vision",
+                    "logKey": "/RealOutputs/Vision/Simulation/Photon/Front/TagPoses",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "game": "FRC:2026 Field"
+              },
+              "controllerUUID": "3359b06ea1c24fcfbdda04352d408b3e",
+              "renderer": {
+                "cameraIndex": -2,
+                "orbitFov": 50,
+                "cameraPosition": [
+                  2.5,
+                  1.8,
+                  3.5
+                ],
+                "cameraTarget": [
+                  0,
+                  0.3,
+                  0
+                ]
+              },
+              "controlsHeight": 260
+            },
+            {
+              "type": 1,
+              "title": "SIM CAM - Erro x referencia",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/Simulation/Photon/Rear/EstimationErrorMeters",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/Simulation/Photon/Front/EstimationErrorMeters",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/Simulation/PositionErrorMeters",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/Simulation/Photon/Rear/RotationErrorDegrees",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/Simulation/Photon/Front/RotationErrorDegrees",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Simulation/Photon/Rear/MultiTagSuccess",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Simulation/Photon/Front/MultiTagSuccess",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "dc07b79a44474e8988a9412dcc18a372",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "SIM CAM - Tags vistas",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Vision/Simulation/Photon/Rear/TagCount",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Vision/Simulation/Photon/Front/TagCount",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Vision/Simulation/Photon/Rear/UsedTagCount",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Vision/Simulation/Photon/Front/UsedTagCount",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Simulation/Photon/Rear/HasTargets",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Simulation/Photon/Front/HasTargets",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "a4ccb68ca6994667a973f78e08048408",
+              "renderer": null,
+              "controlsHeight": 230
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "satellites": [],
+  "version": "26.0.0"
+}

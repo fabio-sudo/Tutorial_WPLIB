@@ -1,0 +1,12 @@
+{
+  "glbImportsSucceeded": 3,
+  "trianglesPerPart": [
+    1151304,
+    54080,
+    15664
+  ],
+  "floorZ": -1.1279865793872226e-17,
+  "assemblyHeightMeters": 2.114500045776367,
+  "componentTransformsReconstructDefaultAssembly": true,
+  "sourceUnchanged": true
+}

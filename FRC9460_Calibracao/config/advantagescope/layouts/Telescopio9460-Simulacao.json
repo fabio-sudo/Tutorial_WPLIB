@@ -1,0 +1,288 @@
+{
+  "hubs": [
+    {
+      "x": -8,
+      "y": -8,
+      "width": 1552,
+      "height": 832,
+      "state": {
+        "sidebar": {
+          "width": 300,
+          "expanded": [
+            "/Tuning",
+            "/Tuning/Telescopio",
+            "/RealOutputs",
+            "/RealOutputs/Telescopio",
+            "/Telescopio",
+            "/Telescopio/Inputs"
+          ]
+        },
+        "tabs": {
+          "selected": 0,
+          "tabs": [
+            {
+              "type": 10,
+              "title": "Telescopio 9460 - Simulacao 2D",
+              "controller": [
+                {
+                  "type": "mechanism",
+                  "logKey": "/RealOutputs/Telescopio/Mecanismo2d",
+                  "logType": "Mechanism2d",
+                  "visible": true,
+                  "options": {}
+                }
+              ],
+              "controllerUUID": "8de96f1cc4be4534baddb0487dddd2d4",
+              "renderer": null,
+              "controlsHeight": 120
+            },
+            {
+              "type": 3,
+              "title": "Telescopio 9460 - Simulacao 3D",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Telescopio/BasePose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Telescopio - Etapa 1"
+                    }
+                  },
+                  {
+                    "type": "component",
+                    "logKey": "/RealOutputs/Telescopio/Componentes",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {}
+                  }
+                ],
+                "game": "FRC:Axes"
+              },
+              "controllerUUID": "b42eef1a0dc04baea3823c486860bf5a",
+              "renderer": {
+                "cameraIndex": -2,
+                "orbitFov": 50,
+                "cameraPosition": [
+                  2.0,
+                  1.2,
+                  2.6
+                ],
+                "cameraTarget": [
+                  0,
+                  1.0,
+                  0
+                ]
+              },
+              "controlsHeight": 180
+            },
+            {
+              "type": 1,
+              "title": "Telescopio 9460 - Estagios simultaneos",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio/ExtensaoN2Metros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff8c00",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio/ExtensaoRelativaN3Metros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00cc66",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio/ExtensaoVisualMetros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#33bbff",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [],
+                "discreteSources": [],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "ddccfe75ad984739ab4e842b65b38689",
+              "renderer": null,
+              "controlsHeight": 235
+            },
+            {
+              "type": 1,
+              "title": "Posicao - meta e medida",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio/MetaMetros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffcc44",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Telescopio/Inputs/ExtensionMeters",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#33bbff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio/ReferenciaPerfilMetros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#b88aff",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [],
+                "discreteSources": [],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "6f74f1ce9387479bbea3a5270c9405f9",
+              "renderer": null,
+              "controlsHeight": 235
+            },
+            {
+              "type": 1,
+              "title": "Motor - tensao e corrente",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio/TensaoSolicitadaVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffcc44",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Telescopio/Inputs/AppliedVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#33bbff",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/Telescopio/Inputs/MotorCurrentAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff6666",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "bcd45c25511d49409ef0073e6e898f3e",
+              "renderer": null,
+              "controlsHeight": 235
+            },
+            {
+              "type": 1,
+              "title": "Velocidade da ponta",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/Telescopio/Inputs/VelocityMetersPerSec",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#44dd88",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [],
+                "discreteSources": [],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "b814e0a22d074bbe81938b9b3c9e884e",
+              "renderer": null,
+              "controlsHeight": 235
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "satellites": [],
+  "version": "26.0.0"
+}

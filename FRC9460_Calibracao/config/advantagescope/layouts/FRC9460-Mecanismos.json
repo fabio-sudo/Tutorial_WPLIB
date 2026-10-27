@@ -1,0 +1,382 @@
+{
+  "hubs": [
+    {
+      "x": 217,
+      "y": 106,
+      "width": 1105,
+      "height": 654,
+      "state": {
+        "sidebar": {
+          "width": 300,
+          "expanded": [
+            "/RealOutputs/Mecanismos",
+            "/RealOutputs/Telescopio",
+            "/RealOutputs/Telescopio9458"
+          ]
+        },
+        "tabs": {
+          "selected": 6,
+          "tabs": [
+            {
+              "type": 0,
+              "title": "",
+              "controller": null,
+              "controllerUUID": "fec16d62a90f4bb197b124d525c6b5e0",
+              "renderer": "",
+              "controlsHeight": 0
+            },
+            {
+              "type": 10,
+              "title": "Robo 9460",
+              "controller": [
+                {
+                  "type": "mechanism",
+                  "logKey": "/RealOutputs/Mecanismos/Mecanismo2d",
+                  "logType": "Mechanism2d",
+                  "visible": true,
+                  "options": {}
+                }
+              ],
+              "controllerUUID": "4a2b4b80fe724583b77c6cc0603b102f",
+              "renderer": null,
+              "controlsHeight": 200
+            },
+            {
+              "type": 3,
+              "title": "Robo 9460 3D",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Robot/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Robo 2026"
+                    }
+                  },
+                  {
+                    "type": "component",
+                    "logKey": "/RealOutputs/Mecanismos/Componentes",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {}
+                  }
+                ],
+                "game": "FRC:Axes"
+              },
+              "controllerUUID": "5b893d91f28b437da3b16d9c8a553a1d",
+              "renderer": {
+                "cameraIndex": -2,
+                "orbitFov": 50,
+                "cameraPosition": [
+                  1.4,
+                  1.0,
+                  1.4
+                ],
+                "cameraTarget": [
+                  0,
+                  0.35,
+                  0
+                ]
+              },
+              "controlsHeight": 260
+            },
+            {
+              "type": 10,
+              "title": "Telescopio 9460",
+              "controller": [
+                {
+                  "type": "mechanism",
+                  "logKey": "/RealOutputs/Telescopio/Mecanismo2d",
+                  "logType": "Mechanism2d",
+                  "visible": true,
+                  "options": {}
+                }
+              ],
+              "controllerUUID": "076eb8e3ce1f4f8b9beb3b56252f635a",
+              "renderer": null,
+              "controlsHeight": 200
+            },
+            {
+              "type": 3,
+              "title": "Telescopio 9460 3D",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Telescopio/BasePose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Telescopio - Etapa 1"
+                    }
+                  },
+                  {
+                    "type": "component",
+                    "logKey": "/RealOutputs/Telescopio/Componentes",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {}
+                  }
+                ],
+                "game": "FRC:Axes"
+              },
+              "controllerUUID": "f9ce7042f1af4ec28b07896b98c11bea",
+              "renderer": {
+                "cameraIndex": -2,
+                "orbitFov": 50,
+                "cameraPosition": [
+                  2.6,
+                  2.0,
+                  2.6
+                ],
+                "cameraTarget": [
+                  0,
+                  1.0,
+                  0
+                ]
+              },
+              "controlsHeight": 260
+            },
+            {
+              "type": 10,
+              "title": "Telescopio 9458",
+              "controller": [
+                {
+                  "type": "mechanism",
+                  "logKey": "/RealOutputs/Telescopio9458/Mecanismo2d",
+                  "logType": "Mechanism2d",
+                  "visible": true,
+                  "options": {}
+                }
+              ],
+              "controllerUUID": "617a93fd75fa45daa164864ccb108855",
+              "renderer": null,
+              "controlsHeight": 200
+            },
+            {
+              "type": 3,
+              "title": "Telescopio 9458 3D",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Telescopio9458/Pose",
+                    "logType": "Pose3d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9458 - Telescopio"
+                    }
+                  },
+                  {
+                    "type": "component",
+                    "logKey": "/RealOutputs/Telescopio9458/Componentes",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {}
+                  }
+                ],
+                "game": "FRC:Axes"
+              },
+              "controllerUUID": "7bcabd03eca94ba8be8db73f68a9329e",
+              "renderer": {
+                "cameraIndex": -2,
+                "orbitFov": 50,
+                "cameraPosition": [
+                  2.6,
+                  2.0,
+                  2.6
+                ],
+                "cameraTarget": [
+                  0,
+                  1.0,
+                  0
+                ]
+              },
+              "controlsHeight": 260
+            },
+            {
+              "type": 1,
+              "title": "Robo 9460 - Angulos",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Mecanismos/IntakeGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff8c00",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Mecanismos/TorreGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00c0ff",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [],
+                "discreteSources": [],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "18e3642bde7d466e902f3b68dcf2c16a",
+              "renderer": null,
+              "controlsHeight": 235
+            },
+            {
+              "type": 1,
+              "title": "Telescopio 9460 - Curso",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio/ExtensaoN2Metros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff8c00",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio/ExtensaoRelativaN3Metros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00cc66",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio/ExtensaoVisualMetros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#33bbff",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [],
+                "discreteSources": [],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "6589fe0986d14f7488ebd553f1b52cf9",
+              "renderer": null,
+              "controlsHeight": 235
+            },
+            {
+              "type": 1,
+              "title": "Telescopio 9458 - Curso",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio9458/ExtensaoTubo3Metros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff9900",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio9458/ExtensaoTubo2Metros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#44dd88",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio9458/ExtensaoMetros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#33bbff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio9458/AlturaTotalMetros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffffff",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio9458/MotorRotacoes",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff4466",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "798bb65ba1cd4eafb8dc09a7f06056c1",
+              "renderer": null,
+              "controlsHeight": 235
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "satellites": [],
+  "version": "26.0.0"
+}

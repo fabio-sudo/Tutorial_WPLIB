@@ -1,0 +1,35 @@
+Roteiro de narração — vídeo Steel Bulls 9460 (55 s)
+Cada fala começa no tempo indicado e precisa terminar antes do limite.
+
+00:00,7 – 00:04,6  Abertura
+  Olá! Somos a Steel Bulls, do SESI de Sertãozinho.
+
+00:05,0 – 00:09,8  O robô
+  Nosso robô foi projetado, construído e programado pelos próprios alunos.
+
+00:10,2 – 00:15,4  Engenharia
+  Cada peça nasce no CAD e é validada em simulação estrutural.
+
+00:15,8 – 00:21,7  Partida 13
+  Na competição, planejamos a defesa com dados, e vencemos por 243 a 89.
+
+00:22,2 – 00:27,6  Visão computacional
+  Com visão computacional, o robô lê marcadores no campo e sabe onde está.
+
+00:28,0 – 00:32,4  Gêmeo digital
+  Ele também vive no computador, como um gêmeo digital.
+
+00:32,8 – 00:37,2  Replay
+  E o replay reproduz cada teste, sem nenhuma diferença.
+
+00:37,6 – 00:42,2  Software
+  São 135 testes automatizados, como em software profissional.
+
+00:42,6 – 00:48,1  Machine learning
+  O próximo passo é o aprendizado de máquina, sobre a base que já construímos.
+
+00:48,6 – 00:54,0  Fechamento
+  Steel Bulls e Amazon: vamos construir juntos o próximo passo. Obrigado!
+
+Para gravar com voz própria: gravar cada fala separada (celular a 20 cm, ambiente
+silencioso) e enviar os arquivos; eles são encaixados nos mesmos tempos.

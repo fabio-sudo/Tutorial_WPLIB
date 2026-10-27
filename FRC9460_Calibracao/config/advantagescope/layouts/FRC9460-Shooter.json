@@ -1,0 +1,873 @@
+{
+  "hubs": [
+    {
+      "x": -8,
+      "y": -8,
+      "width": 1552,
+      "height": 832,
+      "state": {
+        "sidebar": {
+          "width": 300,
+          "expanded": [
+            "/RealOutputs",
+            "/RealOutputs/Shooter",
+            "/Shooter",
+            "/Tuning"
+          ]
+        },
+        "tabs": {
+          "selected": 0,
+          "tabs": [
+            {
+              "type": 3,
+              "title": "SHOOTER 1 - Campo 3D",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Robot/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Robo 2026"
+                    }
+                  },
+                  {
+                    "type": "component",
+                    "logKey": "/RealOutputs/Mecanismos/Componentes",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {}
+                  },
+                  {
+                    "type": "trajectory",
+                    "logKey": "/RealOutputs/Shooter/Visualizacao/LinhaDoShooter",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff8c00",
+                      "size": "bold"
+                    }
+                  },
+                  {
+                    "type": "trajectory",
+                    "logKey": "/RealOutputs/Shooter/Visualizacao/LinhaAteOAlvo",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#00ff00",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "axes",
+                    "logKey": "/RealOutputs/Shooter/Visualizacao/Hub",
+                    "logType": "Pose3d",
+                    "visible": true,
+                    "options": {}
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "/RealOutputs/Vision/Rear/MegaTag2/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Robo 2026",
+                      "color": "#7e57c2"
+                    }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "/RealOutputs/Vision/Simulation/ReferencePose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Robo 2026",
+                      "color": "#00bcd4"
+                    }
+                  }
+                ],
+                "game": "FRC:2026 Field"
+              },
+              "controllerUUID": "178ca1fef149476abe3150bd815708b9",
+              "renderer": {
+                "cameraIndex": -2,
+                "orbitFov": 50,
+                "cameraPosition": [
+                  2.5,
+                  2.2,
+                  3.5
+                ],
+                "cameraTarget": [
+                  0,
+                  0.3,
+                  0
+                ]
+              },
+              "controlsHeight": 260
+            },
+            {
+              "type": 3,
+              "title": "SHOOTER 2 - Robo de perto",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Robot/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Robo 2026"
+                    }
+                  },
+                  {
+                    "type": "component",
+                    "logKey": "/RealOutputs/Mecanismos/Componentes",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {}
+                  },
+                  {
+                    "type": "trajectory",
+                    "logKey": "/RealOutputs/Shooter/Visualizacao/LinhaDoShooter",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff8c00",
+                      "size": "bold"
+                    }
+                  },
+                  {
+                    "type": "trajectory",
+                    "logKey": "/RealOutputs/Shooter/Visualizacao/LinhaAteOAlvo",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#00ff00",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "axes",
+                    "logKey": "/RealOutputs/Shooter/Visualizacao/Hub",
+                    "logType": "Pose3d",
+                    "visible": true,
+                    "options": {}
+                  }
+                ],
+                "game": "FRC:2026 Field"
+              },
+              "controllerUUID": "b3f70e268f2d4f1190907f94769f9eff",
+              "renderer": {
+                "cameraIndex": -2,
+                "orbitFov": 50,
+                "cameraPosition": [
+                  1.3,
+                  1.1,
+                  1.3
+                ],
+                "cameraTarget": [
+                  0,
+                  0.3,
+                  0
+                ]
+              },
+              "controlsHeight": 260
+            },
+            {
+              "type": 2,
+              "title": "SHOOTER 3 - Campo 2D",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Robot/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "bumpers": ""
+                    }
+                  },
+                  {
+                    "type": "trajectory",
+                    "logKey": "/RealOutputs/Shooter/Visualizacao/LinhaDoShooter",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff8c00",
+                      "size": "bold"
+                    }
+                  },
+                  {
+                    "type": "trajectory",
+                    "logKey": "/RealOutputs/Shooter/Visualizacao/LinhaAteOAlvo",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#00ff00",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "/RealOutputs/Vision/Rear/MegaTag2/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2"
+                    }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "/RealOutputs/Vision/Simulation/ReferencePose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4"
+                    }
+                  }
+                ],
+                "field": "FRC:2026 Field",
+                "orientation": 0,
+                "size": "large"
+              },
+              "controllerUUID": "4d0b2149d471436589e7e6d4bf86c9ee",
+              "renderer": null,
+              "controlsHeight": 200
+            },
+            {
+              "type": 10,
+              "title": "SHOOTER 4 - Visto de cima",
+              "controller": [
+                {
+                  "type": "mechanism",
+                  "logKey": "/RealOutputs/Shooter/Visualizacao/Mecanismo2d",
+                  "logType": "Mechanism2d",
+                  "visible": true,
+                  "options": {}
+                }
+              ],
+              "controllerUUID": "fc0b2940776f4e31bcea233bfb29019f",
+              "renderer": null,
+              "controlsHeight": 200
+            },
+            {
+              "type": 1,
+              "title": "SHOOTER 5 - Pivo",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Pivo/AnguloGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Shooter/Pivo/AlvoGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Mira/AnguloNecessarioGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Shooter/Pivo/LimiteGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Shooter/Pivo/LimiteMenosGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/Shooter/Pivo/Inputs/AppliedVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#5f4528",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Shooter/Pivo/Inputs/StatorCurrentAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#8e7cc3",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Pivo/Modo",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Pivo/NoAlvo",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Mira/HubNoCurso",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Pivo/ZeroValido",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/Shooter/Pivo/Inputs/ForwardLimitActive",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/Shooter/Pivo/Inputs/ReverseLimitActive",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "d991ed8ae4c44b12ba032d926976b115",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "SHOOTER 6 - Rodas (RPM)",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Top/RpmEsquerdo",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Top/RpmDireito",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffb74d",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Shooter/Top/AlvoRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Tower/Rpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#4fc3f7",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Shooter/Tower/AlvoRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#4fc3f7",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Centrifuga/Rpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ba68c8",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Shooter/Centrifuga/AlvoRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ba68c8",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Top/NoRpm",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Tower/NoRpm",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#4fc3f7"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Centrifuga/NoRpm",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#ba68c8"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "63a09ec56ab841d68f8d4722c4b932b2",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "SHOOTER 7 - Sequencia de tiro",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Sequencia/TempoPreparacaoSegundos",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Mira/DistanciaMetros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Sequencia/Estado",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Mira/PoseConfiavel",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Sequencia/PivoPronto",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Sequencia/TopPronto",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Sequencia/TowerPronto",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#4fc3f7"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Sequencia/HubNoCurso",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Sequencia/Pronto",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Sequencia/Alimentando",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#ba68c8"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Sequencia/ProntoPorTempo",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "784867d753614e9d8394808acf9f81c5",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "SHOOTER 8 - Mira e Limelight",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Mira/ErroDirecaoGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Mira/DistanciaMetros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/AcceptedCount",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Vision/Front/Fusion/AcceptedCount",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Mira/PoseConfiavel",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Mira/Alianca",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/MeasurementAccepted",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "bfea8cb318554a92862e598f333ab9c3",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 4,
+              "title": "SHOOTER 9 - Entradas",
+              "controller": [
+                "/Shooter/Pivo/Inputs/Connected",
+                "/Shooter/Pivo/Inputs/ZeroValid",
+                "/Shooter/Pivo/Inputs/MotorPositionRotations",
+                "/Shooter/Pivo/Inputs/MotorVelocityRotationsPerSec",
+                "/Shooter/Pivo/Inputs/AppliedVolts",
+                "/Shooter/Pivo/Inputs/StatorCurrentAmps",
+                "/Shooter/Pivo/Inputs/ProfileReferenceRotations",
+                "/Shooter/Pivo/Inputs/ForwardLimitActive",
+                "/Shooter/Pivo/Inputs/ReverseLimitActive",
+                "/Shooter/Top/Inputs/Connected",
+                "/Shooter/Top/Inputs/VelocityRpm",
+                "/Shooter/Top/Inputs/AppliedVolts",
+                "/Shooter/Top/Inputs/CurrentAmps",
+                "/Shooter/Tower/Inputs/Connected",
+                "/Shooter/Tower/Inputs/VelocityRpm",
+                "/Shooter/Tower/Inputs/AppliedVolts",
+                "/Shooter/Tower/Inputs/CurrentAmps",
+                "/Shooter/Centrifuga/Inputs/Connected",
+                "/Shooter/Centrifuga/Inputs/VelocityRpm",
+                "/Shooter/Centrifuga/Inputs/AppliedVolts",
+                "/Shooter/Centrifuga/Inputs/CurrentAmps"
+              ],
+              "controllerUUID": "49e16a6199484a918f0f49c30f1a87af",
+              "renderer": null,
+              "controlsHeight": 0
+            },
+            {
+              "type": 1,
+              "title": "SIM SHOOTER - Zero manual",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Pivo/AnguloGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Simulacao/AnguloFisicoGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Shooter/Pivo/LimiteGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Shooter/Pivo/LimiteMenosGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Shooter/Simulacao/ErroDoZeroManualGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Simulacao/NoBatenteDaFiacao",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "f95affd7524142a4ada3ef6a380c09f2",
+              "renderer": null,
+              "controlsHeight": 230
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "satellites": [],
+  "version": "26.0.0"
+}

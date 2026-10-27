@@ -1,0 +1,1083 @@
+{
+  "hubs": [
+    {
+      "x": -8,
+      "y": -8,
+      "width": 1552,
+      "height": 832,
+      "state": {
+        "sidebar": {
+          "width": 300,
+          "expanded": [
+            "/Tuning",
+            "/Tuning/Telescopio9458",
+            "/RealOutputs",
+            "/RealOutputs/Telescopio9458",
+            "/Telescopio9458",
+            "/Telescopio9458/Inputs"
+          ]
+        },
+        "tabs": {
+          "selected": 1,
+          "tabs": [
+            {
+              "type": 3,
+              "title": "Telescopio 9458 3D - RT abre / LT fecha",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Telescopio9458/Pose",
+                    "logType": "Pose3d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9458 - Telescopio"
+                    }
+                  },
+                  {
+                    "type": "component",
+                    "logKey": "/RealOutputs/Telescopio9458/Componentes",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {}
+                  }
+                ],
+                "game": "FRC:Axes"
+              },
+              "controllerUUID": "7e592cb56eae4dbcae555490d91ed4b9",
+              "renderer": {
+                "cameraIndex": -2,
+                "orbitFov": 50,
+                "cameraPosition": [
+                  2.6,
+                  2.0,
+                  2.6
+                ],
+                "cameraTarget": [
+                  0,
+                  1.0,
+                  0
+                ]
+              },
+              "controlsHeight": 260
+            },
+            {
+              "type": 3,
+              "title": "Fisico x virtual 3D - encoder e previsao",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Telescopio9458/Pose",
+                    "logType": "Pose3d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9458 - Telescopio"
+                    }
+                  },
+                  {
+                    "type": "component",
+                    "logKey": "/RealOutputs/Telescopio9458/Componentes",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {}
+                  },
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Telescopio9458/Modelo/Pose",
+                    "logType": "Pose3d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9458 - Telescopio"
+                    }
+                  },
+                  {
+                    "type": "component",
+                    "logKey": "/RealOutputs/Telescopio9458/Modelo/Componentes",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {}
+                  }
+                ],
+                "game": "FRC:Axes"
+              },
+              "controllerUUID": "3f3f7daf13c54e50b07a064a2705af58",
+              "renderer": {
+                "cameraIndex": -2,
+                "orbitFov": 50,
+                "cameraPosition": [
+                  2.6,
+                  2.0,
+                  3.2
+                ],
+                "cameraTarget": [
+                  0,
+                  1.0,
+                  -0.3
+                ]
+              },
+              "controlsHeight": 260
+            },
+            {
+              "type": 4,
+              "title": "Voltas - motor e saida do redutor",
+              "controller": [
+                "/RealOutputs/Telescopio9458/Voltas/Motor",
+                "/RealOutputs/Telescopio9458/Voltas/Reducao",
+                "/RealOutputs/Telescopio9458/Voltas/SaidaRedutor",
+                "/RealOutputs/Telescopio9458/Modelo/VoltasMotor",
+                "/RealOutputs/Telescopio9458/Modelo/VoltasSaidaRedutor",
+                "/RealOutputs/Telescopio9458/Voltas/DiferencaSaidaRedutor",
+                "/Telescopio9458/Inputs/PositionValid",
+                "/RealOutputs/Telescopio9458/Modelo/Valido",
+                "/RealOutputs/Telescopio9458/Limites/OperacionalVoltasMotor",
+                "/RealOutputs/Telescopio9458/Limites/OperacionalVoltasSaidaRedutor"
+              ],
+              "controllerUUID": "007857847d4543c683f6b03b35305cf1",
+              "renderer": null,
+              "controlsHeight": 0
+            },
+            {
+              "type": 4,
+              "title": "Saida da ponta - fisico e simulado (cm e m)",
+              "controller": [
+                "/RealOutputs/Telescopio9458/Comparacao/FisicoCentimetros",
+                "/RealOutputs/Telescopio9458/Comparacao/SimuladoCentimetros",
+                "/RealOutputs/Telescopio9458/Comparacao/DiferencaCentimetros",
+                "/RealOutputs/Telescopio9458/Comparacao/FisicoMetros",
+                "/RealOutputs/Telescopio9458/Comparacao/SimuladoMetros",
+                "/RealOutputs/Telescopio9458/Comparacao/DiferencaMetros",
+                "/RealOutputs/Telescopio9458/Comparacao/Valida",
+                "/RealOutputs/Telescopio9458/Modelo/ComparacaoAtiva"
+              ],
+              "controllerUUID": "ba949e3807ac4b6d959ac6f00f38f6bb",
+              "renderer": null,
+              "controlsHeight": 0
+            },
+            {
+              "type": 4,
+              "title": "Limites - margem de seguranca na ponta",
+              "controller": [
+                "/RealOutputs/Telescopio9458/Limites/MargemCentimetros",
+                "/RealOutputs/Telescopio9458/Limites/DistanciaBatenteCentimetros",
+                "/RealOutputs/Telescopio9458/Limites/OperacionalCentimetros",
+                "/RealOutputs/Telescopio9458/Limites/TalonCentimetros",
+                "/RealOutputs/Telescopio9458/Limites/FisicoCentimetros",
+                "/Telescopio9458/Inputs/PositionValid",
+                "/RealOutputs/Telescopio9458/Controle/Versao",
+                "/RealOutputs/Telescopio9458/Controle/VelocidadeMaximaMetrosPorSeg",
+                "/RealOutputs/Telescopio9458/Controle/AceleracaoMaximaMetrosPorSeg2",
+                "/RealOutputs/Telescopio9458/Controle/AproximacaoMetrosPorSeg",
+                "/RealOutputs/Telescopio9458/Controle/FaixaAproximacaoCentimetros"
+              ],
+              "controllerUUID": "722a05f6f33d41d1b200cd908b8d3e0e",
+              "renderer": null,
+              "controlsHeight": 0
+            },
+            {
+              "type": 1,
+              "title": "Saida da ponta - comparacao e limites (cm)",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio9458/Comparacao/FisicoCentimetros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#33bbff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio9458/Comparacao/SimuladoCentimetros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff9900",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio9458/Limites/OperacionalCentimetros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffcc44",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio9458/Limites/TalonCentimetros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#b88aff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio9458/Limites/FisicoCentimetros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff2222",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio9458/Comparacao/DiferencaCentimetros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#44dd88",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Telescopio9458/Comparacao/Valida",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#33bbff"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Telescopio9458/Modelo/ComparacaoAtiva",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#44dd88"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "0eb66598fda24a9b93751f92e531d016",
+              "renderer": null,
+              "controlsHeight": 235
+            },
+            {
+              "type": 1,
+              "title": "Fisico x virtual - voltas na saida do redutor",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio9458/Voltas/SaidaRedutor",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#33bbff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio9458/Modelo/VoltasSaidaRedutor",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff9900",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio9458/Voltas/DiferencaSaidaRedutor",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff2222",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Telescopio9458/Modelo/ComparacaoAtiva",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#44dd88"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "dcd884cb41184c5b965e0b619ee97230",
+              "renderer": null,
+              "controlsHeight": 235
+            },
+            {
+              "type": 1,
+              "title": "Fisico x virtual - posicao e erro",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/Telescopio9458/Inputs/ExtensionMeters",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#33bbff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio9458/Modelo/ExtensaoMetros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff9900",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio9458/MetaMetros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffcc44",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio9458/Modelo/DiferencaMetros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff2222",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Telescopio9458/Modelo/ComparacaoAtiva",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#44dd88"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Telescopio9458/Diagnostico",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff2222"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "17693739ac474b3e8d37108991b2bdf8",
+              "renderer": null,
+              "controlsHeight": 235
+            },
+            {
+              "type": 1,
+              "title": "Fisico x virtual - corrente e velocidade",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/Telescopio9458/Inputs/MotorCurrentAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff6666",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio9458/Modelo/CorrenteAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff9900",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/Telescopio9458/Inputs/VelocityMetersPerSec",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#33bbff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio9458/Modelo/VelocidadeMetrosPorSeg",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffb74d",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "2ae0e29c1e2f40faadb416c944301968",
+              "renderer": null,
+              "controlsHeight": 235
+            },
+            {
+              "type": 1,
+              "title": "Fisico x virtual - tensao e validade",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio9458/TensaoSolicitadaVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffcc44",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Telescopio9458/Inputs/AppliedVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#33bbff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio9458/Modelo/TensaoAplicadaVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff9900",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Telescopio9458/Modelo/Valido",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#44dd88"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Telescopio9458/Modelo/FonteTensao",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff9900"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "50a8f8e6c9e443dca79379b33f26c3b0",
+              "renderer": null,
+              "controlsHeight": 235
+            },
+            {
+              "type": 1,
+              "title": "Diagnostico - encoder e conexao",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/Telescopio9458/Inputs/RotorPositionRotations",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#33bbff",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/Telescopio9458/Inputs/ExtensionMeters",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#44dd88",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/Telescopio9458/Inputs/MotorConnected",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#33bbff"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/Telescopio9458/Inputs/PositionValid",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#44dd88"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/Telescopio9458/Inputs/ReferenceLostOnReset",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff2222"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/Telescopio9458/Inputs/ControlRequestOK",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffcc44"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Telescopio9458/Diagnostico",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff2222"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/Telescopio9458/Inputs/ConfigurationStatus",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#b88aff"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/Telescopio9458/Inputs/ZeroStatus",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff9900"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/Telescopio9458/Inputs/ReadStatus",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#33bbff"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/Telescopio9458/Inputs/ControlStatus",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffcc44"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Telescopio9458/Referencia/Resultado",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#44dd88"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "e456161891044b978bb11466eed6a162",
+              "renderer": null,
+              "controlsHeight": 235
+            },
+            {
+              "type": 1,
+              "title": "PID - erro e parcelas da tensao",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio9458/PID/FeedbackVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#33bbff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio9458/PID/FeedforwardVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff9900",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio9458/PID/ErroPerfilMetros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff2222",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Telescopio9458/Ajuste/Resultado",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#44dd88"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "4d533c9daf22404cae84f87605679ae8",
+              "renderer": null,
+              "controlsHeight": 235
+            },
+            {
+              "type": 10,
+              "title": "Telescopio 9458 2D",
+              "controller": [
+                {
+                  "type": "mechanism",
+                  "logKey": "/RealOutputs/Telescopio9458/Mecanismo2d",
+                  "logType": "Mechanism2d",
+                  "visible": true,
+                  "options": {}
+                }
+              ],
+              "controllerUUID": "273a7a62ed63447086bb0130ed92c4f5",
+              "renderer": null,
+              "controlsHeight": 120
+            },
+            {
+              "type": 8,
+              "title": "Controle - RT abre / LT fecha",
+              "controller": [
+                "Xbox Controller (Blue)",
+                "None",
+                "None",
+                "None",
+                "None",
+                "None"
+              ],
+              "controllerUUID": "e8c9ad6f4bb14d07810ac05dbba8960f",
+              "renderer": null,
+              "controlsHeight": 85
+            },
+            {
+              "type": 1,
+              "title": "Posicao - meta, medida e comando",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio9458/MetaMetros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffcc44",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Telescopio9458/Inputs/ExtensionMeters",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#33bbff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio9458/ReferenciaPerfilMetros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#b88aff",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Telescopio9458/Comando",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff8c00"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Telescopio9458/Estado",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#33bbff"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "bc080565f6b84fa0b554896f397e9821",
+              "renderer": null,
+              "controlsHeight": 235
+            },
+            {
+              "type": 1,
+              "title": "Estagios - cascata",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio9458/ExtensaoTubo3Metros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff9900",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio9458/ExtensaoTubo2Metros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#44dd88",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio9458/ExtensaoMetros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#4088ff",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio9458/Voltas/Motor",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#cccccc",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "8dba7745157d41268f42eb08e97e3836",
+              "renderer": null,
+              "controlsHeight": 235
+            },
+            {
+              "type": 1,
+              "title": "Motor - corrente e protecoes",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio9458/TensaoSolicitadaVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffcc44",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Telescopio9458/Inputs/AppliedVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#33bbff",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/Telescopio9458/Inputs/MotorCurrentAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff6666",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio9458/Protecao/LimiteCorrenteEstatorAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff2222",
+                      "size": "bold"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/Telescopio9458/Inputs/StatorCurrentLimitActive",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff6666"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Telescopio9458/Protecao/Travado",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff2222"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Telescopio9458/Protecao/LimiteTopoAtivo",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffcc44"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "0bdad69d2c9b49f6a66169286a7ebf3c",
+              "renderer": null,
+              "controlsHeight": 235
+            },
+            {
+              "type": 1,
+              "title": "Velocidade da ponta",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/Telescopio9458/Inputs/VelocityMetersPerSec",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#44dd88",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [],
+                "discreteSources": [],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "deaf7522970543e7a275c2152e4c8834",
+              "renderer": null,
+              "controlsHeight": 235
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "satellites": [],
+  "version": "26.0.0"
+}

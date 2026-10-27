@@ -1,0 +1,257 @@
+{
+  "records": 11084,
+  "mechanismKey": "/RealOutputs/Telescopio/Mecanismo2d",
+  "parser": "getMechanismState do AdvantageScope 26.0.0 instalado",
+  "frames": [
+    {
+      "seconds": 0,
+      "expectedExtension": 0,
+      "height": 0.8625,
+      "state": {
+        "backgroundColor": "#202934",
+        "dimensions": [
+          1.5,
+          2.4
+        ],
+        "lines": [
+          {
+            "start": [
+              0.75,
+              0.1
+            ],
+            "end": [
+              0.75,
+              0.904
+            ],
+            "color": "#4088ff",
+            "weight": 14
+          },
+          {
+            "start": [
+              0.75,
+              0.904
+            ],
+            "end": [
+              0.75,
+              0.9440000000000001
+            ],
+            "color": "#ff9900",
+            "weight": 10
+          },
+          {
+            "start": [
+              0.75,
+              0.9440000000000001
+            ],
+            "end": [
+              0.75,
+              0.9625
+            ],
+            "color": "#44dd88",
+            "weight": 6
+          }
+        ]
+      }
+    },
+    {
+      "seconds": 6,
+      "expectedExtension": 0.624,
+      "height": 1.4865,
+      "state": {
+        "backgroundColor": "#202934",
+        "dimensions": [
+          1.5,
+          2.4
+        ],
+        "lines": [
+          {
+            "start": [
+              0.75,
+              0.1
+            ],
+            "end": [
+              0.75,
+              0.904
+            ],
+            "color": "#4088ff",
+            "weight": 14
+          },
+          {
+            "start": [
+              0.75,
+              0.904
+            ],
+            "end": [
+              0.75,
+              1.568
+            ],
+            "color": "#ff9900",
+            "weight": 10
+          },
+          {
+            "start": [
+              0.75,
+              1.568
+            ],
+            "end": [
+              0.75,
+              1.5865
+            ],
+            "color": "#44dd88",
+            "weight": 6
+          }
+        ]
+      }
+    },
+    {
+      "seconds": 10,
+      "expectedExtension": 1.252,
+      "height": 2.1145,
+      "state": {
+        "backgroundColor": "#202934",
+        "dimensions": [
+          1.5,
+          2.4
+        ],
+        "lines": [
+          {
+            "start": [
+              0.75,
+              0.1
+            ],
+            "end": [
+              0.75,
+              0.904
+            ],
+            "color": "#4088ff",
+            "weight": 14
+          },
+          {
+            "start": [
+              0.75,
+              0.904
+            ],
+            "end": [
+              0.75,
+              1.568
+            ],
+            "color": "#ff9900",
+            "weight": 10
+          },
+          {
+            "start": [
+              0.75,
+              1.568
+            ],
+            "end": [
+              0.75,
+              2.2145
+            ],
+            "color": "#44dd88",
+            "weight": 6
+          }
+        ]
+      }
+    },
+    {
+      "seconds": 14,
+      "expectedExtension": 0.624,
+      "height": 1.4865,
+      "state": {
+        "backgroundColor": "#202934",
+        "dimensions": [
+          1.5,
+          2.4
+        ],
+        "lines": [
+          {
+            "start": [
+              0.75,
+              0.1
+            ],
+            "end": [
+              0.75,
+              0.904
+            ],
+            "color": "#4088ff",
+            "weight": 14
+          },
+          {
+            "start": [
+              0.75,
+              0.904
+            ],
+            "end": [
+              0.75,
+              1.568
+            ],
+            "color": "#ff9900",
+            "weight": 10
+          },
+          {
+            "start": [
+              0.75,
+              1.568
+            ],
+            "end": [
+              0.75,
+              1.5865
+            ],
+            "color": "#44dd88",
+            "weight": 6
+          }
+        ]
+      }
+    },
+    {
+      "seconds": 18,
+      "expectedExtension": 0,
+      "height": 0.8625,
+      "state": {
+        "backgroundColor": "#202934",
+        "dimensions": [
+          1.5,
+          2.4
+        ],
+        "lines": [
+          {
+            "start": [
+              0.75,
+              0.1
+            ],
+            "end": [
+              0.75,
+              0.904
+            ],
+            "color": "#4088ff",
+            "weight": 14
+          },
+          {
+            "start": [
+              0.75,
+              0.904
+            ],
+            "end": [
+              0.75,
+              0.9440000000000001
+            ],
+            "color": "#ff9900",
+            "weight": 10
+          },
+          {
+            "start": [
+              0.75,
+              0.9440000000000001
+            ],
+            "end": [
+              0.75,
+              0.9625
+            ],
+            "color": "#44dd88",
+            "weight": 6
+          }
+        ]
+      }
+    }
+  ]
+}

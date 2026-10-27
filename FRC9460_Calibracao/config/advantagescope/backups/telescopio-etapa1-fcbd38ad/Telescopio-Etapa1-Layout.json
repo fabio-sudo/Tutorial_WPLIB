@@ -1,0 +1,102 @@
+{
+  "hubs": [
+    {
+      "x": -8,
+      "y": -8,
+      "width": 1552,
+      "height": 832,
+      "state": {
+        "sidebar": {
+          "width": 300,
+          "expanded": [
+            "/RealOutputs",
+            "/RealOutputs/Telescopio"
+          ]
+        },
+        "tabs": {
+          "selected": 0,
+          "tabs": [
+            {
+              "type": 3,
+              "title": "TELESCOPIO - Etapa 1 visual",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Telescopio/BasePose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Telescopio - Etapa 1"
+                    }
+                  },
+                  {
+                    "type": "component",
+                    "logKey": "/RealOutputs/Telescopio/Componentes",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {}
+                  }
+                ],
+                "game": "FRC:Axes"
+              },
+              "controllerUUID": "6b44c0a2b6274fc5b464efadf8b5f1db",
+              "renderer": {
+                "cameraIndex": -2,
+                "orbitFov": 50,
+                "cameraPosition": [
+                  2.0,
+                  1.2,
+                  2.6
+                ],
+                "cameraTarget": [
+                  0,
+                  1.0,
+                  0
+                ]
+              },
+              "controlsHeight": 180
+            },
+            {
+              "type": 1,
+              "title": "TELESCOPIO - Extensao visual (m)",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio/ExtensaoVisualMetros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff8c00",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [],
+                "discreteSources": [],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "88f4de258c57479e901b119043956b41",
+              "renderer": null,
+              "controlsHeight": 235
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "satellites": [],
+  "version": "26.0.0"
+}

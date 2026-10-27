@@ -1,0 +1,45 @@
+{
+  "name": "FRC9458 - Telescopio",
+  "isFTC": false,
+  "disableSimplification": false,
+  "rotations": [
+    {
+      "axis": "x",
+      "degrees": -90
+    }
+  ],
+  "position": [
+    -0.3121,
+    -0.1889,
+    0.4007
+  ],
+  "cameras": [],
+  "components": [
+    {
+      "zeroedRotations": [
+        {
+          "axis": "x",
+          "degrees": -90
+        }
+      ],
+      "zeroedPosition": [
+        -0.3121,
+        -0.1889,
+        0.4007
+      ]
+    },
+    {
+      "zeroedRotations": [
+        {
+          "axis": "x",
+          "degrees": -90
+        }
+      ],
+      "zeroedPosition": [
+        -0.3121,
+        -0.1889,
+        0.4007
+      ]
+    }
+  ]
+}

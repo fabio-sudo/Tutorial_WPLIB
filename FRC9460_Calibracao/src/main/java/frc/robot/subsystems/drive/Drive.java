@@ -116,6 +116,8 @@ public class Drive extends SubsystemBase {
         private static final Pose2d SIM_INITIAL_POSE =
                         new Pose2d(2.0, 2.0, new Rotation2d());
         private boolean simulationReferenceEnabled = false;
+        private final DriveStartupInputsAutoLogged startupInputs = new DriveStartupInputsAutoLogged();
+        private boolean startupPoseApplied = false;
         private SwerveDriveOdometry simulationOdometry;
         private Pose2d simulationPose = SIM_INITIAL_POSE;
         // #endregion
@@ -415,6 +417,9 @@ public class Drive extends SubsystemBase {
                                 Math.toDegrees(
                                                 gyroInputs.yawPositionRad));
                 // ==========================================================
+                // A escolha inicial também é um input: no replay ela vem do log.
+                // Não usamos Robot/Pose gravada para alimentar o novo estimador.
+                updateStartupPose();
                 // Sensores já foram lidos. Atualiza a referência antes do estimador.
                 updateSimulationReference();
                 // 4 - ODOMETRIA
@@ -747,6 +752,22 @@ public class Drive extends SubsystemBase {
         // #endregion
 
         // #region ATUALIZAÇÃO DA REFERÊNCIA SIMULADA
+        private void updateStartupPose() {
+                if (!Logger.hasReplaySource()) {
+                        startupInputs.initializeSimulationPose = simulationReferenceEnabled;
+                        startupInputs.initialPose = simulationReferenceEnabled ? SIM_INITIAL_POSE : new Pose2d();
+                }
+                Logger.processInputs("Drive/Startup", startupInputs);
+                if (!startupPoseApplied && startupInputs.initializeSimulationPose && isGyroHealthy()) {
+                        // Executa uma vez, inclusive quando o gyro só fica saudável
+                        // depois da primeira leitura. O robô real mantém sua inicialização.
+                        poseEstimator.resetPosition(getRawGyroRotation(), getModulePositions(), startupInputs.initialPose);
+                        pose = poseEstimator.getEstimatedPosition();
+                        startupPoseApplied = true;
+                        clearVisionHistoryAfterReset();
+                }
+        }
+
         private void updateSimulationReference() {
                 if (!simulationReferenceEnabled || !RobotBase.isSimulation()
                                 || Logger.hasReplaySource() || !isGyroHealthy()) {
@@ -757,11 +778,8 @@ public class Drive extends SubsystemBase {
                 if (simulationOdometry == null) {
                         simulationOdometry = new SwerveDriveOdometry(
                                         kinematics, gyro, positions, SIM_INITIAL_POSE);
-                        // Alinhamento inicial único. Resets posteriores do estimador
-                        // não teletransportam o robô virtual nem suas câmeras.
-                        poseEstimator.resetPosition(gyro, positions, SIM_INITIAL_POSE);
-                        pose = poseEstimator.getEstimatedPosition();
-                        clearVisionHistoryAfterReset();
+                        // O alinhamento do estimador é feito uma única vez por
+                        // updateStartupPose; esta odometria continua independente.
                 }
                 simulationPose = simulationOdometry.update(gyro, positions);
                 Logger.recordOutput("Drive/Simulation/ReferencePose", simulationPose);
@@ -872,8 +890,9 @@ public class Drive extends SubsystemBase {
                         return rejectVision("NO_ODOMETRY_AT_CAPTURE");
                 }
 
-                // MegaTag2 usa o yaw que fornecemos. Não tratamos esse yaw como uma
-                // segunda medição independente do Pigeon. Mantemos o heading histórico.
+                // Este projeto funde somente X/Y, tanto para MegaTag2 quanto para
+                // PhotonLib. O heading permanece no histórico do giroscópio.
+                // O yaw visual continua disponível nos logs para diagnóstico.
                 Pose2d translationOnly = new Pose2d(
                                 visionPose.getTranslation(), atCapture.get().getRotation());
                 poseEstimator.addVisionMeasurement(translationOnly, timestampSeconds,
@@ -937,6 +956,20 @@ public class Drive extends SubsystemBase {
 
         public long getVisionAcceptedCount(String cameraName) {
                 return visionAcceptedByCamera.getOrDefault(cameraName, 0L);
+        }
+
+        /**
+         * A Limelight corrigiu a pose ao menos uma vez desde o último reset.
+         * O shooter exige isso antes de mirar pela pose de campo.
+         */
+        public boolean hasVisionCorrectionSinceReset() {
+                return Double.isFinite(lastVisionTimestamp);
+        }
+
+        /** Velocidade medida pelas rodas, no referencial do campo. */
+        public ChassisSpeeds getFieldRelativeSpeeds() {
+                return ChassisSpeeds.fromRobotRelativeSpeeds(
+                                kinematics.toChassisSpeeds(getModuleStates()), getRotation());
         }
 
         // #endregion

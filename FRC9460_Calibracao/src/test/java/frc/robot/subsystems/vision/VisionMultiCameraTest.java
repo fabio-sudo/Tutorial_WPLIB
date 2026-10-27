@@ -4,13 +4,18 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import edu.wpi.first.hal.HAL;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.wpilibj.simulation.DriverStationSim;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.drive.GyroIO;
 import frc.robot.subsystems.drive.ModuleIO;
+import frc.robot.subsystems.vision.VisionIO.PoseObservation;
+import frc.robot.subsystems.vision.VisionIO.PoseObservationType;
+import org.littletonrobotics.junction.LogTable;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -305,6 +310,175 @@ class VisionMultiCameraTest {
         tick(10.49);
         tick(10.62);
         assertEquals(0, drive.getVisionAcceptedCount("Rear"));
+    }
+
+    private PoseObservation photon(double x, double timestamp, int tagCount, double ambiguity) {
+        return new PoseObservation(timestamp,
+                new Pose3d(x, 0.5, 0.0, new Rotation3d()), ambiguity,
+                tagCount, 1.8, PoseObservationType.PHOTONVISION);
+    }
+
+    @Test
+    void photonCamerasSeeingDifferentTagsAtSameTimeBothContribute() {
+        rear.publishObservation(photon(1.0, 10.08, 2, 0), 25, 20);
+        front.publishObservation(photon(1.02, 10.08, 2, 0), 9, 20);
+        vision.periodic();
+        tick(10.20);
+        assertEquals(1, drive.getVisionAcceptedCount("Rear"));
+        assertEquals(1, drive.getVisionAcceptedCount("Front"));
+        assertTrue(drive.getPose().getX() > 0.1);
+        assertEquals(0, drive.getPoseResetGeneration());
+    }
+
+    @Test
+    void allPhotonFramesInOneBatchAreSortedAndDuplicatesAreNotAppliedTwice() {
+        var latest = photon(1.0, 10.08, 2, 0.0);
+        rear.publishObservation(latest, 25, 20.0);
+        rear.publishObservation(photon(1.0, 10.04, 2, 0.0), 25, 60.0);
+        rear.publishObservation(photon(1.0, 10.06, 2, 0.0), 25, 40.0);
+        rear.publishObservation(latest, 25, 20.0);
+        // A última observação é inválida. Não pode apagar as três anteriores.
+        rear.publishObservation(photon(1.0, 10.50, 2, 0.0), 25, 0.0);
+        vision.periodic();
+        tick(10.25);
+        assertEquals(3, drive.getVisionAcceptedCount("Rear"));
+        Pose2d corrected = drive.getPose();
+        tick(10.27);
+        assertEquals(3, drive.getVisionAcceptedCount("Rear"));
+        assertEquals(corrected, drive.getPose());
+    }
+
+    @Test
+    void ambiguousSingleTagCannotBlockAnotherCameraAndCanRecover() {
+        rear.publishObservation(photon(1.0, 10.08, 1, 0.8), 25, 20.0);
+        front.publishObservation(photon(1.0, 10.08, 2, 0.8), 9, 20.0);
+        vision.periodic();
+        tick(10.20);
+        assertEquals(0, drive.getVisionAcceptedCount("Rear"));
+        assertEquals(1, drive.getVisionAcceptedCount("Front"));
+        rear.publishObservation(photon(1.0, 10.18, 1, 0.05), 25, 20.0);
+        vision.periodic();
+        tick(10.31);
+        assertEquals(1, drive.getVisionAcceptedCount("Rear"));
+    }
+
+    @Test
+    void photonGeometryAndNumericalOutliersCannotPoisonHealthyFrames() {
+        Pose3d[] invalidPoses = {
+            new Pose3d(1, 0.5, 1.0, new Rotation3d()),
+            new Pose3d(1, 0.5, 0, new Rotation3d(Math.toRadians(45), 0, 0)),
+            new Pose3d(-1, 0.5, 0, new Rotation3d()),
+            new Pose3d(1, VisionFieldConstants.FIELD_WIDTH_METERS + 1, 0, new Rotation3d()),
+            new Pose3d(Double.NaN, 0.5, 0, new Rotation3d())
+        };
+        for (int i = 0; i < invalidPoses.length; i++) {
+            rear.publishObservation(new PoseObservation(10.01 + 0.01 * i,
+                    invalidPoses[i], 0.0, 2, 1.8, PoseObservationType.PHOTONVISION), 25, 20);
+        }
+        rear.publishObservation(new PoseObservation(10.07,
+                new Pose3d(1, 0.5, 0, new Rotation3d()), 0, 2, Double.NaN,
+                PoseObservationType.PHOTONVISION), 25, 20);
+        front.publishObservation(photon(1, 10.08, 2, 0), 9, 20);
+        vision.periodic();
+        tick(10.25);
+        assertEquals(0, drive.getVisionAcceptedCount("Rear"));
+        assertEquals(1, drive.getVisionAcceptedCount("Front"));
+        assertTrue(Double.isFinite(drive.getPose().getX()));
+    }
+
+    @Test
+    void cameraDisconnectWhileReorderingDoesNotApplyPendingObservations() {
+        rear.publishObservation(photon(1, 10.08, 2, 0), 25, 20);
+        front.publishObservation(photon(1, 10.08, 2, 0), 9, 20);
+        vision.periodic();
+        front.setConnected(false);
+        tick(10.20);
+        assertEquals(1, drive.getVisionAcceptedCount("Rear"));
+        assertEquals(0, drive.getVisionAcceptedCount("Front"));
+        front.setConnected(true);
+        front.publishObservation(photon(1, 10.18, 2, 0), 9, 20);
+        vision.periodic();
+        tick(10.31);
+        assertEquals(1, drive.getVisionAcceptedCount("Front"));
+    }
+
+    @Test
+    void photonCorrectionUsesCaptureHistoryAndPreservesGyroHeading() {
+        rear.publishObservation(new PoseObservation(10.08,
+                new Pose3d(1, 0, 0, new Rotation3d(0, 0, Math.PI / 2)),
+                0, 2, 1.8, PoseObservationType.PHOTONVISION), 25, 20);
+        vision.periodic();
+        // Um metro percorrido depois da captura deve permanecer na pose atual.
+        for (var module : modules) module.distanceMeters = 1.0;
+        tick(10.20);
+        assertEquals(1, drive.getVisionAcceptedCount("Rear"));
+        assertTrue(drive.getPose().getX() > 1.1);
+        assertEquals(0.0, drive.getRotation().getRadians(), 1e-9);
+    }
+
+    @Test
+    void individualLimelightInputsRemainCompatibleWithBatchConsumer() {
+        VisionIO individual = new VisionIO() {
+            public void updateInputs(VisionIOInputs inputs) {
+                inputs.connected = true;
+                inputs.hasPoseEstimate = true;
+                inputs.hasPose = true;
+                inputs.hasTarget = true;
+                inputs.pose = new Pose2d(1, 0, new Rotation2d());
+                inputs.tagCount = 2;
+                inputs.avgTagDistanceMeters = 1.8;
+                inputs.captureTimestampSeconds = 10.08;
+                inputs.readTimestampSeconds = now;
+            }
+        };
+        vision = new Vision(drive, () -> now, new VisionCamera("Individual", individual));
+        vision.periodic();
+        tick(10.20);
+        tick(10.22);
+        assertEquals(1, drive.getVisionAcceptedCount("Individual"));
+        assertTrue(drive.getPose().getX() > 0.1);
+    }
+
+    @Test
+    void emptyBatchNeverFallsBackToIndividualPoseFields() {
+        VisionIO emptyBatch = new VisionIO() {
+            public void updateInputs(VisionIOInputs inputs) {
+                inputs.connected = true;
+                inputs.usesObservationBatch = true;
+                inputs.hasPoseEstimate = true;
+                inputs.hasPose = true;
+                inputs.pose = new Pose2d(10, 0, new Rotation2d());
+                inputs.tagCount = 2;
+                inputs.avgTagDistanceMeters = 1.8;
+                inputs.captureTimestampSeconds = now - 0.02;
+                inputs.readTimestampSeconds = now;
+            }
+        };
+        vision = new Vision(drive, () -> now, new VisionCamera("Empty", emptyBatch));
+        vision.periodic();
+        tick(10.25);
+        assertEquals(0, drive.getVisionAcceptedCount("Empty"));
+        assertEquals(0.0, drive.getPose().getX(), 1e-9);
+    }
+
+    @Test
+    void observationsRecoveredFromAdvantageKitLogReachDriveExactlyOnce() {
+        var recorded = new VisionIOInputsAutoLogged();
+        rear.publishObservation(photon(1, 10.08, 2, 0), 25, 20);
+        rear.updateInputs(recorded);
+        var table = new LogTable(10_100_000);
+        recorded.toLog(table);
+        VisionIO loggedInputs = new VisionIO() {
+            public void updateInputs(VisionIOInputs inputs) {
+                ((VisionIOInputsAutoLogged) inputs).fromLog(table);
+            }
+        };
+        vision = new Vision(drive, () -> now, new VisionCamera("Logged", loggedInputs));
+        vision.periodic();
+        tick(10.20);
+        tick(10.22);
+        assertEquals(1, drive.getVisionAcceptedCount("Logged"));
+        assertTrue(drive.getPose().getX() > 0.1);
     }
 
     static class SensorGyro implements GyroIO {

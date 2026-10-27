@@ -1,0 +1,45 @@
+{
+  "source": "C:\\Users\\Admin\\Desktop\\Tutorial WPLIB\\Tutorial_WPLIB\\FRC9460_Calibracao\\config\\advantagescope\\modelo_original\\Mechanism\\Telescopio.glb",
+  "sourceSha256": "158aecdd42aa5904c1561da6f7c0082317564d37eeb6f41e105faaf9b741a5bf",
+  "files": {
+    "model.glb": {
+      "stage": 1,
+      "triangles": 1151304,
+      "bytes": 23660308
+    },
+    "model_0.glb": {
+      "stage": 2,
+      "triangles": 54080,
+      "bytes": 584208
+    },
+    "model_1.glb": {
+      "stage": 3,
+      "triangles": 15664,
+      "bytes": 235436
+    }
+  },
+  "demonstrationOnly": true,
+  "userParameters": {
+    "motor": "Kraken X44",
+    "motorCount": 1,
+    "gearReduction": 5.0,
+    "initialMovingMassKg": 5.0,
+    "drumDiameterMeters": 0.035,
+    "reportedTravelMeters": 0.624,
+    "travelInterpretation": "awaiting total-tip or per-stage confirmation"
+  },
+  "previewRetractionPerStageMeters": 0.25,
+  "pivotsInStandaloneFrameMeters": [
+    [
+      -0.016200607661327762,
+      -0.04515224914169346,
+      1.0852325230899238
+    ],
+    [
+      -0.008905774943281507,
+      -0.04515224914169342,
+      1.7549012160752977
+    ]
+  ],
+  "sourceUnchanged": true
+}
