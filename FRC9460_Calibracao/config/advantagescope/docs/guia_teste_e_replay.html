@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Guia de teste e replay</title>
+<style>
+  :root {
+    --ink: #17202e; --muted: #566171; --line: #d7dce3; --bg: #f3f4f6; --card: #ffffff;
+    --robot: #b8430f; --robot-soft: #fff0e6; --pc: #0a6a94; --pc-soft: #e4f2f9; --dark: #1b2533;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { width: 2339px; padding: 46px 52px 30px; background: var(--bg); color: var(--ink);
+         font: 23px/1.34 "Segoe UI", Arial, sans-serif; }
+  header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px; }
+  h1 { font-size: 48px; line-height: 1.1; letter-spacing: -0.5px; }
+  header p { color: var(--muted); font-size: 25px; margin-top: 6px; }
+  .legend { display: flex; gap: 12px; }
+  .tag { font-size: 19px; font-weight: 700; letter-spacing: .4px; padding: 4px 12px; border-radius: 6px; white-space: nowrap; }
+  .tag.robot { color: var(--robot); background: var(--robot-soft); }
+  .tag.pc { color: var(--pc); background: var(--pc-soft); }
+
+  .ring { display: grid; grid-template-columns: 1fr 62px 1fr 62px 1fr; grid-template-rows: auto 60px auto; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px 24px 20px; }
+  .card.robot { border-top: 6px solid var(--robot); }
+  .card.pc { border-top: 6px solid var(--pc); }
+  .head { display: flex; align-items: center; gap: 13px; margin-bottom: 9px; }
+  .num { width: 42px; height: 42px; border-radius: 50%; color: #fff; font-size: 24px; font-weight: 700;
+         display: flex; align-items: center; justify-content: center; flex: none; }
+  .robot .num { background: var(--robot); }
+  .pc .num { background: var(--pc); }
+  h2 { font-size: 30px; line-height: 1.15; flex: 1; }
+  ul, ol { padding-left: 25px; }
+  li { margin-bottom: 5px; }
+  li::marker { color: var(--muted); font-weight: 600; }
+  code { font: 20px/1.3 Consolas, "Courier New", monospace; background: #edeff3; padding: 1px 6px; border-radius: 4px;
+         overflow-wrap: anywhere; }
+  .note { color: var(--muted); font-size: 20.5px; margin-top: 6px; }
+  .cmd { background: var(--dark); color: #e9eef5; font: 20px/1.38 Consolas, "Courier New", monospace;
+         padding: 8px 14px; border-radius: 7px; margin: 5px 0 2px; overflow-wrap: anywhere; }
+  .keys { display: grid; grid-template-columns: auto 1fr auto 1fr auto 1fr; gap: 6px 10px; align-items: center; margin-top: 8px;
+          padding-top: 9px; border-top: 1px solid var(--line); font-size: 21px; }
+  .key { background: var(--dark); color: #fff; font-weight: 700; font-size: 19px; text-align: center; border-radius: 6px; padding: 1px 9px; }
+  .arrow { display: flex; align-items: center; justify-content: center; color: #7b8695; flex-direction: column; }
+  .arrow svg { width: 42px; height: 42px; }
+  .arrow.loop { color: var(--pc); flex-direction: row; gap: 10px; font-weight: 700; font-size: 22px; }
+
+  h3 { font-size: 30px; margin: 24px 0 11px; }
+  .tables { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+  table { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  th { text-align: left; background: var(--dark); color: #fff; font-size: 21px; padding: 7px 15px; }
+  td { padding: 8px 15px; border-top: 1px solid var(--line); vertical-align: top; font-size: 21.5px; line-height: 1.26; }
+  tr:nth-child(even) td { background: #f8f9fb; }
+  td:first-child { font-weight: 600; width: 27%; }
+  td:nth-child(2) { width: 30%; }
+  footer { color: var(--muted); font-size: 19px; margin-top: 10px; display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>FRC 9460: do robô ligado ao replay</h1>
+    <p>Siga os números. Cada volta do ciclo resolve um problema de cada vez.</p>
+  </div>
+  <div class="legend"><span class="tag robot">NO ROBÔ</span><span class="tag pc">NO COMPUTADOR</span></div>
+</header>
+
+<section class="ring">
+  <article class="card robot" style="grid-area: 1 / 1">
+    <div class="head"><span class="num">1</span><h2>Antes de ligar</h2></div>
+    <ul>
+      <li><b>Pendrive no roboRIO.</b> Sem ele, o log tem pouco espaço e pode nem gravar.</li>
+      <li><b>Bateria carregada.</b> Nos testes ela caiu até 7,4&nbsp;V, e o RPM cai junto.</li>
+      <li><b>Shooter centralizado à mão.</b></li>
+      <li><b>Intake fechada à mão.</b></li>
+    </ul>
+    <p class="note">O zero é marcado ao ligar: fora do lugar, a mira já nasce errada.</p>
+  </article>
+
+  <div class="arrow" style="grid-area: 1 / 2"><svg viewBox="0 0 42 42" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21h31M25 10l11 11-11 11"/></svg></div>
+
+  <article class="card robot" style="grid-area: 1 / 3">
+    <div class="head"><span class="num">2</span><h2>Ao ligar, ainda desabilitado</h2></div>
+    <ul>
+      <li>No console da Driver Station, confira: <code>[AdvantageKit] Logging to "/U/logs/..."</code></li>
+      <li>Deixe o robô <b>parado vendo 2 tags</b>: a pose se acerta sozinha.</li>
+      <li>Sem tags? Acerte o heading: <code>Start + A</code> frente para a parede azul, <code>Start + Y</code> frente para +X.</li>
+      <li>Elastic, painel <code>FRC9460-Analise</code>: tela <b>01</b> toda verde e, na tela <b>02</b>, o robô no lugar certo do mapa.</li>
+    </ul>
+  </article>
+
+  <div class="arrow" style="grid-area: 1 / 4"><svg viewBox="0 0 42 42" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21h31M25 10l11 11-11 11"/></svg></div>
+
+  <article class="card robot" style="grid-area: 1 / 5">
+    <div class="head"><span class="num">3</span><h2>Usando o robô</h2></div>
+    <ul>
+      <li><b>Uma mudança por teste.</b> Não mexa em constantes no meio da série.</li>
+      <li><b>10 tiros por posição</b>, com distância medida: de frente, na diagonal e de lado.</li>
+      <li>Anote cada tiro em <code>/Tuning/Fuel/AnotarTiroReal</code>: Acertou, ErrouCurto, ErrouLongo ou ErrouDoLado.</li>
+    </ul>
+    <div class="keys">
+      <span class="key">B</span><span>mira e atira</span><span class="key">L2</span><span>só mira</span><span class="key">R2</span><span>rolete</span>
+      <span class="key">R1</span><span>desce intake</span><span class="key">L1</span><span>sobe intake</span><span></span><span class="note" style="margin:0">segure o botão</span>
+    </div>
+  </article>
+
+  <div class="arrow loop" style="grid-area: 2 / 1"><svg viewBox="0 0 42 42" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 37V6M10 17L21 6l11 11"/></svg><span>próximo teste</span></div>
+  <div class="arrow" style="grid-area: 2 / 5"><svg viewBox="0 0 42 42" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 5v31M10 25l11 11 11-11"/></svg></div>
+
+  <article class="card pc" style="grid-area: 3 / 1">
+    <div class="head"><span class="num">6</span><h2>Analisar e ajustar</h2></div>
+    <ul>
+      <li>Encontre o problema na tabela abaixo.</li>
+      <li>Mude <b>uma</b> constante no código.</li>
+      <li>Rode o replay de novo e veja o que o código novo <b>pediria</b> com os mesmos sensores.</li>
+      <li>Faça o deploy. <b>Só o próximo teste no robô prova</b> que funcionou.</li>
+    </ul>
+    <p class="note">O replay não refaz o movimento do robô nem o voo da bola.</p>
+  </article>
+
+  <div class="arrow" style="grid-area: 3 / 2"><svg viewBox="0 0 42 42" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M37 21H6M17 10L6 21l11 11"/></svg></div>
+
+  <article class="card pc" style="grid-area: 3 / 3">
+    <div class="head"><span class="num">5</span><h2>Gerar o replay</h2></div>
+    <ol>
+      <li>VS Code: <b>Terminal &gt; New Terminal</b>, e rode:
+        <div class="cmd">powershell -ExecutionPolicy Bypass -File config\validacao\replay_robo.ps1 -Log "C:\caminho\log.wpilog"</div></li>
+      <li>Espere <code>Replay concluido:</code>. O resultado sai em <code>outputs/replay/&lt;data&gt;/</code></li>
+      <li>AdvantageScope: <b>File &gt; Open Log(s)</b> e abra o <code>_replay.wpilog</code></li>
+      <li><b>File &gt; Import Layout</b>: <code>FRC9460-Replay.json</code></li>
+    </ol>
+  </article>
+
+  <div class="arrow" style="grid-area: 3 / 4"><svg viewBox="0 0 42 42" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M37 21H6M17 10L6 21l11 11"/></svg></div>
+
+  <article class="card robot" style="grid-area: 3 / 5">
+    <div class="head"><span class="num">4</span><h2>Ao terminar</h2></div>
+    <ul>
+      <li>Desabilite e espere alguns segundos antes de desligar.</li>
+      <li><b>Com pendrive:</b> tire e copie a pasta <code>logs</code> para o PC.</li>
+      <li><b>Sem pendrive:</b> robô ligado, AdvantageScope, <b>File &gt; Download Logs</b>, pasta <code>/home/lvuser/logs/advantagekit</code></li>
+      <li>Anote qual log é de qual teste. O nome tem a hora UTC, 3 h à frente do Brasil: <code style="white-space: nowrap">FRC9460_26-10-30_15-38-07</code> é 12:38.</li>
+    </ul>
+  </article>
+</section>
+
+<h3>Se aconteceu isto</h3>
+<div class="tables">
+<table>
+  <tr><th>Problema</th><th>Onde olhar</th><th>O que fazer</th></tr>
+  <tr><td>Tiro curto ou longo, sempre igual</td><td><code>ConsistenciaDeTiro</code>, abas C6 e C7</td><td>Ajustar <code>TOP_FORCE_SCALE</code></td></tr>
+  <tr><td>Tiros espalhados, cada um num lugar</td><td>Abas C3 e C4, e a bateria</td><td>Mecânica, bateria e ritmo de alimentação. Mexer na curva de RPM não resolve.</td></tr>
+  <tr><td>Erra de lado ou na diagonal</td><td><code>Campo2D3D</code>, aba 2D - Pose. Gire o robô 0°, +45° e −45° no mesmo ponto.</td><td>Medir <code>SHOOTER_OFFSET_*</code> com trena; depois, redução e zero do pivô</td></tr>
+  <tr><td>RPM do top diferente do pedido</td><td>Aba C1: <code>RpmEsquerdo ÷ AlvoRpm</code></td><td>Ajustar kV e <code>TOP_FORCE_SCALE</code> juntos (guia <code>CONSTANCIA_DE_TIRO.md</code>)</td></tr>
+  <tr><td>Pose errada ou sem correção</td><td><code>Vision/Diagnostico</code>; <code>PoseLimelight</code>, abas P1 e P5</td><td>Heading (<code>Start + A</code>), câmera e tags à vista</td></tr>
+</table>
+<table>
+  <tr><th>Problema</th><th>Onde olhar</th><th>O que fazer</th></tr>
+  <tr><td>Tiro não sai</td><td>Elastic, tela 03: estado do disparo</td><td><code>HUB_FORA_DO_CURSO</code>: gire o robô. <code>LONGE_DEMAIS</code>: chegue perto. <code>AGUARDANDO_LIMELIGHT</code>: mostre tags à câmera.</td></tr>
+  <tr><td>Ruído com pivô ou intake parados</td><td>Elastic, tela 04</td><td><code>PIVOT_NEUTRAL_DEADBAND</code> e <code>HOLD_NEUTRAL_DEADBAND</code></td></tr>
+  <tr><td><code>ZERO_PERDIDO</code> ou motor reiniciou</td><td>Elastic, tela 01</td><td>Desabilite, ajuste à mão e zere no controle do operador: <code>Back + Start</code> pivô, <code>Back + Y</code> intake</td></tr>
+  <tr><td>Travadas ou <code>loop overrun</code></td><td>Elastic, tela 05</td><td>Confira a bateria e guarde o log: ele mostra o que reduzir</td></tr>
+  <tr><td><code>Log NÃO está gravando</code></td><td>Console da Driver Station</td><td>Coloque o pendrive, ou baixe e apague os logs do roboRIO</td></tr>
+</table>
+</div>
+<footer><span>Robô: 10.94.60.2 · Layouts em config/advantagescope/layouts · Painéis em config/elastic/layouts</span><span>Detalhes: config/advantagescope/docs/VALIDACAO_ROBO.md</span></footer>
+</body>
+</html>

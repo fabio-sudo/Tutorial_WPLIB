@@ -10,7 +10,8 @@
   PhotonLib nem cria dispositivos CAN ou sensores simulados de motores.
   A fila de visão, os filtros e o estimador do Drive são recalculados.
 
-`LoggingConstants` guarda o modo padrão, a pasta de gravação e o sufixo de saída.
+`LoggingConstants` guarda o modo padrão, a pasta de gravação e o sufixo de saída;
+`LoggingSetup` usa esses valores para escolher o modo e validar o log do replay.
 O desktop continua em SIM. No roboRIO, a execução continua sempre em REAL.
 Não é preciso alterar o código para trocar o modo durante uma análise.
 
@@ -34,6 +35,14 @@ No terminal WPILib do projeto, execute, substituindo pelo caminho do seu arquivo
 ```powershell
 .\gradlew.bat simulateJava '-PreplayLog=C:/caminho/coleta.wpilog' --offline --console=plain
 ```
+
+Feche a simulação antes de rodar. Com ela aberta, o log ainda está sendo gravado e o
+replay só cobre o que já foi escrito: em 31/10/2026 ele cobriu 80,8% do log.
+
+Mais fácil: dê dois cliques em `salvar_replay.bat`, na raiz do projeto. Ele usa o log mais
+recente de `logs/simulacao`, ou o `.wpilog` que você arrastar sobre ele, e recusa um log
+que ainda está sendo gravado. Cada replay fica em uma pasta própria em `logs/replay/`, com uma cópia
+do log lido.
 
 O argumento deve ser passado inteiro, entre aspas, se o caminho tiver espaços.
 O Gradle seleciona REPLAY e desativa a GUI por padrão para essa execução.

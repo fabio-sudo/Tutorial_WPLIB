@@ -8,8 +8,9 @@ Implementado em 07/10/2026. Esta etapa prepara os controles e o gyro para calibr
 | --- | --- | --- |
 | Manter rodas em X | Segurar seta para baixo, sem Start | Teleoperado habilitado |
 | Liberar controle ao piloto | Soltar seta para baixo | Uma calibração interrompida não reinicia sozinha |
-| Zerar referência do piloto e contador de voltas | Y, sem Start | Parado, gyro saudável; desabilitado ou teleoperado |
+| Zerar referência do piloto e contador de voltas | Y, sem Start e sem Back | Parado, gyro saudável; desabilitado ou teleoperado |
 | Definir zero de orientação do campo | Start + Y | Desabilitado, parado e gyro saudável; alinhar fisicamente a frente do robô ao +X do campo azul antes de usar |
+| Definir 180° de orientação do campo | Start + A | Mesmas condições; a frente do robô aponta para a parede da aliança **azul** (−X). É a posição do treino com a Limelight traseira vendo o hub azul (tags 25/26) |
 | Seed manual de X/Y pela visão | Start + seta para baixo | Mantém o acionamento e os requisitos já existentes no projeto |
 
 O freio em X solicita velocidade zero e posiciona os módulos nas diagonais. Outros comandos que exigem o Drive não podem interrompê-lo enquanto ele estiver agendado. O comando é cancelado ao soltar o botão, sair do teleoperado ou desabilitar. Ao pressionar Start, a combinação passa a ser a do seed e deixa de ser o freio. Ele não substitui o Disable da Driver Station nem é um travamento mecânico com o robô desligado.
@@ -24,7 +25,19 @@ Agora a leitura bruta do sensor é preservada. A orientação de campo é redefi
 
 Exemplo: o Pigeon lê 73 graus. Com o robô fisicamente alinhado ao +X, Start + Y define o campo como zero. O sensor pode continuar mostrando 73 graus, mas `FieldYawDegrees` mostra zero. Depois de girar fisicamente +90 graus, o heading de campo passa a +90 graus.
 
+**Por que isso importa para a visão (teste de 28/10/2026).** O MegaTag2 usa o
+yaw enviado pelo robô como verdade. Ao ligar, o Pigeon vale 0°. Se o robô estiver
+de costas para o hub azul (frente para a parede azul, 180°), a Limelight calcula a
+posição espelhada, atrás das tags, e o robô aparece no meio da arena. Antes de
+habilitar, com o robô parado: frente para +X → Start + Y; frente para a parede
+azul → Start + A. Tags 25 e 26 ficam na face do hub azul virada para a parede
+azul (x = 4,02 m), então o robô certo aparece com x menor que 4 m.
+
 Y sozinho muda somente a referência do piloto. Exemplo: o robô está a 90 graus no campo; apertar Y deixa `DriverYawDegrees` em zero, mas `FieldYawDegrees` permanece em 90 graus. A visão continua recebendo a orientação de campo.
+
+**Frente do piloto, sem a Driver Station.** A direção não usa a aliança da Driver Station. Com o robô desabilitado, até o primeiro enable, o lado vem da pose corrigida pelas tags: na metade azul a frente é +X; na vermelha é −X. No primeiro enable o lado trava, porque entre o autônomo e o teleoperado o robô também fica desabilitado e pode ter cruzado o meio do campo. Y vale sobre tudo isso, e as tags não o apagam. Start + Y e Start + A liberam o lado de novo. `Drive/Heading/DriverReference` mostra a origem: `SEM_TAGS_FRENTE_MAIS_X`, `TAGS_LADO_AZUL`, `TAGS_LADO_VERMELHO` ou `BOTAO_Y`. Sem tags antes de habilitar, a Driver Station recebe um aviso e a frente fica em +X.
+
+**Sem Pigeon.** Pose e direção seguem pelo giro medido nas rodas, com alerta de erro e `Drive/Heading/YawSource = RODAS`. O erro cresce com o tempo. A visão fica parada e os resets de heading são recusados até o Pigeon voltar.
 
 O software não consegue comprovar o alinhamento físico ao +X ao apertar Start + Y. Esse alinhamento faz parte do teste. No referencial azul usado pelo MegaTag2, zero aponta para a parede da aliança vermelha. O yaw traseiro de 180 graus da câmera é uma configuração distinta.
 

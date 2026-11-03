@@ -21,7 +21,9 @@ robô e o 9460; o telescópio fica em bancada, com a base na origem.
 2. Na Simulation GUI, arraste o controle de **System Joysticks** para **Joysticks [0]**.
 3. No AdvantageScope, **File > Connect to Simulator > NetworkTables 4 (AdvantageKit)**.
 4. Importe `../../layouts/Telescopio9458-Simulacao.json`.
-5. Coloque em **Teleoperated** e **Enabled** e segure os gatilhos:
+5. Coloque em **Teleoperated** e **Enabled** e use o painel **Tuning > Telescopio9458**.
+
+> **Desde 28/10/2026 o 9458 está fora de uso:** o subsistema, o painel e o SysId dele estão **comentados** no `RobotContainer` (cabeçalho "ANTIGO"), então nada dele roda no robô 9460. Os botões (RT/LT no Teleop e R1/L1 no modo Test) também. Para voltar, descomente os blocos e os imports; a tabela abaixo é o que eles fazem.
 
 | Controle (segurar) | Ação |
 |---|---|
@@ -30,8 +32,8 @@ robô e o 9460; o telescópio fica em bancada, com a base na origem.
 | Soltar | O perfil freia e mantém a altura contra a gravidade. |
 
 Os gatilhos só valem sem BACK nem START (BACK + LT/RT é SysId e START + LT/RT é a
-calibração do steer); os dois juntos não movem. RB/LB continuam com o 9460.
-Também dá para usar o painel: **Tuning > Telescopio9458** (`MetaMetros`,
+calibração do steer); os dois juntos não movem.
+Hoje o controle é pelo painel: **Tuning > Telescopio9458** (`MetaMetros`,
 `ControleAtivo`, `CicloAutomatico`), como no 9460.
 
 | Aba do layout | O que mostra |

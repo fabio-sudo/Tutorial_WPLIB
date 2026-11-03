@@ -17,6 +17,10 @@ Código: `src/main/java/frc/robot/calibration/Telescopio9458SysId.java`.
 O telescópio **sempre começa fechado**. Cada botão sobe, pausa 1 s em cima e
 desce, terminando fechado de novo. Dois apertos geram os 4 testes do SysId.
 
+> **Desde 28/10/2026 o 9458 está fora de uso:** o subsistema, o painel e o SysId dele estão **comentados** no `RobotContainer` (cabeçalho "ANTIGO"), então nada dele roda no robô 9460. Os botões (RT/LT no Teleop e R1/L1 no modo Test) também. Para voltar, descomente os blocos e os imports; a tabela abaixo é o que eles fazem.
+Para rodar o SysId, descomente o bloco do modo Test e troque os comandos como
+indicado nele.
+
 | Segurar | Teste | O que acontece |
 |---|---|---|
 | **R1 (RB)** | Quasistático | Rampa de 0,5 V/s subindo até 0,846 m, pausa e rampa descendo até 0,05 m. Cerca de 12 s. |
@@ -38,7 +42,8 @@ Valores ajustáveis em `TelescopioConstants_9458.java`, região **SYSID**.
 
 1. **Pendrive no roboRIO.** O AdvantageKit grava o log em `/U/logs`. Sem pendrive,
    não há arquivo para o SysId.
-2. **Sentido do motor.** Em Teleop, dê um toque curto no **RT**. O telescópio
+2. **Sentido do motor.** Em Teleop, peça uma meta pequena no painel
+   (`/Tuning/Telescopio9458/MetaMetros`, com `ControleAtivo`). O telescópio
    precisa **abrir**. Se fechar, corrija `MOTOR_INVERTED` antes do SysId.
 3. Ligue o robô com o telescópio **fechado** (é o zero). No AdvantageScope,
    `Telescopio9458/Diagnostico` deve estar `OK`.

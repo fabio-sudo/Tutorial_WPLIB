@@ -122,10 +122,11 @@ layout `layouts/FRC9460-Simulacao3D.json`, abra o log por
 
 ### Quando o código Java publicar
 
-O `ShooterVisualizer` já publica esta chave (veja [SHOOTER.md](SHOOTER.md)).
-No CAD, a marca `FrenteShooter` aponta para 175,5°, não 180°: o código desconta
-essa diferença para o desenho mostrar o mesmo ângulo usado na mira. O intake
-fica na posição do CAD até ter subsistema.
+O `RobotComponentsVisualizer` (em `src/main/java/frc/robot`) já publica esta
+chave, com o ângulo do intake e o do shooter. No CAD, a marca `FrenteShooter`
+aponta para 175,5°, não 180°: o código desconta essa diferença para o desenho
+mostrar o mesmo ângulo usado na mira. O intake usa 0° = aberto (posição do CAD)
+e 90° = fechado (veja [CICLO_DA_BOLA.md](CICLO_DA_BOLA.md)).
 
 O layout espera um `Pose3d[]` em `Mecanismos/Componentes`, na ordem dos
 arquivos (`model_0`, `model_1`):

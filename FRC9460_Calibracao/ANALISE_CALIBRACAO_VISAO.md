@@ -12,7 +12,7 @@ Na versão atual, `Vision.java` já não rejeita por distância nem por `PoseErr
 
 | Condição atual | Efeito |
 | --- | --- |
-| IDs 25, 26, 9 e 10 | Lista enviada à câmera; outras tags ficam fora da seleção de localização |
+| IDs 1 a 32 | Lista enviada à câmera (`LimelightConstants.VALID_TAG_IDS`): todas as tags do campo |
 | Nenhuma tag na estimativa | Rejeita |
 | Pose inexistente ou números inválidos | Rejeita |
 | Distância média não finita | Rejeita; distância negativa ainda não é rejeitada |
@@ -65,7 +65,7 @@ Comparar com uma quarta referência: posição física medida do centro do robô
 
 ### 4. Configuração da câmera e do ambiente
 
-- A lista `{25, 26, 9, 10}` continua sendo uma restrição real. Confirmar que as tags do teste estão nela e no mapa carregado.
+- A câmera aceita todas as tags (1 a 32). Tag fora da posição oficial na sala de testes precisa sair de `VALID_TAG_IDS`.
 - Tags deslocadas em relação ao mapa produzem erro sistemático, mesmo com imagem boa. Em uma sala de testes, o mapa precisa representar as posições reais das tags usadas.
 - Conferir fisicamente os valores configurados: traseira de 0,29 m, direita de 0,16 m, altura de 0,46 m, pitch de 4 graus e yaw de 180 graus. O código envia esses valores à câmera.
 - `IMU_MODE = 0` está declarado, mas não é aplicado com `SetIMUMode`. Confirmar modelo da câmera e configuração efetiva antes de adotar uma política de IMU.
@@ -80,7 +80,7 @@ Comparar com uma quarta referência: posição física medida do centro do robô
 | `Rotate360Command` solicita 10 voltas | Nome pode induzir teste errado. Usa valor absoluto da rotação, podendo mascarar sentido invertido. Explicitar quantidade/sentido e reduzir a primeira validação para uma volta |
 | `A` e `Back + A` têm comandos separados | Podem disputar o Drive dependendo da ordem de acionamento. Tornar combinações mutuamente exclusivas |
 | Controles sem condição de modo | Joystick e botões podem atuar em autônomo quando o Drive está disponível. Restringir comandos de operador ao modo pretendido |
-| Autônomo ainda é `Autos.exampleAuto` | Não executa trajetória do swerve. É um item para evolução futura; não explica rejeição de poses |
+| Autônomo ainda não existe (`Commands.none()`) | Não executa trajetória do swerve. É um item para evolução futura; não explica rejeição de poses |
 | `driveSpeedTest` ativa steer direto e logo o desativa ao pedir velocidade | Não implementa a espera de alinhamento sugerida pelo comentário. Separar preparação e medição se esse teste for usado |
 | Configurações CTRE sem checagem dos retornos | Falha ao aplicar configuração pode passar despercebida; registrar status e alertas úteis |
 | Simulação com ganhos diferentes do hardware | Útil para lógica, mas não comprova ganho/calibração física do robô |
@@ -114,7 +114,7 @@ Registrar 30 segundos e observar:
 | `Vision/Rear/HasTarget` e `TagID` | Alvo detectado e ID esperado; não são prova de pose aprovada |
 | `Vision/Rear/RobotYawDegrees` | Orientação compatível com a direção física no campo |
 | `Vision/Rear/MegaTag2/TagCount` e `AvgTagDist` | Quantidade e distância coerentes |
-| `Vision/Rear/MegaTag2/TimestampSeconds` | Avança ao longo do tempo |
+| `Vision/Rear/Inputs/CaptureTimestampSeconds` | Avança ao longo do tempo |
 | `Vision/Rear/MegaTag2/NewMeasurement` e `MeasurementAccepted` | Pulsos continuam chegando |
 | `Vision/Rear/MegaTag2/Reject/*` | Qual filtro reprova quando há falha |
 | `Vision/Rear/MegaTag2/FrameAgeSeconds` | Cresce se não chegam medições aceitas; lembrar que não é idade de captura |
