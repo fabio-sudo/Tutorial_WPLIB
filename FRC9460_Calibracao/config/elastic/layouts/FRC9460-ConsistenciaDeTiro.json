@@ -1,0 +1,589 @@
+{
+  "version": 1.0,
+  "grid_size": 96,
+  "tabs": [
+    {
+      "name": "01 Constancia",
+      "grid_layout": {
+        "layouts": [],
+        "containers": [
+          {
+            "title": "Diagnostico da constancia",
+            "x": 0,
+            "y": 0,
+            "width": 768,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Consistencia/Diagnostico",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Tiros na janela",
+            "x": 768,
+            "y": 0,
+            "width": 192,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Consistencia/TirosNaJanela",
+              "period": 0.06,
+              "data_type": "int",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Disparos detectados",
+            "x": 960,
+            "y": 0,
+            "width": 192,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Contagem/DisparosDetectados",
+              "period": 0.06,
+              "data_type": "int",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Velocidade saida: ultimo (m/s)",
+            "x": 0,
+            "y": 96,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Consistencia/VelocidadeSaidaMps/Ultimo",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Velocidade saida: media (m/s)",
+            "x": 288,
+            "y": 96,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Consistencia/VelocidadeSaidaMps/Media",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Velocidade saida: desvio (m/s)",
+            "x": 576,
+            "y": 96,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Consistencia/VelocidadeSaidaMps/Desvio",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Desvio relativo (0,03 = 3%)",
+            "x": 864,
+            "y": 96,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Consistencia/CvVelocidade",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Top no disparo: media (RPM)",
+            "x": 0,
+            "y": 192,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Consistencia/TopRpmNoDisparo/Media",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Top: pedido - real (RPM)",
+            "x": 288,
+            "y": 192,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Consistencia/TopRpmErro/Media",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Queda de RPM: media",
+            "x": 576,
+            "y": 192,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Consistencia/QuedaRpmTop/Media",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Intervalo entre tiros (s)",
+            "x": 864,
+            "y": 192,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Consistencia/IntervaloSegundos/Media",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Mira: ultimo (graus)",
+            "x": 0,
+            "y": 288,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Consistencia/ErroMiraGraus/Ultimo",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Mira: media = vies (graus)",
+            "x": 288,
+            "y": 288,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Consistencia/ErroMiraGraus/Media",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Mira: desvio (graus)",
+            "x": 576,
+            "y": 288,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Consistencia/ErroMiraGraus/Desvio",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Pivo: erro agora (graus)",
+            "x": 864,
+            "y": 288,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Pivo/ErroGraus",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Erro de queda: ultimo (m)",
+            "x": 0,
+            "y": 384,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Consistencia/ErroQuedaMetros/Ultimo",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Erro de queda: media (m)",
+            "x": 288,
+            "y": 384,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Consistencia/ErroQuedaMetros/Media",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Erro de queda: desvio (m)",
+            "x": 576,
+            "y": 384,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Consistencia/ErroQuedaMetros/Desvio",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Raio da boca do hub (m)",
+            "x": 864,
+            "y": 384,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Contagem/RaioDoHubMetros",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Acerto previsto (planejado)",
+            "x": 0,
+            "y": 480,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Consistencia/TaxaAcertoPlanejado",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Acerto previsto (sensores)",
+            "x": 288,
+            "y": 480,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Consistencia/TaxaAcertoSensores",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Acerto anotado pela equipe",
+            "x": 576,
+            "y": 480,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Real/TaxaAcerto",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Ultimo tiro: distancia (m)",
+            "x": 864,
+            "y": 480,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Consistencia/DistanciaMetros/Ultimo",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "02 Anotacoes e graficos",
+      "grid_layout": {
+        "layouts": [],
+        "containers": [
+          {
+            "title": "Ultima anotacao",
+            "x": 0,
+            "y": 0,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Real/UltimaAnotacao",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Tiro anotado",
+            "x": 288,
+            "y": 0,
+            "width": 96,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Real/TiroAnotado",
+              "period": 0.06,
+              "data_type": "int",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Acertou",
+            "x": 384,
+            "y": 0,
+            "width": 192,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Real/Acertos",
+              "period": 0.06,
+              "data_type": "int",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Errou curto",
+            "x": 576,
+            "y": 0,
+            "width": 192,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Real/ErrouCurto",
+              "period": 0.06,
+              "data_type": "int",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Errou longo",
+            "x": 768,
+            "y": 0,
+            "width": 192,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Real/ErrouLongo",
+              "period": 0.06,
+              "data_type": "int",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Errou do lado",
+            "x": 960,
+            "y": 0,
+            "width": 192,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Real/ErrouDoLado",
+              "period": 0.06,
+              "data_type": "int",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Top medido (RPM)",
+            "x": 0,
+            "y": 96,
+            "width": 384,
+            "height": 192,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Top/RpmEsquerdo",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 10.0,
+              "color": 4278238420,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Queda de RPM do top",
+            "x": 384,
+            "y": 96,
+            "width": 384,
+            "height": 192,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Contagem/QuedaRpmTop",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 10.0,
+              "color": 4294198070,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Erro de mira agora (graus)",
+            "x": 768,
+            "y": 96,
+            "width": 384,
+            "height": 192,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Mira/ErroAteOAlvoAtualGraus",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 10.0,
+              "color": 4294940672,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Velocidade de saida prevista (m/s)",
+            "x": 0,
+            "y": 288,
+            "width": 384,
+            "height": 192,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Previsao/VelocidadeSaidaMps",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 10.0,
+              "color": 4288423856,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Distancia ao hub (m)",
+            "x": 384,
+            "y": 288,
+            "width": 384,
+            "height": 192,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Mira/DistanciaMetros",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 10.0,
+              "color": 4278238420,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Idade da correcao da visao (s)",
+            "x": 768,
+            "y": 288,
+            "width": 384,
+            "height": 192,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Drive/Vision/CorrectionAgeSeconds",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 10.0,
+              "color": 4288423856,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Pose confiavel",
+            "x": 0,
+            "y": 480,
+            "width": 288,
+            "height": 96,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Mira/PoseConfiavel",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Visao recente",
+            "x": 288,
+            "y": 480,
+            "width": 288,
+            "height": 96,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Drive/Vision/RecentCorrection",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Previsao: acerta (sensores)",
+            "x": 576,
+            "y": 480,
+            "width": 288,
+            "height": 96,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Tiro/Sensores/Acerta",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Estado do disparo",
+            "x": 864,
+            "y": 480,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Sequencia/Estado",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -2,6 +2,10 @@
 
 Abas "SHOOTER" usam chaves gravadas nos dois modos.
 A aba "SIM SHOOTER" usa chaves que só a simulação grava (Shooter/Simulacao/...).
+SHOOTER 10 mostra se a Limelight está corrigindo a pose usada na mira.
+SHOOTER 11 a 15: real x modelo em paralelo (padrão do telescópio 9458) e o
+diagnóstico de cada motor. No robô real, "Simulado" é a física recebendo a
+tensão medida; na simulação, a diferença mostra o que o modelo não tem.
 O shooter depende da pose do Drive (odometria + Limelight): as abas de campo
 mostram também a pose da visão para conferir de onde vem a mira.
 
@@ -22,6 +26,7 @@ TARGET = "#3b875a"    # verde = hub / alvo
 LIMIT = "#e53935"     # vermelho = limites e rejeições
 VISION = "#7e57c2"    # roxo = Limelight
 REFERENCE = "#00bcd4"  # ciano = referência da simulação
+MODEL = "#00bcd4"      # ciano = modelo em paralelo (física com a tensão medida)
 NEUTRAL = "#c0c0c0"
 # Linhas (trajectory) só aceitam as cores "neon" do AdvantageScope.
 LINE_SHOOTER = "#ff8c00"  # Orange
@@ -58,6 +63,27 @@ def obj(kind, key, log_type, **options):
     return dict(type=kind, logKey=key, logType=log_type, visible=True, options=options)
 
 
+def real_x_model(title, prefix, unit, color, extra_discrete=()):
+    """Real x modelo em paralelo (frc.robot.util.ParallelModel) de um mecanismo."""
+    c = out(prefix + "/Comparacao/")
+    return graph(title,
+                 [line(c + "Real" + unit, color), line(c + "Simulado" + unit, MODEL)],
+                 [line(c + "Diferenca" + unit, NEUTRAL), line(c + "Tolerancia" + unit, LIMIT, "stepped")],
+                 [stripes(out(prefix + "/Modelo/ComparacaoAtiva"), MODEL),
+                  stripes(c + "Divergindo", LIMIT),
+                  stripes(out(prefix + "/Diagnostico/Resultado"), NEUTRAL, "String"),
+                  *extra_discrete])
+
+
+def diagnostics_table(title, prefixes, extra=()):
+    """Tabela do pit: execução, motor respondendo, resultado e maior diferença."""
+    keys = []
+    for prefix in prefixes:
+        keys += [out(prefix + "/Diagnostico/" + k) for k in ("Execucao", "MotorRespondendo", "Resultado")]
+        keys.append(out(prefix + "/Comparacao/Divergindo"))
+    return tab(4, title, [*keys, *[out(k) for k in extra]], height=0)
+
+
 def field3d(title, sources, camera_position, game=FIELD):
     return tab(3, title, dict(sources=sources, game=game), height=260,
                renderer=dict(cameraIndex=-2, orbitFov=50, cameraPosition=list(camera_position),
@@ -69,8 +95,8 @@ def field3d(title, sources, camera_position, game=FIELD):
 robot3d = [obj("robot", out("Robot/Pose"), "Pose2d", model=ROBOT_MODEL),
            obj("component", out("Mecanismos/Componentes"), "Pose3d[]")]
 aim_lines = [
-    obj("trajectory", out("Shooter/Visualizacao/LinhaDoShooter"), "Pose3d[]", color=LINE_SHOOTER, size="bold"),
-    obj("trajectory", out("Shooter/Visualizacao/LinhaAteOAlvo"), "Pose3d[]", color=LINE_TARGET, size="normal"),
+    obj("trajectory", out("Shooter/Visualizacao/LinhaDoShooter"), "Translation3d[]", color=LINE_SHOOTER, size="bold"),
+    obj("trajectory", out("Shooter/Visualizacao/LinhaAteOAlvo"), "Translation3d[]", color=LINE_TARGET, size="normal"),
     obj("axes", out("Shooter/Visualizacao/Hub"), "Pose3d"),
 ]
 vision3d = [
@@ -88,8 +114,8 @@ tabs = [
     field3d("SHOOTER 2 - Robo de perto", [*robot3d, *aim_lines], (1.3, 1.1, 1.3)),
     tab(2, "SHOOTER 3 - Campo 2D", dict(sources=[
         obj("robot", out("Robot/Pose"), "Pose2d", bumpers=""),
-        obj("trajectory", out("Shooter/Visualizacao/LinhaDoShooter"), "Pose3d[]", color=LINE_SHOOTER, size="bold"),
-        obj("trajectory", out("Shooter/Visualizacao/LinhaAteOAlvo"), "Pose3d[]", color=LINE_TARGET, size="normal"),
+        obj("trajectory", out("Shooter/Visualizacao/LinhaDoShooter"), "Translation3d[]", color=LINE_SHOOTER, size="bold"),
+        obj("trajectory", out("Shooter/Visualizacao/LinhaAteOAlvo"), "Translation3d[]", color=LINE_TARGET, size="normal"),
         obj("ghost", out("Vision/Rear/MegaTag2/Pose"), "Pose2d", color=VISION),
         obj("ghost", out("Vision/Simulation/ReferencePose"), "Pose2d", color=REFERENCE),
     ], field=FIELD, orientation=0, size="large"), height=200),
@@ -115,11 +141,11 @@ tabs = [
            line(out("Shooter/Top/AlvoRpm"), SHOOTER, "stepped"),
            line(out("Shooter/Tower/Rpm"), "#4fc3f7"),
            line(out("Shooter/Tower/AlvoRpm"), "#4fc3f7", "stepped"),
-           line(out("Shooter/Centrifuga/Rpm"), "#ba68c8"),
-           line(out("Shooter/Centrifuga/AlvoRpm"), "#ba68c8", "stepped")],
+           line(out("Centrifuga/Rpm"), "#ba68c8"),
+           line(out("Centrifuga/AlvoRpm"), "#ba68c8", "stepped")],
           discrete=[stripes(out("Shooter/Top/NoRpm"), SHOOTER),
                     stripes(out("Shooter/Tower/NoRpm"), "#4fc3f7"),
-                    stripes(out("Shooter/Centrifuga/NoRpm"), "#ba68c8")]),
+                    stripes(out("Centrifuga/NoRpm"), "#ba68c8")]),
     graph("SHOOTER 7 - Sequencia de tiro",
           [line(out(seq + "TempoPreparacaoSegundos"), NEUTRAL)],
           [line(out(mira + "DistanciaMetros"), TARGET)],
@@ -139,15 +165,51 @@ tabs = [
            line(out("Vision/Front/Fusion/AcceptedCount"), "#e48b32", "stepped")],
           [stripes(out(mira + "PoseConfiavel"), VISION),
            stripes(out(mira + "Alianca"), NEUTRAL, "String"),
+           stripes(out(mira + "HubEscolhido"), TARGET, "String"),
            stripes(out("Vision/Rear/Fusion/MeasurementAccepted"), VISION)]),
     tab(4, "SHOOTER 9 - Entradas", [
         *[f"/Shooter/Pivo/Inputs/{f}" for f in (
             "Connected", "ZeroValid", "MotorPositionRotations", "MotorVelocityRotationsPerSec",
             "AppliedVolts", "StatorCurrentAmps", "ProfileReferenceRotations",
             "ForwardLimitActive", "ReverseLimitActive")],
-        *[f"/Shooter/{m}/Inputs/{f}" for m in ("Top", "Tower", "Centrifuga")
+        *[f"/Shooter/{m}/Inputs/{f}" for m in ("Top", "Tower")
           for f in ("Connected", "VelocityRpm", "AppliedVolts", "CurrentAmps")],
+        *[f"/Centrifuga/Inputs/{f}" for f in ("Connected", "VelocityRpm", "AppliedVolts", "CurrentAmps")],
     ], height=0),
+    # ---------- visão e real x modelo (robô real e simulação) ----------
+    graph("SHOOTER 10 - Visao: a pose da mira e confiavel?",
+          [line(out("Drive/Vision/CorrectionAgeSeconds"), VISION),
+           line(out("Drive/Vision/RecentLimitSeconds"), LIMIT, "stepped"),
+           line(out("Vision/Simulation/PositionErrorMeters"), REFERENCE)],
+          [line(out("Drive/Vision/Front/AcceptedCount"), SHOOTER, "stepped"),
+           line(out("Drive/Vision/Rear/AcceptedCount"), VISION, "stepped")],
+          [stripes(out("Drive/Vision/CorrectedSinceReset"), VISION),
+           stripes(out("Drive/Vision/RecentCorrection"), TARGET),
+           stripes(out("Drive/Vision/LastAcceptedCamera"), NEUTRAL, "String"),
+           stripes(out("Vision/Front/HasTarget"), SHOOTER),
+           stripes(out("Vision/Rear/HasTarget"), VISION),
+           stripes(out(mira + "PoseConfiavel"), TARGET)]),
+    real_x_model("SHOOTER 11 - Pivo: real x modelo", "Shooter/Pivo", "Graus", SHOOTER,
+                 [stripes(out(pivot + "Modo"), SHOOTER, "String")]),
+    real_x_model("SHOOTER 12 - Top: real x modelo", "Shooter/Top", "Rpm", SHOOTER),
+    real_x_model("SHOOTER 13 - Tower: real x modelo", "Shooter/Tower", "Rpm", "#4fc3f7"),
+    graph("SHOOTER 14 - Correntes: real x modelo",
+          [line(out("Shooter/Pivo/Comparacao/RealCorrenteAmps"), SHOOTER),
+           line(out("Shooter/Pivo/Comparacao/SimuladoCorrenteAmps"), "#ffcc80"),
+           line(out("Shooter/Top/Comparacao/RealCorrenteAmps"), "#e53935"),
+           line(out("Shooter/Top/Comparacao/SimuladoCorrenteAmps"), "#ef9a9a"),
+           line(out("Shooter/Tower/Comparacao/RealCorrenteAmps"), "#4fc3f7"),
+           line(out("Shooter/Tower/Comparacao/SimuladoCorrenteAmps"), "#b3e5fc")],
+          [line(out("Shooter/Pivo/Comparacao/DiferencaCorrenteAmps"), NEUTRAL)],
+          [stripes(out(seq + "Alimentando"), "#ba68c8")]),
+    diagnostics_table("SHOOTER 15 - Diagnostico dos motores",
+                      ["Shooter/Pivo", "Shooter/Top", "Shooter/Tower", "Centrifuga"],
+                      ["Shooter/Comando", "Centrifuga/Comando",
+                       "Shooter/Pivo/Comparacao/DiferencaMaximaGraus",
+                       "Shooter/Pivo/Comparacao/DiferencaAoPararGraus",
+                       "Shooter/Pivo/Comparacao/MovimentosComparados",
+                       "Shooter/Top/Comparacao/DiferencaMaximaRpm",
+                       "Shooter/Tower/Comparacao/DiferencaMaximaRpm"]),
     # ---------- só simulação ----------
     graph("SIM SHOOTER - Zero manual",
           [line(out(pivot + "AnguloGraus"), SHOOTER),

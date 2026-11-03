@@ -13,7 +13,31 @@
     -0.2445016244,
     0.1248366562
   ],
-  "cameras": [],
+  "cameras": [
+    {
+      "name": "Limelight traseira",
+      "rotations": [
+        {
+          "axis": "y",
+          "degrees": -4
+        },
+        {
+          "axis": "z",
+          "degrees": 180
+        }
+      ],
+      "position": [
+        -0.29,
+        -0.16,
+        0.46
+      ],
+      "resolution": [
+        1280,
+        800
+      ],
+      "fov": 82
+    }
+  ],
   "components": [
     {
       "zeroedRotations": [

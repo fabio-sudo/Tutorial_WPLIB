@@ -1,0 +1,2707 @@
+{
+  "hubs": [
+    {
+      "x": 0,
+      "y": 0,
+      "width": 1440,
+      "height": 900,
+      "state": {
+        "sidebar": {
+          "width": 270,
+          "expanded": [
+            "/RealOutputs",
+            "/ReplayOutputs",
+            "/RealOutputs/Fuel"
+          ]
+        },
+        "tabs": {
+          "selected": 0,
+          "tabs": [
+            {
+              "type": 2,
+              "title": "2D - Partida: pose, modulos e visao",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Robot/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "bumpers": ""
+                    }
+                  },
+                  {
+                    "type": "swerveStates",
+                    "logKey": "/RealOutputs/Drive/Swerve/EstadosMedidos",
+                    "logType": "SwerveModuleState[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#00ffff",
+                      "arrangement": "0,1,2,3"
+                    }
+                  },
+                  {
+                    "type": "swerveStates",
+                    "logKey": "/RealOutputs/Drive/Swerve/EstadosPedidos",
+                    "logType": "SwerveModuleState[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff8c00",
+                      "arrangement": "0,1,2,3"
+                    }
+                  },
+                  {
+                    "type": "vision",
+                    "logKey": "/RealOutputs/Vision/Rear/TagsUsadas",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff00ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "vision",
+                    "logKey": "/RealOutputs/Vision/Front/TagsUsadas",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#00ff00",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "/RealOutputs/Vision/Rear/MegaTag2/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff00ff"
+                    }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "/RealOutputs/Vision/Front/MegaTag2/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "color": "#00ff00"
+                    }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "/RealOutputs/Vision/Rear/MegaTag1/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff0000"
+                    }
+                  },
+                  {
+                    "type": "heatmap",
+                    "logKey": "/RealOutputs/Robot/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "timeRange": "full"
+                    }
+                  }
+                ],
+                "field": "FRC:2026 Field",
+                "orientation": 0,
+                "size": "large"
+              },
+              "controllerUUID": "ad9026de7e1a534791f507bb273a998d",
+              "renderer": null,
+              "controlsHeight": 220
+            },
+            {
+              "type": 3,
+              "title": "3D - Partida: campo inteiro",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Robot/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Robo 2026"
+                    }
+                  },
+                  {
+                    "type": "component",
+                    "logKey": "/RealOutputs/Mecanismos/Componentes",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {}
+                  },
+                  {
+                    "type": "vision",
+                    "logKey": "/RealOutputs/Vision/Rear/TagsUsadas",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff00ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "vision",
+                    "logKey": "/RealOutputs/Vision/Front/TagsUsadas",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#00ff00",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "/RealOutputs/Vision/Rear/MegaTag2/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Robo 2026",
+                      "color": "#ff00ff"
+                    }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "/RealOutputs/Vision/Front/MegaTag2/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Robo 2026",
+                      "color": "#00ff00"
+                    }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "/RealOutputs/Vision/Rear/MegaTag1/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Robo 2026",
+                      "color": "#ff0000"
+                    }
+                  },
+                  {
+                    "type": "gamePiece",
+                    "logKey": "/RealOutputs/Fuel/Simulacao/BolasNoChao",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "variant": "Fuel"
+                    }
+                  },
+                  {
+                    "type": "gamePiece",
+                    "logKey": "/RealOutputs/Fuel/Simulacao/BolasNoAr",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "variant": "Fuel"
+                    }
+                  }
+                ],
+                "game": "FRC:2026 Field"
+              },
+              "controllerUUID": "dc7b8582b2b15ef58fd2e3f630a23bc7",
+              "renderer": {
+                "cameraIndex": -1,
+                "orbitFov": 50,
+                "cameraPosition": [
+                  0,
+                  6,
+                  -12
+                ],
+                "cameraTarget": [
+                  0,
+                  0.5,
+                  0
+                ]
+              },
+              "controlsHeight": 220
+            },
+            {
+              "type": 3,
+              "title": "3D - Robo de perto: mecanismos e modulos",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Robot/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Robo 2026"
+                    }
+                  },
+                  {
+                    "type": "component",
+                    "logKey": "/RealOutputs/Mecanismos/Componentes",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {}
+                  },
+                  {
+                    "type": "swerveStates",
+                    "logKey": "/RealOutputs/Drive/Swerve/EstadosMedidos",
+                    "logType": "SwerveModuleState[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#00ffff",
+                      "arrangement": "0,1,2,3"
+                    }
+                  },
+                  {
+                    "type": "swerveStates",
+                    "logKey": "/RealOutputs/Drive/Swerve/EstadosPedidos",
+                    "logType": "SwerveModuleState[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff8c00",
+                      "arrangement": "0,1,2,3"
+                    }
+                  },
+                  {
+                    "type": "trajectory",
+                    "logKey": "/RealOutputs/Shooter/Visualizacao/LinhaDoShooter",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff8c00",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "trajectory",
+                    "logKey": "/RealOutputs/Fuel/Previsao/Trajetoria",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffff00",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "game": "FRC:2026 Field"
+              },
+              "controllerUUID": "451f7124fc7a5f3888e6612b9faa8a4d",
+              "renderer": {
+                "cameraIndex": -2,
+                "orbitFov": 50,
+                "cameraPosition": [
+                  1.4,
+                  1.2,
+                  1.4
+                ],
+                "cameraTarget": [
+                  0,
+                  0.3,
+                  0
+                ]
+              },
+              "controlsHeight": 220
+            },
+            {
+              "type": 3,
+              "title": "3D - Pelos olhos da Limelight traseira",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Robot/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Robo 2026"
+                    }
+                  },
+                  {
+                    "type": "component",
+                    "logKey": "/RealOutputs/Mecanismos/Componentes",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {}
+                  },
+                  {
+                    "type": "vision",
+                    "logKey": "/RealOutputs/Vision/Rear/TagsUsadas",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff00ff",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "game": "FRC:2026 Field"
+              },
+              "controllerUUID": "516eff2a7e265cb088845751ac1bab75",
+              "renderer": {
+                "cameraIndex": 0,
+                "orbitFov": 50,
+                "cameraPosition": [
+                  0,
+                  6,
+                  -12
+                ],
+                "cameraTarget": [
+                  0,
+                  0.5,
+                  0
+                ]
+              },
+              "controlsHeight": 220
+            },
+            {
+              "type": 2,
+              "title": "2D - Tiro: de onde atira e onde chega",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Robot/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "bumpers": ""
+                    }
+                  },
+                  {
+                    "type": "vision",
+                    "logKey": "/RealOutputs/Fuel/Tiro/Sensores/Chegada",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#00ffff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "heatmap",
+                    "logKey": "/RealOutputs/Fuel/Tiro/Visao/PoseEstimada",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "timeRange": "full"
+                    }
+                  },
+                  {
+                    "type": "heatmap",
+                    "logKey": "/RealOutputs/Fuel/Consistencia/Chegadas",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {
+                      "timeRange": "full"
+                    }
+                  },
+                  {
+                    "type": "trajectory",
+                    "logKey": "/RealOutputs/Fuel/Tiro/BocaDoHub",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffff00",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "trajectory",
+                    "logKey": "/RealOutputs/Fuel/Tiro/Planejado/Trajetoria",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff8c00",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "trajectory",
+                    "logKey": "/RealOutputs/Fuel/Tiro/Sensores/Trajetoria",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#00ffff",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "field": "FRC:2026 Field",
+                "orientation": 0,
+                "size": "large"
+              },
+              "controllerUUID": "480c28f5732f58e28b3ed110db4770c9",
+              "renderer": null,
+              "controlsHeight": 220
+            },
+            {
+              "type": 3,
+              "title": "3D - Tiro: onde chegou x onde devia",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Robot/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Robo 2026"
+                    }
+                  },
+                  {
+                    "type": "component",
+                    "logKey": "/RealOutputs/Mecanismos/Componentes",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {}
+                  },
+                  {
+                    "type": "trajectory",
+                    "logKey": "/RealOutputs/Fuel/Tiro/BocaDoHub",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffff00",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "cone",
+                    "logKey": "/RealOutputs/Fuel/Tiro/Devia",
+                    "logType": "Pose3d",
+                    "visible": true,
+                    "options": {
+                      "color": "#00ff00",
+                      "position": "front"
+                    }
+                  },
+                  {
+                    "type": "cone",
+                    "logKey": "/RealOutputs/Fuel/Tiro/Planejado/Chegada",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff8c00",
+                      "position": "front"
+                    }
+                  },
+                  {
+                    "type": "trajectory",
+                    "logKey": "/RealOutputs/Fuel/Tiro/Planejado/LinhaDoErro",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff8c00",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "cone",
+                    "logKey": "/RealOutputs/Fuel/Tiro/Sensores/Chegada",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#00ffff",
+                      "position": "front"
+                    }
+                  },
+                  {
+                    "type": "trajectory",
+                    "logKey": "/RealOutputs/Fuel/Tiro/Sensores/LinhaDoErro",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#00ffff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "cone",
+                    "logKey": "/RealOutputs/Fuel/Simulacao/UltimoTiro/Chegada",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff0000",
+                      "position": "front"
+                    }
+                  },
+                  {
+                    "type": "trajectory",
+                    "logKey": "/RealOutputs/Fuel/Simulacao/UltimoTiro/LinhaDoErro",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff0000",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "cone",
+                    "logKey": "/RealOutputs/Fuel/Consistencia/Chegadas",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff00ff",
+                      "position": "front"
+                    }
+                  },
+                  {
+                    "type": "cone",
+                    "logKey": "/RealOutputs/Fuel/Simulacao/ChegadasRecentes",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffff00",
+                      "position": "front"
+                    }
+                  },
+                  {
+                    "type": "trajectory",
+                    "logKey": "/RealOutputs/Fuel/Simulacao/UltimoTiro/Trajetoria",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff0000",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "trajectory",
+                    "logKey": "/RealOutputs/Fuel/Tiro/Planejado/Trajetoria",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff8c00",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "trajectory",
+                    "logKey": "/RealOutputs/Fuel/Tiro/Sensores/Trajetoria",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#00ffff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "gamePiece",
+                    "logKey": "/RealOutputs/Fuel/Simulacao/BolasNoChao",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "variant": "Fuel"
+                    }
+                  },
+                  {
+                    "type": "gamePiece",
+                    "logKey": "/RealOutputs/Fuel/Simulacao/BolasNoAr",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "variant": "Fuel"
+                    }
+                  }
+                ],
+                "game": "FRC:2026 Field"
+              },
+              "controllerUUID": "26cf8131fab656afa0e77aa5025dd352",
+              "renderer": {
+                "cameraIndex": -2,
+                "orbitFov": 50,
+                "cameraPosition": [
+                  6,
+                  4,
+                  6
+                ],
+                "cameraTarget": [
+                  0,
+                  0.8,
+                  0
+                ]
+              },
+              "controlsHeight": 220
+            },
+            {
+              "type": 2,
+              "title": "2D - Pose: estimada x tags",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Robot/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "bumpers": ""
+                    }
+                  },
+                  {
+                    "type": "vision",
+                    "logKey": "/RealOutputs/Vision/Rear/TagsUsadas",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff00ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "vision",
+                    "logKey": "/RealOutputs/Vision/Front/TagsUsadas",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#00ff00",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "/RealOutputs/Vision/Rear/MegaTag2/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff00ff"
+                    }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "/RealOutputs/Vision/Front/MegaTag2/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "color": "#00ff00"
+                    }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "/RealOutputs/Vision/Rear/MegaTag1/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff0000"
+                    }
+                  }
+                ],
+                "field": "FRC:2026 Field",
+                "orientation": 0,
+                "size": "large"
+              },
+              "controllerUUID": "0b1bb32458325399abb57209304a8ea5",
+              "renderer": null,
+              "controlsHeight": 220
+            },
+            {
+              "type": 3,
+              "title": "3D - Pose: estimada x tags",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Robot/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Robo 2026"
+                    }
+                  },
+                  {
+                    "type": "component",
+                    "logKey": "/RealOutputs/Mecanismos/Componentes",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {}
+                  },
+                  {
+                    "type": "vision",
+                    "logKey": "/RealOutputs/Vision/Rear/TagsUsadas",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff00ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "vision",
+                    "logKey": "/RealOutputs/Vision/Front/TagsUsadas",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#00ff00",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "/RealOutputs/Vision/Rear/MegaTag2/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Robo 2026",
+                      "color": "#ff00ff"
+                    }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "/RealOutputs/Vision/Front/MegaTag2/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Robo 2026",
+                      "color": "#00ff00"
+                    }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "/RealOutputs/Vision/Rear/MegaTag1/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Robo 2026",
+                      "color": "#ff0000"
+                    }
+                  }
+                ],
+                "game": "FRC:2026 Field"
+              },
+              "controllerUUID": "62253465e0385498b32edda2abb58d2d",
+              "renderer": {
+                "cameraIndex": -2,
+                "orbitFov": 50,
+                "cameraPosition": [
+                  3,
+                  3,
+                  4
+                ],
+                "cameraTarget": [
+                  0,
+                  0.3,
+                  0
+                ]
+              },
+              "controlsHeight": 220
+            },
+            {
+              "type": 3,
+              "title": "3D - Ciclo da bola: coleta e disparo",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Robot/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Robo 2026"
+                    }
+                  },
+                  {
+                    "type": "component",
+                    "logKey": "/RealOutputs/Mecanismos/Componentes",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {}
+                  },
+                  {
+                    "type": "gamePiece",
+                    "logKey": "/RealOutputs/Fuel/Simulacao/BolasNoChao",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "variant": "Fuel"
+                    }
+                  },
+                  {
+                    "type": "gamePiece",
+                    "logKey": "/RealOutputs/Fuel/Simulacao/BolasNoAr",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "variant": "Fuel"
+                    }
+                  },
+                  {
+                    "type": "trajectory",
+                    "logKey": "/RealOutputs/Fuel/Previsao/Trajetoria",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffff00",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "trajectory",
+                    "logKey": "/RealOutputs/Fuel/Tiro/Planejado/Trajetoria",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff8c00",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "trajectory",
+                    "logKey": "/RealOutputs/Fuel/Tiro/Sensores/Trajetoria",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#00ffff",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "game": "FRC:2026 Field"
+              },
+              "controllerUUID": "b14ec380f9015fa7a1020a635d3cafba",
+              "renderer": {
+                "cameraIndex": -1,
+                "orbitFov": 50,
+                "cameraPosition": [
+                  0,
+                  6,
+                  -12
+                ],
+                "cameraTarget": [
+                  0,
+                  0.5,
+                  0
+                ]
+              },
+              "controlsHeight": 220
+            },
+            {
+              "type": 2,
+              "title": "2D - Replay: robo x codigo atual",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Robot/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "bumpers": ""
+                    }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "/ReplayOutputs/Robot/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff8c00"
+                    }
+                  }
+                ],
+                "field": "FRC:2026 Field",
+                "orientation": 0,
+                "size": "large"
+              },
+              "controllerUUID": "c81f9509cad5560088003957ae0a62fd",
+              "renderer": null,
+              "controlsHeight": 220
+            },
+            {
+              "type": 3,
+              "title": "3D - Replay: robo x codigo atual",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Robot/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Robo 2026"
+                    }
+                  },
+                  {
+                    "type": "component",
+                    "logKey": "/RealOutputs/Mecanismos/Componentes",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {}
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "/ReplayOutputs/Robot/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Robo 2026",
+                      "color": "#ff8c00"
+                    }
+                  }
+                ],
+                "game": "FRC:2026 Field"
+              },
+              "controllerUUID": "390eb5f9a9155903a2e3e1d88ee32b1c",
+              "renderer": {
+                "cameraIndex": -2,
+                "orbitFov": 50,
+                "cameraPosition": [
+                  3,
+                  3,
+                  4
+                ],
+                "cameraTarget": [
+                  0,
+                  0.3,
+                  0
+                ]
+              },
+              "controlsHeight": 220
+            },
+            {
+              "type": 1,
+              "title": "LOG - Gravando? Ciclo (ms), bateria (V) e CAN (0-1)",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/LoggedRobot/FullCycleMS",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/LoggedRobot/UserCodeMS",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/LoggedRobot/LogPeriodicMS",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Diagnostico/PeriodoAlvoMs",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/SystemStats/BatteryVoltage",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/SystemStats/CANBus/Utilization",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Diagnostico/Log/GravandoFisico",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Diagnostico/Log/FilaComFalha",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/SystemStats/BrownedOut",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Diagnostico/Modo",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "61bf20a2071a500e982fdd2fc6e2f8f6",
+              "renderer": null,
+              "controlsHeight": 220
+            },
+            {
+              "type": 4,
+              "title": "LOG - Arquivo, estado e espaco livre",
+              "controller": [
+                "/RealOutputs/Diagnostico/Modo",
+                "/RealOutputs/Diagnostico/Log/Estado",
+                "/RealOutputs/Diagnostico/Log/Arquivo",
+                "/RealOutputs/Diagnostico/Log/LivreMiB",
+                "/RealOutputs/Diagnostico/Log/GravandoFisico",
+                "/RealOutputs/Diagnostico/Log/FilaComFalha",
+                "/RealOutputs/Logger/QueuedCycles"
+              ],
+              "controllerUUID": "0e0a6758fbf9501fa0e0adce656d0069",
+              "renderer": null,
+              "controlsHeight": 0
+            },
+            {
+              "type": 1,
+              "title": "REPLAY - Gravado x codigo atual: mira (graus) e RPM do top",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Pivo/AlvoGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/ReplayOutputs/Shooter/Pivo/AlvoGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Top/AlvoRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/ReplayOutputs/Shooter/Top/AlvoRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "c6b571805ab65b5a940c64eedca6aed4",
+              "renderer": null,
+              "controlsHeight": 220
+            },
+            {
+              "type": 1,
+              "title": "MEC - Tensao de todos (V) e bateria",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Intake/Modelo/TensaoVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Pivo/Modelo/TensaoVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Top/Modelo/TensaoVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Tower/Modelo/TensaoVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Centrifuga/Modelo/TensaoVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Roller/Modelo/TensaoVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/SystemStats/BatteryVoltage",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "cc216cc4165f53c88bcdb11a99ac36c5",
+              "renderer": null,
+              "controlsHeight": 220
+            },
+            {
+              "type": 1,
+              "title": "MEC - Corrente de todos (A) e bateria",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Intake/Comparacao/RealCorrenteAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Pivo/Comparacao/RealCorrenteAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Top/Comparacao/RealCorrenteAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Tower/Comparacao/RealCorrenteAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Centrifuga/Comparacao/RealCorrenteAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Roller/Comparacao/RealCorrenteAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/SystemStats/BatteryVoltage",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "8bddb256015855da98ee63acf280b0f8",
+              "renderer": null,
+              "controlsHeight": 220
+            },
+            {
+              "type": 1,
+              "title": "MEC - Real menos simulado (graus / RPM)",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Intake/Comparacao/DiferencaGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Pivo/Comparacao/DiferencaGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Top/Comparacao/DiferencaRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Tower/Comparacao/DiferencaRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Centrifuga/Comparacao/DiferencaRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Roller/Comparacao/DiferencaRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Intake/Comparacao/Divergindo",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Pivo/Comparacao/Divergindo",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Top/Comparacao/Divergindo",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Tower/Comparacao/Divergindo",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Centrifuga/Comparacao/Divergindo",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Roller/Comparacao/Divergindo",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "59eb8a7371ff5a21ab8378ca8751a274",
+              "renderer": null,
+              "controlsHeight": 220
+            },
+            {
+              "type": 1,
+              "title": "PID Intake - real x simulado (graus), tensao e corrente",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Intake/Comparacao/RealGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Intake/Comparacao/SimuladoGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Intake/Modelo/TensaoVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Intake/Comparacao/RealCorrenteAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Intake/CorrecaoPosicaoAtiva",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Intake/RetencaoEmRepouso",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Intake/Comando",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Intake/Comparacao/Divergindo",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "d0ee7b8196a15f2aaa3cfebb557d92c5",
+              "renderer": null,
+              "controlsHeight": 220
+            },
+            {
+              "type": 1,
+              "title": "PID Intake - segurar: erro (voltas) e tensao",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Intake/AlvoSegurarVoltas",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Intake/PosicaoVoltas",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Intake/ErroRetencaoVoltas",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Intake/Modelo/TensaoVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Intake/Segurando",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/Intake/Inputs/OpenLimitActive",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/Intake/Inputs/CloseLimitActive",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "ced327b95b13506bbed9219a5e19dd58",
+              "renderer": null,
+              "controlsHeight": 220
+            },
+            {
+              "type": 1,
+              "title": "PID Pivo - alvo x real x simulado (graus) e erro",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Pivo/AlvoGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Pivo/AnguloGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Pivo/Comparacao/SimuladoGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Pivo/ErroGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Pivo/Modelo/TensaoVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Pivo/NoAlvo",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Pivo/Modo",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Pivo/Comparacao/Divergindo",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "26a359e18883583b9d1badf58b1b0f76",
+              "renderer": null,
+              "controlsHeight": 220
+            },
+            {
+              "type": 1,
+              "title": "PID Pivo - perfil (voltas), velocidade (voltas/s) e tensao: kV",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/Shooter/Pivo/Inputs/ProfileReferenceRotations",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Shooter/Pivo/Inputs/MotorPositionRotations",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/Shooter/Pivo/Inputs/MotorVelocityRotationsPerSec",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Shooter/Pivo/Inputs/AppliedVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Pivo/Comparacao/RealCorrenteAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/Shooter/Pivo/Inputs/ForwardLimitActive",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/Shooter/Pivo/Inputs/ReverseLimitActive",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "22f13214ae8b55009bb5e44116695846",
+              "renderer": null,
+              "controlsHeight": 220
+            },
+            {
+              "type": 1,
+              "title": "PID Top - pedido x medido x simulado (RPM), tensao e corrente",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Top/AlvoRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Top/RpmEsquerdo",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Top/RpmDireito",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Top/Comparacao/SimuladoRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Top/Modelo/TensaoVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Top/Comparacao/RealCorrenteAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Top/NoRpm",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Top/Comparacao/Divergindo",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "3efeb9e2fefb580a9c7b90388a9f516f",
+              "renderer": null,
+              "controlsHeight": 220
+            },
+            {
+              "type": 1,
+              "title": "PID Tower - pedido x medido x simulado (RPM), tensao e corrente",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Tower/AlvoRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Tower/Rpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Tower/Comparacao/SimuladoRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Tower/Modelo/TensaoVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Tower/Comparacao/RealCorrenteAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Tower/NoRpm",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Tower/Comparacao/Divergindo",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "187a98678f0756249017f1f42c6864c5",
+              "renderer": null,
+              "controlsHeight": 220
+            },
+            {
+              "type": 1,
+              "title": "PID Centrifuga - pedido x medido x simulado (RPM), tensao e erro",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Centrifuga/AlvoRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Centrifuga/ReferenciaRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Centrifuga/Rpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Centrifuga/Comparacao/SimuladoRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Centrifuga/ErroRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Centrifuga/Modelo/TensaoVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Centrifuga/NoRpm",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Centrifuga/Estado",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Centrifuga/Comparacao/Divergindo",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "840103e9886a51d5a9dff8820f288a8d",
+              "renderer": null,
+              "controlsHeight": 220
+            },
+            {
+              "type": 1,
+              "title": "MEC Rolete - medido x simulado (RPM), tensao e corrente",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Roller/Rpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Roller/Comparacao/SimuladoRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Roller/Modelo/TensaoVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Roller/CorrenteAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Roller/Puxando",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Roller/Comparacao/Divergindo",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "fba9644d804a5821ad1181ea13196c0f",
+              "renderer": null,
+              "controlsHeight": 220
+            },
+            {
+              "type": 1,
+              "title": "PID Drive - velocidade das rodas (m/s) e erro",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Drive/Module0/DriveVelocitySetpoint",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Drive/Module0/DriveVelocityMeasured",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Drive/Module1/DriveVelocityMeasured",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Drive/Module2/DriveVelocityMeasured",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Drive/Module3/DriveVelocityMeasured",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Drive/Module0/DriveVelocityError",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Drive/Module1/DriveVelocityError",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Drive/Module2/DriveVelocityError",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Drive/Module3/DriveVelocityError",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "5e02fa96efe55147ad4db85e7c749ff1",
+              "renderer": null,
+              "controlsHeight": 220
+            },
+            {
+              "type": 1,
+              "title": "PID Drive - tensao (V) e corrente (A) das rodas",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/Drive/Module0/DriveAppliedVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Drive/Module1/DriveAppliedVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Drive/Module2/DriveAppliedVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Drive/Module3/DriveAppliedVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/Drive/Module0/DriveCurrentAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Drive/Module1/DriveCurrentAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Drive/Module2/DriveCurrentAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Drive/Module3/DriveCurrentAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "20500e690ca65d5bbca09444b8b83b52",
+              "renderer": null,
+              "controlsHeight": 220
+            },
+            {
+              "type": 1,
+              "title": "PID Steer - angulo pedido x medido (rad) e erro",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Drive/Module0/TurnPositionSetpointRad",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Drive/Module0/TurnPositionMeasuredRad",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Drive/Module1/TurnPositionMeasuredRad",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Drive/Module2/TurnPositionMeasuredRad",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Drive/Module3/TurnPositionMeasuredRad",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Drive/Module0/TurnErrorRad",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Drive/Module1/TurnErrorRad",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Drive/Module2/TurnErrorRad",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Drive/Module3/TurnErrorRad",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "e1f3f6c9a1d857e9be309bbc9c821538",
+              "renderer": null,
+              "controlsHeight": 220
+            },
+            {
+              "type": 1,
+              "title": "PID Chassi - pedido x medido: vx (m/s) e giro (rad/s)",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Drive/Diagnostic/DesiredVx",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Drive/Diagnostic/MeasuredVx",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Drive/Diagnostic/DesiredOmega",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Drive/Diagnostic/MeasuredOmega",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "4b1da08fda995117b6fdd644d345a2a7",
+              "renderer": null,
+              "controlsHeight": 220
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "satellites": [],
+  "version": "26.0.0"
+}

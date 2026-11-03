@@ -1,0 +1,1222 @@
+{
+  "version": 1.0,
+  "grid_size": 128,
+  "tabs": [
+    {
+      "name": "Tiro - motivo e prontidao",
+      "grid_layout": {
+        "layouts": [],
+        "containers": [
+          {
+            "title": "Estado do tiro",
+            "x": 0,
+            "y": 0,
+            "width": 512,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Sequencia/Estado",
+              "period": 0.1,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Detalhe",
+            "x": 512,
+            "y": 0,
+            "width": 1024,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Sequencia/Detalhe",
+              "period": 0.1,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Pivo pronto",
+            "x": 0,
+            "y": 128,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Sequencia/PivoPronto",
+              "period": 0.1,
+              "data_type": "boolean",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Top pronto",
+            "x": 256,
+            "y": 128,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Sequencia/TopPronto",
+              "period": 0.1,
+              "data_type": "boolean",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Tower pronta",
+            "x": 512,
+            "y": 128,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Sequencia/TowerPronto",
+              "period": 0.1,
+              "data_type": "boolean",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Alimentando",
+            "x": 768,
+            "y": 128,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Sequencia/Alimentando",
+              "period": 0.1,
+              "data_type": "boolean",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Pronto",
+            "x": 1024,
+            "y": 128,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Sequencia/Pronto",
+              "period": 0.1,
+              "data_type": "boolean",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Fallback RPM",
+            "x": 1280,
+            "y": 128,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Sequencia/ProntoPorTempo",
+              "period": 0.1,
+              "data_type": "boolean",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Distancia ao hub (m)",
+            "x": 0,
+            "y": 256,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Mira/DistanciaMetros",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Pose confiavel",
+            "x": 256,
+            "y": 256,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Mira/PoseConfiavel",
+              "period": 0.1,
+              "data_type": "boolean",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Hub no curso",
+            "x": 512,
+            "y": 256,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Mira/HubNoCurso",
+              "period": 0.1,
+              "data_type": "boolean",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Centrifuga: estado",
+            "x": 768,
+            "y": 256,
+            "width": 512,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Centrifuga/Estado",
+              "period": 0.1,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Saida centrifuga RPM (5:1)",
+            "x": 1280,
+            "y": 256,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Centrifuga/SaidaRpm",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Pivo - graus",
+      "grid_layout": {
+        "layouts": [],
+        "containers": [
+          {
+            "title": "Alvo",
+            "x": 0,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Pivo/AlvoGraus",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Medido",
+            "x": 256,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Pivo/Comparacao/RealGraus",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Modelo",
+            "x": 512,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Pivo/Comparacao/SimuladoGraus",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Real menos modelo",
+            "x": 768,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Pivo/Comparacao/DiferencaGraus",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Comparacao ativa",
+            "x": 1024,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Pivo/Modelo/ComparacaoAtiva",
+              "period": 0.1,
+              "data_type": "boolean",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Diagnostico",
+            "x": 1280,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Pivo/Diagnostico/Resultado",
+              "period": 0.1,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Medido (Graus)",
+            "x": 0,
+            "y": 128,
+            "width": 512,
+            "height": 256,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Pivo/Comparacao/RealGraus",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false,
+              "time_displayed": 15.0,
+              "color": 4278238420,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Modelo pela tensao (Graus)",
+            "x": 512,
+            "y": 128,
+            "width": 512,
+            "height": 256,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Pivo/Comparacao/SimuladoGraus",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false,
+              "time_displayed": 15.0,
+              "color": 4278238420,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Diferenca (Graus)",
+            "x": 1024,
+            "y": 128,
+            "width": 512,
+            "height": 256,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Pivo/Comparacao/DiferencaGraus",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false,
+              "time_displayed": 15.0,
+              "color": 4278238420,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Corrente real (A)",
+            "x": 0,
+            "y": 384,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Pivo/Comparacao/RealCorrenteAmps",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Corrente modelo (A)",
+            "x": 256,
+            "y": 384,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Pivo/Comparacao/SimuladoCorrenteAmps",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Top - RPM",
+      "grid_layout": {
+        "layouts": [],
+        "containers": [
+          {
+            "title": "Alvo",
+            "x": 0,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Top/AlvoRpm",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Medido",
+            "x": 256,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Top/Comparacao/RealRpm",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Modelo",
+            "x": 512,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Top/Comparacao/SimuladoRpm",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Real menos modelo",
+            "x": 768,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Top/Comparacao/DiferencaRpm",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Comparacao ativa",
+            "x": 1024,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Top/Modelo/ComparacaoAtiva",
+              "period": 0.1,
+              "data_type": "boolean",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Diagnostico",
+            "x": 1280,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Top/Diagnostico/Resultado",
+              "period": 0.1,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Medido (Rpm)",
+            "x": 0,
+            "y": 128,
+            "width": 512,
+            "height": 256,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Top/Comparacao/RealRpm",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false,
+              "time_displayed": 15.0,
+              "color": 4278238420,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Modelo pela tensao (Rpm)",
+            "x": 512,
+            "y": 128,
+            "width": 512,
+            "height": 256,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Top/Comparacao/SimuladoRpm",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false,
+              "time_displayed": 15.0,
+              "color": 4278238420,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Diferenca (Rpm)",
+            "x": 1024,
+            "y": 128,
+            "width": 512,
+            "height": 256,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Top/Comparacao/DiferencaRpm",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false,
+              "time_displayed": 15.0,
+              "color": 4278238420,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Corrente real (A)",
+            "x": 0,
+            "y": 384,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Top/Comparacao/RealCorrenteAmps",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Corrente modelo (A)",
+            "x": 256,
+            "y": 384,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Top/Comparacao/SimuladoCorrenteAmps",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Tower - RPM",
+      "grid_layout": {
+        "layouts": [],
+        "containers": [
+          {
+            "title": "Alvo",
+            "x": 0,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Tower/AlvoRpm",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Medido",
+            "x": 256,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Tower/Comparacao/RealRpm",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Modelo",
+            "x": 512,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Tower/Comparacao/SimuladoRpm",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Real menos modelo",
+            "x": 768,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Tower/Comparacao/DiferencaRpm",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Comparacao ativa",
+            "x": 1024,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Tower/Modelo/ComparacaoAtiva",
+              "period": 0.1,
+              "data_type": "boolean",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Diagnostico",
+            "x": 1280,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Tower/Diagnostico/Resultado",
+              "period": 0.1,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Medido (Rpm)",
+            "x": 0,
+            "y": 128,
+            "width": 512,
+            "height": 256,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Tower/Comparacao/RealRpm",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false,
+              "time_displayed": 15.0,
+              "color": 4278238420,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Modelo pela tensao (Rpm)",
+            "x": 512,
+            "y": 128,
+            "width": 512,
+            "height": 256,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Tower/Comparacao/SimuladoRpm",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false,
+              "time_displayed": 15.0,
+              "color": 4278238420,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Diferenca (Rpm)",
+            "x": 1024,
+            "y": 128,
+            "width": 512,
+            "height": 256,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Tower/Comparacao/DiferencaRpm",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false,
+              "time_displayed": 15.0,
+              "color": 4278238420,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Corrente real (A)",
+            "x": 0,
+            "y": 384,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Tower/Comparacao/RealCorrenteAmps",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Corrente modelo (A)",
+            "x": 256,
+            "y": 384,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Tower/Comparacao/SimuladoCorrenteAmps",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Centrifuga - RPM motor",
+      "grid_layout": {
+        "layouts": [],
+        "containers": [
+          {
+            "title": "Alvo",
+            "x": 0,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Centrifuga/AlvoRpm",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Medido",
+            "x": 256,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Centrifuga/Comparacao/RealRpm",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Modelo",
+            "x": 512,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Centrifuga/Comparacao/SimuladoRpm",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Real menos modelo",
+            "x": 768,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Centrifuga/Comparacao/DiferencaRpm",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Comparacao ativa",
+            "x": 1024,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Centrifuga/Modelo/ComparacaoAtiva",
+              "period": 0.1,
+              "data_type": "boolean",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Diagnostico",
+            "x": 1280,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Centrifuga/Diagnostico/Resultado",
+              "period": 0.1,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Medido (Rpm)",
+            "x": 0,
+            "y": 128,
+            "width": 512,
+            "height": 256,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Centrifuga/Comparacao/RealRpm",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false,
+              "time_displayed": 15.0,
+              "color": 4278238420,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Modelo pela tensao (Rpm)",
+            "x": 512,
+            "y": 128,
+            "width": 512,
+            "height": 256,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Centrifuga/Comparacao/SimuladoRpm",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false,
+              "time_displayed": 15.0,
+              "color": 4278238420,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Diferenca (Rpm)",
+            "x": 1024,
+            "y": 128,
+            "width": 512,
+            "height": 256,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Centrifuga/Comparacao/DiferencaRpm",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false,
+              "time_displayed": 15.0,
+              "color": 4278238420,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Corrente real (A)",
+            "x": 0,
+            "y": 384,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Centrifuga/Comparacao/RealCorrenteAmps",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Corrente modelo (A)",
+            "x": 256,
+            "y": 384,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Centrifuga/Comparacao/SimuladoCorrenteAmps",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Intake - graus",
+      "grid_layout": {
+        "layouts": [],
+        "containers": [
+          {
+            "title": "Angulo medido",
+            "x": 0,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Intake/AnguloSubidaGraus",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Medido",
+            "x": 256,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Intake/Comparacao/RealGraus",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Modelo",
+            "x": 512,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Intake/Comparacao/SimuladoGraus",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Real menos modelo",
+            "x": 768,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Intake/Comparacao/DiferencaGraus",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Comparacao ativa",
+            "x": 1024,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Intake/Modelo/ComparacaoAtiva",
+              "period": 0.1,
+              "data_type": "boolean",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Diagnostico",
+            "x": 1280,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Intake/Diagnostico/Resultado",
+              "period": 0.1,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Medido (Graus)",
+            "x": 0,
+            "y": 128,
+            "width": 512,
+            "height": 256,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Intake/Comparacao/RealGraus",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false,
+              "time_displayed": 15.0,
+              "color": 4278238420,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Modelo pela tensao (Graus)",
+            "x": 512,
+            "y": 128,
+            "width": 512,
+            "height": 256,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Intake/Comparacao/SimuladoGraus",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false,
+              "time_displayed": 15.0,
+              "color": 4278238420,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Diferenca (Graus)",
+            "x": 1024,
+            "y": 128,
+            "width": 512,
+            "height": 256,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Intake/Comparacao/DiferencaGraus",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false,
+              "time_displayed": 15.0,
+              "color": 4278238420,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Corrente real (A)",
+            "x": 0,
+            "y": 384,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Intake/Comparacao/RealCorrenteAmps",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Corrente modelo (A)",
+            "x": 256,
+            "y": 384,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Intake/Comparacao/SimuladoCorrenteAmps",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Swerve e gravacao",
+      "grid_layout": {
+        "layouts": [],
+        "containers": [
+          {
+            "title": "Log: estado",
+            "x": 0,
+            "y": 0,
+            "width": 512,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Diagnostico/Log/Estado",
+              "period": 0.1,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Arquivo",
+            "x": 512,
+            "y": 0,
+            "width": 1024,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Diagnostico/Log/Arquivo",
+              "period": 0.1,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Espaco livre (MiB)",
+            "x": 0,
+            "y": 128,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Diagnostico/Log/LivreMiB",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Fila com falha",
+            "x": 256,
+            "y": 128,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Diagnostico/Log/FilaComFalha",
+              "period": 0.1,
+              "data_type": "boolean",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "CAN (0-1)",
+            "x": 512,
+            "y": 128,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/SystemStats/CANBus/Utilization",
+              "period": 0.1,
+              "data_type": "float",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Bateria (V)",
+            "x": 768,
+            "y": 128,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/SystemStats/BatteryVoltage",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Ciclo completo (ms)",
+            "x": 1024,
+            "y": 128,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/LoggedRobot/FullCycleMS",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Orcamento (ms)",
+            "x": 1280,
+            "y": 128,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Diagnostico/PeriodoAlvoMs",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Vx medido (m/s)",
+            "x": 0,
+            "y": 256,
+            "width": 512,
+            "height": 256,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Drive/Diagnostic/MeasuredVx",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false,
+              "time_displayed": 15.0,
+              "color": 4278238420,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Vx pedido (m/s)",
+            "x": 512,
+            "y": 256,
+            "width": 512,
+            "height": 256,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Drive/Diagnostic/DesiredVx",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false,
+              "time_displayed": 15.0,
+              "color": 4278238420,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Tempo de ciclo (ms)",
+            "x": 1024,
+            "y": 256,
+            "width": 512,
+            "height": 256,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/LoggedRobot/FullCycleMS",
+              "period": 0.1,
+              "data_type": "double",
+              "show_submit_button": false,
+              "time_displayed": 15.0,
+              "color": 4278238420,
+              "line_width": 2.0
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

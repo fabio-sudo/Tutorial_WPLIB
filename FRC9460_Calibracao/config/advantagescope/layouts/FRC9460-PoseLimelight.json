@@ -1,0 +1,896 @@
+{
+  "hubs": [
+    {
+      "x": 0,
+      "y": 0,
+      "width": 1440,
+      "height": 900,
+      "state": {
+        "sidebar": {
+          "width": 270,
+          "expanded": [
+            "/RealOutputs",
+            "/ReplayOutputs",
+            "/RealOutputs/Fuel"
+          ]
+        },
+        "tabs": {
+          "selected": 0,
+          "tabs": [
+            {
+              "type": 2,
+              "title": "P1 - Campo: estimada x MegaTag2 x MegaTag1",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Robot/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "bumpers": ""
+                    }
+                  },
+                  {
+                    "type": "vision",
+                    "logKey": "/RealOutputs/Vision/Rear/TagsUsadas",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff00ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "vision",
+                    "logKey": "/RealOutputs/Vision/Front/TagsUsadas",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#00ff00",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "/RealOutputs/Vision/Rear/MegaTag2/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff00ff"
+                    }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "/RealOutputs/Vision/Front/MegaTag2/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "color": "#00ff00"
+                    }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "/RealOutputs/Vision/Rear/MegaTag1/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff0000"
+                    }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "/RealOutputs/Drive/Simulation/ReferencePose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffff00"
+                    }
+                  }
+                ],
+                "field": "FRC:2026 Field",
+                "orientation": 0,
+                "size": "large"
+              },
+              "controllerUUID": "2a91098df8305b188acef80caafe94ad",
+              "renderer": null,
+              "controlsHeight": 220
+            },
+            {
+              "type": 3,
+              "title": "P2 - Campo 3D: estimada e fantasmas",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Robot/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Robo 2026"
+                    }
+                  },
+                  {
+                    "type": "component",
+                    "logKey": "/RealOutputs/Mecanismos/Componentes",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {}
+                  },
+                  {
+                    "type": "vision",
+                    "logKey": "/RealOutputs/Vision/Rear/TagsUsadas",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff00ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "vision",
+                    "logKey": "/RealOutputs/Vision/Front/TagsUsadas",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#00ff00",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "/RealOutputs/Vision/Rear/MegaTag2/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Robo 2026",
+                      "color": "#ff00ff"
+                    }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "/RealOutputs/Vision/Front/MegaTag2/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Robo 2026",
+                      "color": "#00ff00"
+                    }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "/RealOutputs/Vision/Rear/MegaTag1/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Robo 2026",
+                      "color": "#ff0000"
+                    }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "/RealOutputs/Drive/Simulation/ReferencePose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Robo 2026",
+                      "color": "#ffff00"
+                    }
+                  }
+                ],
+                "game": "FRC:2026 Field"
+              },
+              "controllerUUID": "9c83cafac009554e80c4328d1104e1bb",
+              "renderer": {
+                "cameraIndex": -2,
+                "orbitFov": 50,
+                "cameraPosition": [
+                  3,
+                  3,
+                  4
+                ],
+                "cameraTarget": [
+                  0,
+                  0.3,
+                  0
+                ]
+              },
+              "controlsHeight": 220
+            },
+            {
+              "type": 1,
+              "title": "P3 - Camera: tags, distancia (m) e latencia (ms)",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/Rear/MegaTag2/TagCount",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/Rear/MegaTag2/AvgTagDist",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/Rear/Timing/ReportedLatencyMs",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Camera/Connected",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/HasTarget",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/Valid",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Diagnostico",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "f6f13055f1d5537693c2f2f90c6560b3",
+              "renderer": null,
+              "controlsHeight": 220
+            },
+            {
+              "type": 1,
+              "title": "P4 - Correcao: idade (s) e medicoes aceitas",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Drive/Vision/CorrectionAgeSeconds",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Drive/Vision/RecentLimitSeconds",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/ReceivedCount",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/QueuedCount",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/AcceptedCount",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/RejectedCount",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Drive/Vision/RecentCorrection",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Mira/PoseConfiavel",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Drive/Vision/LastResult",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/FusionResult",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "4cd205d2dada58758f40ebf8cb22a9e9",
+              "renderer": null,
+              "controlsHeight": 220
+            },
+            {
+              "type": 1,
+              "title": "P5 - Por que rejeita (cada faixa acesa e um filtro)",
+              "controller": {
+                "leftSources": [],
+                "rightSources": [],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/Reject/Disconnected",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/Reject/NoEstimate",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/Reject/NoPose",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/Reject/NoTags",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/Reject/InvalidPose",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/Reject/InvalidDistanceData",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/Reject/InvalidTimestamp",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/Reject/Rotation",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/Reject/StaleMeasurement",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/Reject/FutureTimestamp",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/Reject/UnknownType",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/Reject/Ambiguity",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/Reject/Height",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/Reject/Tilt",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/Reject/OutsideField",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/Reject/CamerasDisagree",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "8a9ae1771f7652f7979ed7f061510bcf",
+              "renderer": null,
+              "controlsHeight": 220
+            },
+            {
+              "type": 1,
+              "title": "P6 - Inicializacao pelas tags (graus / m)",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/AutoInit/ErroHeadingGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/Rear/MegaTag1/ErroHeadingGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/AutoInit/ErroPosicaoMetros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/AutoInit/FramesJuntados",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/AutoInit/Estado",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/AutoInit/AplicadaAgora",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/AutoInit/HeadingDivergente",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Drive/Vision/InicializacaoResultado",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "2a54f48ad7be5c0283949af37476dfcc",
+              "renderer": null,
+              "controlsHeight": 220
+            },
+            {
+              "type": 1,
+              "title": "P7 - Heading do robo x giro (graus / graus por s)",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/Rear/RobotYawDegrees",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/Rear/MegaTag1/ErroHeadingGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/Rear/MegaTag2/YawRateDegPerSec",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/Rear/MegaTag2/YawRateLimitDegPerSec",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Drive/Heading/GyroHealthy",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/MegaTag1/RoboParado",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "10be55db04505ceeb47102303e91cb89",
+              "renderer": null,
+              "controlsHeight": 220
+            },
+            {
+              "type": 1,
+              "title": "P8 - Erro e confianca (m)",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/PoseErrorMeters",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/XYStdDevMeters",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/Simulation/PositionErrorMeters",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/Rear/MegaTag2/FrameAgeSeconds",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/MegaTag2/OutlierSuspected",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/NewMeasurement",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/Fusion/MeasurementAccepted",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "91af1240f4cc516ba5ac2ea35963d082",
+              "renderer": null,
+              "controlsHeight": 220
+            },
+            {
+              "type": 4,
+              "title": "P9 - Resumo da visao",
+              "controller": [
+                "/RealOutputs/Vision/Diagnostico",
+                "/RealOutputs/Vision/AutoInit/Estado",
+                "/RealOutputs/Vision/AutoInit/Resultado",
+                "/RealOutputs/Drive/Vision/LastResult",
+                "/RealOutputs/Drive/Vision/InicializacaoResultado",
+                "/RealOutputs/Drive/Vision/InicializacoesTotal",
+                "/RealOutputs/Drive/Vision/LastAcceptedCamera",
+                "/RealOutputs/Drive/Vision/CorrectionAgeSeconds",
+                "/RealOutputs/Shooter/Mira/PoseConfiavel",
+                "/RealOutputs/Vision/Rear/Fusion/FusionResult",
+                "/RealOutputs/Vision/Rear/Fusion/ReceivedCount",
+                "/RealOutputs/Vision/Rear/Fusion/AcceptedCount",
+                "/RealOutputs/Vision/Rear/Fusion/RejectedCount"
+              ],
+              "controllerUUID": "04c12e56c7e75bfe869883550639c4a2",
+              "renderer": null,
+              "controlsHeight": 0
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "satellites": [],
+  "version": "26.0.0"
+}

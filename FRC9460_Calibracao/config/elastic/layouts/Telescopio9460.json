@@ -1,0 +1,403 @@
+{
+  "version": 1.0,
+  "grid_size": 128,
+  "tabs": [
+    {
+      "name": "Telescopio",
+      "grid_layout": {
+        "layouts": [],
+        "containers": [
+          {
+            "title": "Estado",
+            "x": 0,
+            "y": 0,
+            "width": 384,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Telescopio/Estado",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Comando",
+            "x": 384,
+            "y": 0,
+            "width": 384,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Telescopio/Comando",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Na meta",
+            "x": 768,
+            "y": 0,
+            "width": 128,
+            "height": 128,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Telescopio/NaMeta",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Travado",
+            "x": 896,
+            "y": 0,
+            "width": 128,
+            "height": 128,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Telescopio/Protecao/Travado",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4294198070,
+              "false_color": 4283215696,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Limite do topo",
+            "x": 1024,
+            "y": 0,
+            "width": 128,
+            "height": 128,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Telescopio/Protecao/LimiteTopoAtivo",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4294198070,
+              "false_color": 4283215696,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Modo",
+            "x": 1152,
+            "y": 0,
+            "width": 384,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Telescopio/Modo",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Posicao real (cm)",
+            "x": 0,
+            "y": 128,
+            "width": 640,
+            "height": 256,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Telescopio/Comparacao/RealCentimetros",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 10.0,
+              "color": 4294940672,
+              "line_width": 2.0,
+              "min_value": 0
+            }
+          },
+          {
+            "title": "Corrente (A)",
+            "x": 640,
+            "y": 128,
+            "width": 640,
+            "height": 256,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Telescopio/Comparacao/RealCorrenteAmps",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 10.0,
+              "color": 4294198070,
+              "line_width": 2.0,
+              "min_value": 0
+            }
+          },
+          {
+            "title": "Meta (m)",
+            "x": 1280,
+            "y": 128,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Telescopio/MetaMetros",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Erro (m)",
+            "x": 1280,
+            "y": 256,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Telescopio/ErroMetros",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Tensao pedida (V)",
+            "x": 1536,
+            "y": 128,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Telescopio/TensaoSolicitadaVolts",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Real x Modelo",
+      "grid_layout": {
+        "layouts": [],
+        "containers": [
+          {
+            "title": "Telescopio: real - modelo (Centimetros)",
+            "x": 0,
+            "y": 0,
+            "width": 384,
+            "height": 256,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Telescopio/Comparacao/DiferencaCentimetros",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 10.0,
+              "color": 4294940672,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Divergindo",
+            "x": 0,
+            "y": 256,
+            "width": 128,
+            "height": 128,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Telescopio/Comparacao/Divergindo",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4294198070,
+              "false_color": 4283215696,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Resultado",
+            "x": 128,
+            "y": 256,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Telescopio/Diagnostico/Resultado",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Real (Centimetros)",
+            "x": 0,
+            "y": 384,
+            "width": 128,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Telescopio/Comparacao/RealCentimetros",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Modelo (Centimetros)",
+            "x": 128,
+            "y": 384,
+            "width": 128,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Telescopio/Comparacao/SimuladoCentimetros",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Maior dif. (Centimetros)",
+            "x": 256,
+            "y": 384,
+            "width": 128,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Telescopio/Comparacao/DiferencaMaximaCentimetros",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Erro ao parar (cm)",
+            "x": 384,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Telescopio/Comparacao/DiferencaAoPararCentimetros",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Movimentos comparados",
+            "x": 384,
+            "y": 128,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Telescopio/Comparacao/MovimentosComparados",
+              "period": 0.06,
+              "data_type": "int",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Corrente real - modelo (A)",
+            "x": 640,
+            "y": 0,
+            "width": 640,
+            "height": 256,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Telescopio/Comparacao/DiferencaCorrenteAmps",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 10.0,
+              "color": 4294198070,
+              "line_width": 2.0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Diagnostico",
+      "grid_layout": {
+        "layouts": [],
+        "containers": [
+          {
+            "title": "Telescopio",
+            "x": 0,
+            "y": 0,
+            "width": 128,
+            "height": 128,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Telescopio/Diagnostico/MotorRespondendo",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Resultado",
+            "x": 128,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Telescopio/Diagnostico/Resultado",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Execucao",
+            "x": 384,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Telescopio/Diagnostico/Execucao",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Comando",
+            "x": 640,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Telescopio/Comando",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Alertas (motores sem resposta, sem ID CAN)",
+            "x": 1024,
+            "y": 0,
+            "width": 768,
+            "height": 512,
+            "type": "Alerts",
+            "properties": {
+              "topic": "/SmartDashboard/Alerts",
+              "period": 0.06
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

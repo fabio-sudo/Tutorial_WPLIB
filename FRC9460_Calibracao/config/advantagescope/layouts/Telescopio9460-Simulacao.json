@@ -277,6 +277,222 @@
               "controllerUUID": "b814e0a22d074bbe81938b9b3c9e884e",
               "renderer": null,
               "controlsHeight": 235
+            },
+            {
+              "type": 1,
+              "title": "Real x modelo - posicao",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio/Comparacao/RealCentimetros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio/Comparacao/SimuladoCentimetros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio/Comparacao/DiferencaCentimetros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Telescopio/Comparacao/ToleranciaCentimetros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Telescopio/Comparacao/DiferencaAoPararCentimetros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ba68c8",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Telescopio/Modelo/ComparacaoAtiva",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Telescopio/Comparacao/Divergindo",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Telescopio/Estado",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Telescopio/Diagnostico/Resultado",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "7271370af6d6482988f420bf8322aa48",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "Real x modelo - corrente",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio/Comparacao/RealCorrenteAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio/Comparacao/SimuladoCorrenteAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio/Comparacao/RealCentimetrosPorSeg",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffcc80",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Telescopio/Comparacao/SimuladoCentimetrosPorSeg",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#b2ebf2",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Telescopio/Protecao/Travado",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Telescopio/Comparacao/Divergindo",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "7c72398c19f7498b990fa7d0c27f864d",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 4,
+              "title": "Diagnostico do motor",
+              "controller": [
+                "/RealOutputs/Telescopio/Diagnostico/Execucao",
+                "/RealOutputs/Telescopio/Diagnostico/MotorRespondendo",
+                "/RealOutputs/Telescopio/Diagnostico/Resultado",
+                "/RealOutputs/Telescopio/Modo",
+                "/RealOutputs/Telescopio/Comando",
+                "/RealOutputs/Telescopio/Comparacao/DiferencaMaximaCentimetros",
+                "/RealOutputs/Telescopio/Comparacao/DiferencaAoPararCentimetros",
+                "/RealOutputs/Telescopio/Comparacao/MovimentosComparados",
+                "/RealOutputs/Telescopio/Comparacao/Divergindo"
+              ],
+              "controllerUUID": "dd398bc7565a41acb76b7250b30b12ea",
+              "renderer": null,
+              "controlsHeight": 0
             }
           ]
         }

@@ -1,0 +1,47 @@
+{
+  // Replay de um log do robô (Terminal > Run Task...). Guia:
+  // config/advantagescope/docs/VALIDACAO_ROBO.md (seção "Replay de um log real")
+  // O resultado sai ao lado do log, com o sufixo _replay.wpilog.
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "FRC9460: replay do log aberto no AdvantageScope",
+      "detail": "Abra o .wpilog do robô no AdvantageScope antes; o AdvantageKit usa esse arquivo.",
+      "type": "shell",
+      "command": "${workspaceFolder}/gradlew.bat",
+      "args": ["simulateJava", "--offline", "--console=plain"],
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "FRC9460_MODE": "REPLAY",
+          "JAVA_HOME": "C:/Users/Public/wpilib/2026/jdk"
+        }
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "FRC9460: replay escolhendo o arquivo",
+      "detail": "Cole o caminho do .wpilog baixado do robô (com ou sem aspas).",
+      "type": "shell",
+      "command": "${workspaceFolder}/gradlew.bat",
+      "args": [
+        "simulateJava",
+        { "value": "-PreplayLog=${input:logDoRobo}", "quoting": "strong" },
+        "--offline",
+        "--console=plain"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": { "JAVA_HOME": "C:/Users/Public/wpilib/2026/jdk" }
+      },
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "logDoRobo",
+      "type": "promptString",
+      "description": "Caminho do .wpilog do robô (ex.: C:/Users/Admin/Desktop/logs/FRC9460_xxxx.wpilog)"
+    }
+  ]
+}

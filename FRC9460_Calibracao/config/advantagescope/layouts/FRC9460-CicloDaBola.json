@@ -1,0 +1,1689 @@
+{
+  "hubs": [
+    {
+      "x": -8,
+      "y": -8,
+      "width": 1552,
+      "height": 832,
+      "state": {
+        "sidebar": {
+          "width": 300,
+          "expanded": [
+            "/RealOutputs",
+            "/RealOutputs/Fuel",
+            "/Intake",
+            "/Roller",
+            "/Centrifuga"
+          ]
+        },
+        "tabs": {
+          "selected": 0,
+          "tabs": [
+            {
+              "type": 3,
+              "title": "BOLA 1 - Campo 3D",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Robot/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Robo 2026"
+                    }
+                  },
+                  {
+                    "type": "component",
+                    "logKey": "/RealOutputs/Mecanismos/Componentes",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {}
+                  },
+                  {
+                    "type": "gamePiece",
+                    "logKey": "/RealOutputs/Fuel/Simulacao/BolasNoChao",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "variant": "Fuel"
+                    }
+                  },
+                  {
+                    "type": "gamePiece",
+                    "logKey": "/RealOutputs/Fuel/Simulacao/BolasNoAr",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "variant": "Fuel"
+                    }
+                  },
+                  {
+                    "type": "trajectory",
+                    "logKey": "/RealOutputs/Fuel/Previsao/Trajetoria",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffff00",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "trajectory",
+                    "logKey": "/RealOutputs/Fuel/Tiro/Planejado/Trajetoria",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#00ff00",
+                      "size": "bold"
+                    }
+                  },
+                  {
+                    "type": "trajectory",
+                    "logKey": "/RealOutputs/Fuel/Tiro/Sensores/Trajetoria",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff00ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "trajectory",
+                    "logKey": "/RealOutputs/Fuel/Simulacao/UltimoTiro/Trajetoria",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#00ffff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "axes",
+                    "logKey": "/RealOutputs/Shooter/Visualizacao/Hub",
+                    "logType": "Pose3d",
+                    "visible": true,
+                    "options": {}
+                  }
+                ],
+                "game": "FRC:2026 Field"
+              },
+              "controllerUUID": "5f9fb2bd99ba460f9b856c18e95b5230",
+              "renderer": {
+                "cameraIndex": -2,
+                "orbitFov": 50,
+                "cameraPosition": [
+                  3.0,
+                  3.0,
+                  4.5
+                ],
+                "cameraTarget": [
+                  0,
+                  0.3,
+                  0
+                ]
+              },
+              "controlsHeight": 260
+            },
+            {
+              "type": 3,
+              "title": "BOLA 2 - Robo de perto",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Robot/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Robo 2026"
+                    }
+                  },
+                  {
+                    "type": "component",
+                    "logKey": "/RealOutputs/Mecanismos/Componentes",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {}
+                  },
+                  {
+                    "type": "gamePiece",
+                    "logKey": "/RealOutputs/Fuel/Simulacao/BolasNoChao",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "variant": "Fuel"
+                    }
+                  },
+                  {
+                    "type": "gamePiece",
+                    "logKey": "/RealOutputs/Fuel/Simulacao/BolasNoAr",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "variant": "Fuel"
+                    }
+                  },
+                  {
+                    "type": "trajectory",
+                    "logKey": "/RealOutputs/Fuel/Previsao/Trajetoria",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffff00",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "trajectory",
+                    "logKey": "/RealOutputs/Fuel/Tiro/Planejado/Trajetoria",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#00ff00",
+                      "size": "bold"
+                    }
+                  },
+                  {
+                    "type": "trajectory",
+                    "logKey": "/RealOutputs/Fuel/Tiro/Sensores/Trajetoria",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff00ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "trajectory",
+                    "logKey": "/RealOutputs/Fuel/Simulacao/UltimoTiro/Trajetoria",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#00ffff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "axes",
+                    "logKey": "/RealOutputs/Shooter/Visualizacao/Hub",
+                    "logType": "Pose3d",
+                    "visible": true,
+                    "options": {}
+                  }
+                ],
+                "game": "FRC:2026 Field"
+              },
+              "controllerUUID": "ce6bf9dbaa6a4103ae133d6a304981a0",
+              "renderer": {
+                "cameraIndex": -2,
+                "orbitFov": 50,
+                "cameraPosition": [
+                  1.4,
+                  1.2,
+                  1.4
+                ],
+                "cameraTarget": [
+                  0,
+                  0.3,
+                  0
+                ]
+              },
+              "controlsHeight": 260
+            },
+            {
+              "type": 1,
+              "title": "BOLA 3 - Contagem (sensores x simulacao)",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Fuel/Contagem/ColetasDetectadas",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Fuel/Simulacao/Coletadas",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Fuel/Contagem/DisparosDetectados",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffb74d",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Fuel/Simulacao/Lancadas",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#4dd0e1",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Fuel/Simulacao/Acertos",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Fuel/Simulacao/Erros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Fuel/Real/Acertos",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#a5d6a7",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Fuel/Real/Erros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ef9a9a",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Fuel/Contagem/NoDepositoEstimado",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Fuel/Simulacao/NoDeposito",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Fuel/Contagem/ColetaAgora",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Fuel/Contagem/DisparoAgora",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffb74d"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Fuel/Simulacao/UltimoTiro/Resultado",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "899df530ee1a4e909984525437a1787d",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "BOLA 4 - Intake",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Intake/AnguloSubidaGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Intake/PosicaoVoltas",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Intake/AlvoSegurarVoltas",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/Intake/Inputs/AppliedVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#5f4528",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Intake/Inputs/CurrentAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#8e7cc3",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Intake/Aberto",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Intake/Fechado",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Intake/Segurando",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/Intake/Inputs/OpenLimitActive",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/Intake/Inputs/CloseLimitActive",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Intake/ZeroValido",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "f10efdeaae4f49b79e95271a7d23a99c",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "BOLA 5 - Roller e coleta",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Roller/CorrenteAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Fuel/Contagem/LimiteCorrenteColetaAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Roller/Rpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Roller/Puxando",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Fuel/Contagem/ColetaAgora",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "5c2dfadd63e14fa8a2a15d4b36e74644",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "BOLA 6 - Centrifuga e disparo",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Centrifuga/Rpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ba68c8",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Centrifuga/AlvoRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ba68c8",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Top/RpmEsquerdo",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Shooter/Top/AlvoRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Fuel/Contagem/QuedaRpmTop",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Fuel/Contagem/LimiteQuedaRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Centrifuga/Ligada",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#ba68c8"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Centrifuga/NoRpm",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Fuel/Contagem/DisparoAgora",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "bf3736df8c7449b5834a5990ce7c2fcd",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "BOLA 7 - Tiros",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Fuel/Simulacao/UltimoTiro/DistanciaDoCentroDoHubMetros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Fuel/Previsao/DistanciaDoCentroDoHubMetros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffff00",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Fuel/Contagem/RaioDoHubMetros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Fuel/Simulacao/UltimoTiro/TempoDeVooSegundos",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Fuel/Previsao/VelocidadeSaidaMps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Fuel/Simulacao/UltimoTiro/Resultado",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Fuel/Previsao/AcertaOHub",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "d703927f1adb49a5801f10834927f227",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "BOLA 8 - Tiro planejado x onde chegou",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Fuel/Tiro/Planejado/DistanciaDoCentroDoHubMetros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Fuel/Tiro/Sensores/DistanciaDoCentroDoHubMetros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ba68c8",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Fuel/Simulacao/UltimoTiro/DistanciaDoCentroDoHubMetros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Fuel/Contagem/RaioDoHubMetros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Fuel/Tiro/Diferenca/VelocidadeSaidaMps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Fuel/Tiro/Diferenca/DirecaoGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Fuel/Tiro/Planejado/Acerta",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Fuel/Tiro/Sensores/Acerta",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#ba68c8"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Fuel/Simulacao/UltimoTiro/Resultado",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Fuel/Real/UltimaAnotacao",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Modo/MiraAutomaticaLigada",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "39e67d9c2dff408f9f1e0f2c2f87e535",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 4,
+              "title": "BOLA 9 - Entradas",
+              "controller": [
+                "/Intake/Inputs/Connected",
+                "/Intake/Inputs/ZeroValid",
+                "/Intake/Inputs/PositionRotations",
+                "/Intake/Inputs/VelocityRotationsPerSec",
+                "/Intake/Inputs/AppliedVolts",
+                "/Intake/Inputs/CurrentAmps",
+                "/Intake/Inputs/OpenLimitActive",
+                "/Intake/Inputs/CloseLimitActive",
+                "/Roller/Inputs/Connected",
+                "/Roller/Inputs/VelocityRpm",
+                "/Roller/Inputs/AppliedVolts",
+                "/Roller/Inputs/CurrentAmps",
+                "/Centrifuga/Inputs/Connected",
+                "/Centrifuga/Inputs/VelocityRpm",
+                "/Centrifuga/Inputs/AppliedVolts",
+                "/Centrifuga/Inputs/CurrentAmps"
+              ],
+              "controllerUUID": "42710e3a7a4f4105bf62d8e142087dcd",
+              "renderer": null,
+              "controlsHeight": 0
+            },
+            {
+              "type": 1,
+              "title": "BOLA 10 - Visao em cada tiro",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Fuel/Tiro/Visao/SegundosDesdeCorrecao",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Drive/Vision/RecentLimitSeconds",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Fuel/Tiro/Visao/ErroDaPoseMetros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Fuel/Tiro/Visao/TirosComVisaoRecente",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Fuel/Tiro/Visao/TirosSemVisaoRecente",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Fuel/Tiro/Visao/CorrecaoRecente",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Fuel/Tiro/Visao/PoseCorrigidaDesdeReset",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Fuel/Tiro/Visao/UltimaCamera",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Fuel/Tiro/Planejado/Acerta",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Fuel/Simulacao/UltimoTiro/Resultado",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "70b439d4431f4a6f9eb087dd8669ead4",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 2,
+              "title": "BOLA 11 - Pose no tiro: estimada x verdadeira",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Robot/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "bumpers": ""
+                    }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "/RealOutputs/Fuel/Tiro/Visao/PoseEstimada",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2"
+                    }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "/RealOutputs/Fuel/Tiro/Visao/PoseVerdadeira",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4"
+                    }
+                  },
+                  {
+                    "type": "trajectory",
+                    "logKey": "/RealOutputs/Fuel/Tiro/Planejado/Trajetoria",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#00ff00",
+                      "size": "bold"
+                    }
+                  },
+                  {
+                    "type": "trajectory",
+                    "logKey": "/RealOutputs/Fuel/Simulacao/UltimoTiro/Trajetoria",
+                    "logType": "Translation3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#00ffff",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "field": "FRC:2026 Field",
+                "orientation": 0,
+                "size": "large"
+              },
+              "controllerUUID": "9b12e1e03862480e8f106e14171b5423",
+              "renderer": null,
+              "controlsHeight": 200
+            },
+            {
+              "type": 1,
+              "title": "BOLA 12 - Intake: real x modelo",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Intake/Comparacao/RealGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Intake/Comparacao/SimuladoGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Intake/Comparacao/DiferencaGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Intake/Comparacao/ToleranciaGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Intake/Modelo/ComparacaoAtiva",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Intake/Comparacao/Divergindo",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Intake/Diagnostico/Resultado",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Intake/Segurando",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "2c7ff87759aa49b8b92f7bc6c34f0ff0",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "BOLA 13 - Roller: real x modelo",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Roller/Comparacao/RealRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Roller/Comparacao/SimuladoRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Roller/Comparacao/DiferencaRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Roller/Comparacao/ToleranciaRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Roller/Modelo/ComparacaoAtiva",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Roller/Comparacao/Divergindo",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Roller/Diagnostico/Resultado",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Fuel/Contagem/ColetaAgora",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "dd6b5cf729634810a64aeb07d0066d01",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "BOLA 14 - Roller: corrente real x modelo (cada bola)",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Roller/Comparacao/RealCorrenteAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Roller/Comparacao/SimuladoCorrenteAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Fuel/Contagem/LimiteCorrenteColetaAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Roller/Comparacao/DiferencaCorrenteAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Roller/Puxando",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Fuel/Contagem/ColetaAgora",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "abb6a93e481e4b42967bca274cb9fee2",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "BOLA 15 - Centrifuga: real x modelo",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Centrifuga/Comparacao/RealRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ba68c8",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Centrifuga/Comparacao/SimuladoRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Centrifuga/Comparacao/DiferencaRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Centrifuga/Comparacao/ToleranciaRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Centrifuga/Modelo/ComparacaoAtiva",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Centrifuga/Comparacao/Divergindo",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Centrifuga/Diagnostico/Resultado",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Centrifuga/Ligada",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#ba68c8"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "198522619c03450f8eeae08db89ca610",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "BOLA 16 - Top: real x modelo (cada tiro)",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Top/Comparacao/RealRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Top/Comparacao/SimuladoRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Top/Comparacao/DiferencaRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Shooter/Top/Comparacao/ToleranciaRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Top/Modelo/ComparacaoAtiva",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Top/Comparacao/Divergindo",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Top/Diagnostico/Resultado",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Fuel/Contagem/DisparoAgora",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "61647d8bc77849e9bea9bbfc8b55c715",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 4,
+              "title": "BOLA 17 - Diagnostico dos motores",
+              "controller": [
+                "/RealOutputs/Intake/Diagnostico/Execucao",
+                "/RealOutputs/Intake/Diagnostico/MotorRespondendo",
+                "/RealOutputs/Intake/Diagnostico/Resultado",
+                "/RealOutputs/Intake/Comparacao/Divergindo",
+                "/RealOutputs/Roller/Diagnostico/Execucao",
+                "/RealOutputs/Roller/Diagnostico/MotorRespondendo",
+                "/RealOutputs/Roller/Diagnostico/Resultado",
+                "/RealOutputs/Roller/Comparacao/Divergindo",
+                "/RealOutputs/Centrifuga/Diagnostico/Execucao",
+                "/RealOutputs/Centrifuga/Diagnostico/MotorRespondendo",
+                "/RealOutputs/Centrifuga/Diagnostico/Resultado",
+                "/RealOutputs/Centrifuga/Comparacao/Divergindo",
+                "/RealOutputs/Shooter/Pivo/Diagnostico/Execucao",
+                "/RealOutputs/Shooter/Pivo/Diagnostico/MotorRespondendo",
+                "/RealOutputs/Shooter/Pivo/Diagnostico/Resultado",
+                "/RealOutputs/Shooter/Pivo/Comparacao/Divergindo",
+                "/RealOutputs/Shooter/Top/Diagnostico/Execucao",
+                "/RealOutputs/Shooter/Top/Diagnostico/MotorRespondendo",
+                "/RealOutputs/Shooter/Top/Diagnostico/Resultado",
+                "/RealOutputs/Shooter/Top/Comparacao/Divergindo",
+                "/RealOutputs/Shooter/Tower/Diagnostico/Execucao",
+                "/RealOutputs/Shooter/Tower/Diagnostico/MotorRespondendo",
+                "/RealOutputs/Shooter/Tower/Diagnostico/Resultado",
+                "/RealOutputs/Shooter/Tower/Comparacao/Divergindo",
+                "/RealOutputs/Intake/Comando",
+                "/RealOutputs/Roller/Comando",
+                "/RealOutputs/Centrifuga/Comando",
+                "/RealOutputs/Shooter/Comando",
+                "/RealOutputs/Intake/Comparacao/DiferencaMaximaGraus",
+                "/RealOutputs/Intake/Comparacao/DiferencaAoPararGraus",
+                "/RealOutputs/Intake/Comparacao/MovimentosComparados",
+                "/RealOutputs/Roller/Comparacao/DiferencaMaximaRpm",
+                "/RealOutputs/Centrifuga/Comparacao/DiferencaMaximaRpm"
+              ],
+              "controllerUUID": "9e0c65b8caf74548976183ae13e3402b",
+              "renderer": null,
+              "controlsHeight": 0
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "satellites": [],
+  "version": "26.0.0"
+}

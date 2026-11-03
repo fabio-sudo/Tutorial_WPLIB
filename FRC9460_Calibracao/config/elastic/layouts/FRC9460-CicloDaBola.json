@@ -1,0 +1,1178 @@
+{
+  "version": 1.0,
+  "grid_size": 128,
+  "tabs": [
+    {
+      "name": "Ciclo da bola",
+      "grid_layout": {
+        "layouts": [],
+        "containers": [
+          {
+            "title": "Coletas (sensores)",
+            "x": 0,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Contagem/ColetasDetectadas",
+              "period": 0.06,
+              "data_type": "int",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Disparos (sensores)",
+            "x": 256,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Contagem/DisparosDetectados",
+              "period": 0.06,
+              "data_type": "int",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "No deposito (estimado)",
+            "x": 512,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Contagem/NoDepositoEstimado",
+              "period": 0.06,
+              "data_type": "int",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Coleta agora",
+            "x": 768,
+            "y": 0,
+            "width": 128,
+            "height": 128,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Contagem/ColetaAgora",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Disparo agora",
+            "x": 896,
+            "y": 0,
+            "width": 128,
+            "height": 128,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Contagem/DisparoAgora",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Sim: coletadas",
+            "x": 1024,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Simulacao/Coletadas",
+              "period": 0.06,
+              "data_type": "int",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Sim: lancadas",
+            "x": 1280,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Simulacao/Lancadas",
+              "period": 0.06,
+              "data_type": "int",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Sim: acertos",
+            "x": 1536,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Simulacao/Acertos",
+              "period": 0.06,
+              "data_type": "int",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Rolete: corrente (A)",
+            "x": 0,
+            "y": 128,
+            "width": 640,
+            "height": 256,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Roller/CorrenteAmps",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 10.0,
+              "color": 4294940672,
+              "line_width": 2.0,
+              "min_value": 0,
+              "max_value": 45
+            }
+          },
+          {
+            "title": "Top (RPM)",
+            "x": 640,
+            "y": 128,
+            "width": 640,
+            "height": 256,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Top/RpmEsquerdo",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 10.0,
+              "color": 4294198070,
+              "line_width": 2.0,
+              "min_value": 0
+            }
+          },
+          {
+            "title": "Intake (graus, 0 = aberto)",
+            "x": 1280,
+            "y": 128,
+            "width": 512,
+            "height": 256,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Intake/AnguloSubidaGraus",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 10.0,
+              "color": 4283215696,
+              "line_width": 2.0,
+              "min_value": -5,
+              "max_value": 100
+            }
+          },
+          {
+            "title": "Rolete puxando",
+            "x": 0,
+            "y": 384,
+            "width": 128,
+            "height": 128,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Roller/Puxando",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Intake aberto",
+            "x": 128,
+            "y": 384,
+            "width": 128,
+            "height": 128,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Intake/Aberto",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Centrifuga ligada",
+            "x": 256,
+            "y": 384,
+            "width": 128,
+            "height": 128,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Centrifuga/Ligada",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Ultimo tiro (sim)",
+            "x": 384,
+            "y": 384,
+            "width": 384,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Simulacao/UltimoTiro/Resultado",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Ultima anotacao (real)",
+            "x": 768,
+            "y": 384,
+            "width": 384,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Real/UltimaAnotacao",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Real: acertos",
+            "x": 1152,
+            "y": 384,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Real/Acertos",
+              "period": 0.06,
+              "data_type": "int",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Real: erros",
+            "x": 1408,
+            "y": 384,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Real/Erros",
+              "period": 0.06,
+              "data_type": "int",
+              "show_submit_button": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Tiro e visao",
+      "grid_layout": {
+        "layouts": [],
+        "containers": [
+          {
+            "title": "Tiro numero",
+            "x": 0,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Tiro/Numero",
+              "period": 0.06,
+              "data_type": "int",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Planejado acerta",
+            "x": 256,
+            "y": 0,
+            "width": 128,
+            "height": 128,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Tiro/Planejado/Acerta",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Sensores: acerta",
+            "x": 384,
+            "y": 0,
+            "width": 128,
+            "height": 128,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Tiro/Sensores/Acerta",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Planejado: dist. do centro (m)",
+            "x": 512,
+            "y": 0,
+            "width": 384,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Tiro/Planejado/DistanciaDoCentroDoHubMetros",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Sensores: dist. do centro (m)",
+            "x": 896,
+            "y": 0,
+            "width": 384,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Tiro/Sensores/DistanciaDoCentroDoHubMetros",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Dif. velocidade (m/s)",
+            "x": 1280,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Tiro/Diferenca/VelocidadeSaidaMps",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Dif. direcao (graus)",
+            "x": 1536,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Tiro/Diferenca/DirecaoGraus",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Visao recente no tiro",
+            "x": 0,
+            "y": 128,
+            "width": 256,
+            "height": 128,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Tiro/Visao/CorrecaoRecente",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Pose ja corrigida",
+            "x": 256,
+            "y": 128,
+            "width": 256,
+            "height": 128,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Tiro/Visao/PoseCorrigidaDesdeReset",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Seg. desde a correcao",
+            "x": 512,
+            "y": 128,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Tiro/Visao/SegundosDesdeCorrecao",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Camera",
+            "x": 768,
+            "y": 128,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Tiro/Visao/UltimaCamera",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Erro da pose (m, sim)",
+            "x": 1024,
+            "y": 128,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Tiro/Visao/ErroDaPoseMetros",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Tiros com visao recente",
+            "x": 1280,
+            "y": 128,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Tiro/Visao/TirosComVisaoRecente",
+              "period": 0.06,
+              "data_type": "int",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Tiros SEM visao recente",
+            "x": 1536,
+            "y": 128,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Tiro/Visao/TirosSemVisaoRecente",
+              "period": 0.06,
+              "data_type": "int",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Queda de RPM do top (deteccao do tiro)",
+            "x": 0,
+            "y": 256,
+            "width": 896,
+            "height": 256,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Contagem/QuedaRpmTop",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 10.0,
+              "color": 4294198070,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Idade da correcao da visao (s)",
+            "x": 896,
+            "y": 256,
+            "width": 896,
+            "height": 256,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Drive/Vision/CorrectionAgeSeconds",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 20.0,
+              "color": 4288423856,
+              "line_width": 2.0,
+              "min_value": 0,
+              "max_value": 3
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Real x Modelo",
+      "grid_layout": {
+        "layouts": [],
+        "containers": [
+          {
+            "title": "Intake: real - modelo (Graus)",
+            "x": 0,
+            "y": 0,
+            "width": 384,
+            "height": 256,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Intake/Comparacao/DiferencaGraus",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 10.0,
+              "color": 4283215696,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Divergindo",
+            "x": 0,
+            "y": 256,
+            "width": 128,
+            "height": 128,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Intake/Comparacao/Divergindo",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4294198070,
+              "false_color": 4283215696,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Resultado",
+            "x": 128,
+            "y": 256,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Intake/Diagnostico/Resultado",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Real (Graus)",
+            "x": 0,
+            "y": 384,
+            "width": 128,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Intake/Comparacao/RealGraus",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Modelo (Graus)",
+            "x": 128,
+            "y": 384,
+            "width": 128,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Intake/Comparacao/SimuladoGraus",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Maior dif. (Graus)",
+            "x": 256,
+            "y": 384,
+            "width": 128,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Intake/Comparacao/DiferencaMaximaGraus",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Rolete: real - modelo (Rpm)",
+            "x": 384,
+            "y": 0,
+            "width": 384,
+            "height": 256,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Roller/Comparacao/DiferencaRpm",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 10.0,
+              "color": 4294940672,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Divergindo",
+            "x": 384,
+            "y": 256,
+            "width": 128,
+            "height": 128,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Roller/Comparacao/Divergindo",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4294198070,
+              "false_color": 4283215696,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Resultado",
+            "x": 512,
+            "y": 256,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Roller/Diagnostico/Resultado",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Real (Rpm)",
+            "x": 384,
+            "y": 384,
+            "width": 128,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Roller/Comparacao/RealRpm",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Modelo (Rpm)",
+            "x": 512,
+            "y": 384,
+            "width": 128,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Roller/Comparacao/SimuladoRpm",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Maior dif. (Rpm)",
+            "x": 640,
+            "y": 384,
+            "width": 128,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Roller/Comparacao/DiferencaMaximaRpm",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Centrifuga: real - modelo (Rpm)",
+            "x": 768,
+            "y": 0,
+            "width": 384,
+            "height": 256,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Centrifuga/Comparacao/DiferencaRpm",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 10.0,
+              "color": 4288423856,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Divergindo",
+            "x": 768,
+            "y": 256,
+            "width": 128,
+            "height": 128,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Centrifuga/Comparacao/Divergindo",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4294198070,
+              "false_color": 4283215696,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Resultado",
+            "x": 896,
+            "y": 256,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Centrifuga/Diagnostico/Resultado",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Real (Rpm)",
+            "x": 768,
+            "y": 384,
+            "width": 128,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Centrifuga/Comparacao/RealRpm",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Modelo (Rpm)",
+            "x": 896,
+            "y": 384,
+            "width": 128,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Centrifuga/Comparacao/SimuladoRpm",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Maior dif. (Rpm)",
+            "x": 1024,
+            "y": 384,
+            "width": 128,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Centrifuga/Comparacao/DiferencaMaximaRpm",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Top: real - modelo (Rpm)",
+            "x": 1152,
+            "y": 0,
+            "width": 384,
+            "height": 256,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Top/Comparacao/DiferencaRpm",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 10.0,
+              "color": 4294198070,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Divergindo",
+            "x": 1152,
+            "y": 256,
+            "width": 128,
+            "height": 128,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Top/Comparacao/Divergindo",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4294198070,
+              "false_color": 4283215696,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Resultado",
+            "x": 1280,
+            "y": 256,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Top/Diagnostico/Resultado",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Real (Rpm)",
+            "x": 1152,
+            "y": 384,
+            "width": 128,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Top/Comparacao/RealRpm",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Modelo (Rpm)",
+            "x": 1280,
+            "y": 384,
+            "width": 128,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Top/Comparacao/SimuladoRpm",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Maior dif. (Rpm)",
+            "x": 1408,
+            "y": 384,
+            "width": 128,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Top/Comparacao/DiferencaMaximaRpm",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Rolete: corrente real - modelo (cada bola)",
+            "x": 0,
+            "y": 512,
+            "width": 768,
+            "height": 256,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Roller/Comparacao/DiferencaCorrenteAmps",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 10.0,
+              "color": 4294940672,
+              "line_width": 2.0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Diagnostico",
+      "grid_layout": {
+        "layouts": [],
+        "containers": [
+          {
+            "title": "Intake",
+            "x": 0,
+            "y": 0,
+            "width": 128,
+            "height": 128,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Intake/Diagnostico/MotorRespondendo",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Resultado",
+            "x": 128,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Intake/Diagnostico/Resultado",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Execucao",
+            "x": 384,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Intake/Diagnostico/Execucao",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Comando",
+            "x": 640,
+            "y": 0,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Intake/Comando",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Rolete",
+            "x": 0,
+            "y": 128,
+            "width": 128,
+            "height": 128,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Roller/Diagnostico/MotorRespondendo",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Resultado",
+            "x": 128,
+            "y": 128,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Roller/Diagnostico/Resultado",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Execucao",
+            "x": 384,
+            "y": 128,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Roller/Diagnostico/Execucao",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Comando",
+            "x": 640,
+            "y": 128,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Roller/Comando",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Centrifuga",
+            "x": 0,
+            "y": 256,
+            "width": 128,
+            "height": 128,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Centrifuga/Diagnostico/MotorRespondendo",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Resultado",
+            "x": 128,
+            "y": 256,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Centrifuga/Diagnostico/Resultado",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Execucao",
+            "x": 384,
+            "y": 256,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Centrifuga/Diagnostico/Execucao",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Comando",
+            "x": 640,
+            "y": 256,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Centrifuga/Comando",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Top",
+            "x": 0,
+            "y": 384,
+            "width": 128,
+            "height": 128,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Top/Diagnostico/MotorRespondendo",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Resultado",
+            "x": 128,
+            "y": 384,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Top/Diagnostico/Resultado",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Execucao",
+            "x": 384,
+            "y": 384,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Top/Diagnostico/Execucao",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Comando",
+            "x": 640,
+            "y": 384,
+            "width": 256,
+            "height": 128,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Comando",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Alertas (motores sem resposta, sem ID CAN)",
+            "x": 1024,
+            "y": 0,
+            "width": 768,
+            "height": 512,
+            "type": "Alerts",
+            "properties": {
+              "topic": "/SmartDashboard/Alerts",
+              "period": 0.06
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

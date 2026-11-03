@@ -1,0 +1,918 @@
+{
+  "hubs": [
+    {
+      "x": 0,
+      "y": 0,
+      "width": 1552,
+      "height": 900,
+      "state": {
+        "sidebar": {
+          "width": 260,
+          "expanded": [
+            "/RealOutputs",
+            "/SystemStats"
+          ]
+        },
+        "tabs": {
+          "selected": 2,
+          "tabs": [
+            {
+              "type": 3,
+              "title": "1 - 3D medido pelos encoders",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Robot/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Robo 2026"
+                    }
+                  },
+                  {
+                    "type": "component",
+                    "logKey": "/RealOutputs/Mecanismos/Componentes",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {}
+                  }
+                ],
+                "game": "FRC:2026 Field"
+              },
+              "controllerUUID": "913fee4a082b5b04af4341bffd42efeb",
+              "renderer": {
+                "cameraIndex": -2,
+                "orbitFov": 50,
+                "cameraPosition": [
+                  1.3,
+                  1.1,
+                  1.3
+                ],
+                "cameraTarget": [
+                  0,
+                  0.3,
+                  0
+                ]
+              },
+              "controlsHeight": 230
+            },
+            {
+              "type": 3,
+              "title": "2 - 3D modelo pela tensao medida",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Robot/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "FRC9460 - Robo 2026"
+                    }
+                  },
+                  {
+                    "type": "component",
+                    "logKey": "/RealOutputs/Mecanismos/ComponentesModelo",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {}
+                  }
+                ],
+                "game": "FRC:2026 Field"
+              },
+              "controllerUUID": "8d8fb3fa860f5e8392c59401b7ad27e4",
+              "renderer": {
+                "cameraIndex": -2,
+                "orbitFov": 50,
+                "cameraPosition": [
+                  1.3,
+                  1.1,
+                  1.3
+                ],
+                "cameraTarget": [
+                  0,
+                  0.3,
+                  0
+                ]
+              },
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "3 - Pivo: graus",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Pivo/Comparacao/RealGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#2196f3",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Pivo/AlvoGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffc107",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Pivo/Comparacao/SimuladoGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Pivo/Comparacao/DiferencaGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ef5350",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Pivo/Modelo/ComparacaoAtiva",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#ef5350",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Pivo/Comparacao/Divergindo",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#ef5350",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "fca01326ea075630a68e26cdce262af5",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "4 - Top: RPM",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Top/Comparacao/RealRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#2196f3",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Top/AlvoRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffc107",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Top/Comparacao/SimuladoRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Top/RpmDireito",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#9575cd",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Top/Comparacao/DiferencaRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ef5350",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Top/Modelo/ComparacaoAtiva",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#ef5350",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Top/Comparacao/Divergindo",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#ef5350",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "f66e01730135584abb2c9c27d0750542",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "5 - Tower: RPM",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Tower/Comparacao/RealRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#2196f3",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Tower/AlvoRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffc107",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Tower/Comparacao/SimuladoRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Tower/Comparacao/DiferencaRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ef5350",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Tower/Modelo/ComparacaoAtiva",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#ef5350",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Tower/Comparacao/Divergindo",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#ef5350",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "141a92855604546990faa6ce6846559c",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "6 - Centrifuga: RPM do motor",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Centrifuga/Comparacao/RealRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#2196f3",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Centrifuga/AlvoRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffc107",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Centrifuga/Comparacao/SimuladoRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Centrifuga/Comparacao/DiferencaRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ef5350",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Centrifuga/Modelo/ComparacaoAtiva",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#ef5350",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Centrifuga/Comparacao/Divergindo",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#ef5350",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "f03ac9d4d1df59beba6bad31233737bf",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "7 - Intake: graus",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Intake/Comparacao/RealGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#2196f3",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Intake/Comparacao/SimuladoGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Intake/Comparacao/DiferencaGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ef5350",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Intake/Modelo/ComparacaoAtiva",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#ef5350",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Intake/ZeroValido",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#ef5350",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "5a42770af51d5a3aa5a82030357c2bdb",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "8 - Liberacao do tiro",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Mira/DistanciaMetros",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#2196f3",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Mira/ErroDirecaoGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffc107",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Sequencia/Estado",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#ef5350",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Sequencia/PivoPronto",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#ef5350",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Sequencia/TopPronto",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#ef5350",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Sequencia/TowerPronto",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#ef5350",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Sequencia/Alimentando",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#ef5350",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Sequencia/ProntoPorTempo",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#ef5350",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Mira/PoseConfiavel",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#ef5350",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Mira/HubNoCurso",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#ef5350",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "172bd7e3a7605d73af5a832b67e2b99a",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "9 - Swerve: pedido x medido (m/s)",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Drive/Diagnostic/DesiredVx",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffc107",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Drive/Diagnostic/MeasuredVx",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#2196f3",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Drive/Diagnostic/DesiredVy",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff9800",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Drive/Diagnostic/MeasuredVy",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Drive/Heading/GyroHealthy",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#ef5350",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "b6e4ae63cd535d8187f6e6370fe51b0d",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "10 - Tempo de ciclo (ms)",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/LoggedRobot/UserCodeMS",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#2196f3",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/LoggedRobot/LogPeriodicMS",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffc107",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/LoggedRobot/FullCycleMS",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Diagnostico/PeriodoAlvoMs",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ef5350",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Logger/QueuedCycles",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#9575cd",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Diagnostico/Log/FilaComFalha",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#ef5350",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "4004416f5638520ab5137d47ddb39ce6",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "11 - Bateria e CAN",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/SystemStats/BatteryVoltage",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffc107",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/SystemStats/CANBus/Utilization",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ef5350",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/SystemStats/BrownedOut",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#ef5350",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/DriverStation/DSAttached",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#2196f3",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "c98271c999cc535687f09c106728a1e1",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 4,
+              "title": "12 - Gravacao e visao",
+              "controller": [
+                "/RealOutputs/Diagnostico/Log/Estado",
+                "/RealOutputs/Diagnostico/Log/Arquivo",
+                "/RealOutputs/Diagnostico/Log/LivreMiB",
+                "/RealOutputs/Diagnostico/Log/GravandoFisico",
+                "/RealOutputs/Drive/Vision/LastResult",
+                "/RealOutputs/Drive/Vision/LastAcceptedCamera",
+                "/RealOutputs/Drive/Vision/CorrectionAgeSeconds",
+                "/RealOutputs/Centrifuga/SaidaRpm",
+                "/RealOutputs/Mecanismos/ModeloValido"
+              ],
+              "controllerUUID": "1ed1df2670a856da8cda82774e5ef282",
+              "renderer": null,
+              "controlsHeight": 0
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "satellites": [],
+  "version": "26.0.0"
+}

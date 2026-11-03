@@ -1,0 +1,1775 @@
+{
+  "version": 1.0,
+  "grid_size": 96,
+  "tabs": [
+    {
+      "name": "01 Operacao",
+      "grid_layout": {
+        "layouts": [],
+        "containers": [
+          {
+            "title": "Modo de execucao",
+            "x": 0,
+            "y": 0,
+            "width": 192,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Diagnostico/Modo",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Estado do disparo",
+            "x": 192,
+            "y": 0,
+            "width": 576,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Sequencia/Estado",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Hub escolhido",
+            "x": 768,
+            "y": 0,
+            "width": 384,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Mira/HubEscolhido",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Pose ja corrigida",
+            "x": 0,
+            "y": 96,
+            "width": 192,
+            "height": 96,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Mira/PoseConfiavel",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Visao recente",
+            "x": 192,
+            "y": 96,
+            "width": 192,
+            "height": 96,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Drive/Vision/RecentCorrection",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Pivo pronto",
+            "x": 384,
+            "y": 96,
+            "width": 192,
+            "height": 96,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Sequencia/PivoPronto",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Top pronto",
+            "x": 576,
+            "y": 96,
+            "width": 192,
+            "height": 96,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Sequencia/TopPronto",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Tower pronto",
+            "x": 768,
+            "y": 96,
+            "width": 192,
+            "height": 96,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Sequencia/TowerPronto",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Alimentando",
+            "x": 960,
+            "y": 96,
+            "width": 192,
+            "height": 96,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Sequencia/Alimentando",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Motivo / detalhe da sequencia",
+            "x": 0,
+            "y": 192,
+            "width": 1152,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Sequencia/Detalhe",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Erro da mira (graus)",
+            "x": 0,
+            "y": 288,
+            "width": 384,
+            "height": 192,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Mira/ErroDirecaoGraus",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 10.0,
+              "color": 4294940672,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Idade da correcao (s)",
+            "x": 384,
+            "y": 288,
+            "width": 384,
+            "height": 192,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Drive/Vision/CorrectionAgeSeconds",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 10.0,
+              "color": 4288423856,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Top medido (RPM)",
+            "x": 768,
+            "y": 288,
+            "width": 384,
+            "height": 192,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Top/RpmEsquerdo",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 10.0,
+              "color": 4278238420,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Distancia ao hub (m)",
+            "x": 0,
+            "y": 480,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Mira/DistanciaMetros",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Top solicitado (RPM)",
+            "x": 288,
+            "y": 480,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Top/AlvoRpm",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Disparos detectados",
+            "x": 576,
+            "y": 480,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Contagem/DisparosDetectados",
+              "period": 0.06,
+              "data_type": "int",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Liberado por tempo",
+            "x": 864,
+            "y": 480,
+            "width": 288,
+            "height": 96,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Sequencia/ProntoPorTempo",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4294198070,
+              "false_color": 4283215696,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "02 Visao",
+      "grid_layout": {
+        "layouts": [],
+        "containers": [
+          {
+            "title": "Diagnostico da visao",
+            "x": 0,
+            "y": 0,
+            "width": 1152,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Vision/Diagnostico",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Traseira conectada",
+            "x": 0,
+            "y": 96,
+            "width": 192,
+            "height": 96,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Vision/Rear/Camera/Connected",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Vendo tags",
+            "x": 192,
+            "y": 96,
+            "width": 192,
+            "height": 96,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Vision/Rear/HasTarget",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Quantidade de tags",
+            "x": 384,
+            "y": 96,
+            "width": 192,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Vision/Rear/MegaTag2/TagCount",
+              "period": 0.06,
+              "data_type": "int",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Resultado da fusao",
+            "x": 0,
+            "y": 192,
+            "width": 576,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Vision/Rear/Fusion/FusionResult",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Latencia (ms)",
+            "x": 0,
+            "y": 288,
+            "width": 288,
+            "height": 192,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Vision/Rear/Timing/ReportedLatencyMs",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 10.0,
+              "color": 4288423856,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Desvio informado (m)",
+            "x": 288,
+            "y": 288,
+            "width": 288,
+            "height": 192,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Vision/Rear/Fusion/XYStdDevMeters",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 10.0,
+              "color": 4278238420,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Frontal opcional",
+            "x": 576,
+            "y": 96,
+            "width": 192,
+            "height": 96,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Vision/Front/Camera/Connected",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Vendo tags",
+            "x": 768,
+            "y": 96,
+            "width": 192,
+            "height": 96,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Vision/Front/HasTarget",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Quantidade de tags",
+            "x": 960,
+            "y": 96,
+            "width": 192,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Vision/Front/MegaTag2/TagCount",
+              "period": 0.06,
+              "data_type": "int",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Resultado da fusao",
+            "x": 576,
+            "y": 192,
+            "width": 576,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Vision/Front/Fusion/FusionResult",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Latencia (ms)",
+            "x": 576,
+            "y": 288,
+            "width": 288,
+            "height": 192,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Vision/Front/Timing/ReportedLatencyMs",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 10.0,
+              "color": 4288423856,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Desvio informado (m)",
+            "x": 864,
+            "y": 288,
+            "width": 288,
+            "height": 192,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Vision/Front/Fusion/XYStdDevMeters",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 10.0,
+              "color": 4278238420,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Ultima camera aceita",
+            "x": 0,
+            "y": 480,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Drive/Vision/LastAcceptedCamera",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Idade correcao (s)",
+            "x": 288,
+            "y": 480,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Drive/Vision/CorrectionAgeSeconds",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Limite recente (s)",
+            "x": 576,
+            "y": 480,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Drive/Vision/RecentLimitSeconds",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Correcao recente",
+            "x": 864,
+            "y": 480,
+            "width": 288,
+            "height": 96,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Drive/Vision/RecentCorrection",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "03 Movimento",
+      "grid_layout": {
+        "layouts": [],
+        "containers": [
+          {
+            "title": "Vx medido (m/s)",
+            "x": 0,
+            "y": 0,
+            "width": 384,
+            "height": 288,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Drive/Diagnostic/MeasuredVx",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 10.0,
+              "color": 4278238420,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Vx pedido (m/s)",
+            "x": 0,
+            "y": 288,
+            "width": 384,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Drive/Diagnostic/DesiredVx",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Vx medido (m/s)",
+            "x": 0,
+            "y": 384,
+            "width": 384,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Drive/Diagnostic/MeasuredVx",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Vy medido (m/s)",
+            "x": 384,
+            "y": 0,
+            "width": 384,
+            "height": 288,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Drive/Diagnostic/MeasuredVy",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 10.0,
+              "color": 4278238420,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Vy pedido (m/s)",
+            "x": 384,
+            "y": 288,
+            "width": 384,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Drive/Diagnostic/DesiredVy",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Vy medido (m/s)",
+            "x": 384,
+            "y": 384,
+            "width": 384,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Drive/Diagnostic/MeasuredVy",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Omega medido (rad/s)",
+            "x": 768,
+            "y": 0,
+            "width": 384,
+            "height": 288,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Drive/Diagnostic/MeasuredOmega",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 10.0,
+              "color": 4278238420,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Omega pedido (rad/s)",
+            "x": 768,
+            "y": 288,
+            "width": 384,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Drive/Diagnostic/DesiredOmega",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Omega medido (rad/s)",
+            "x": 768,
+            "y": 384,
+            "width": 384,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Drive/Diagnostic/MeasuredOmega",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Giroscopio OK",
+            "x": 0,
+            "y": 480,
+            "width": 288,
+            "height": 96,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Drive/Heading/GyroHealthy",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Trava X ativa",
+            "x": 288,
+            "y": 480,
+            "width": 288,
+            "height": 96,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Drive/XLockActive",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Heading campo (graus)",
+            "x": 576,
+            "y": 480,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Drive/Heading/FieldYawDegrees",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Heading bruto (graus)",
+            "x": 864,
+            "y": 480,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Drive/Heading/RawYawDegrees",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "04 Mira e rodas",
+      "grid_layout": {
+        "layouts": [],
+        "containers": [
+          {
+            "title": "Pivo medido (graus)",
+            "x": 0,
+            "y": 0,
+            "width": 384,
+            "height": 288,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Pivo/AnguloGraus",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 10.0,
+              "color": 4278238420,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Pivo alvo (graus)",
+            "x": 0,
+            "y": 288,
+            "width": 384,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Pivo/AlvoGraus",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Top medido (RPM)",
+            "x": 384,
+            "y": 0,
+            "width": 384,
+            "height": 288,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Top/RpmEsquerdo",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 10.0,
+              "color": 4278238420,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Top alvo (RPM)",
+            "x": 384,
+            "y": 288,
+            "width": 384,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Top/AlvoRpm",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Tower medido (RPM)",
+            "x": 768,
+            "y": 0,
+            "width": 384,
+            "height": 288,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Tower/Rpm",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 10.0,
+              "color": 4278238420,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Tower alvo (RPM)",
+            "x": 768,
+            "y": 288,
+            "width": 384,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Tower/AlvoRpm",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Zero do pivo valido",
+            "x": 0,
+            "y": 384,
+            "width": 288,
+            "height": 96,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Pivo/ZeroValido",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Hub dentro do curso",
+            "x": 288,
+            "y": 384,
+            "width": 288,
+            "height": 96,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Sequencia/HubNoCurso",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Dentro da curva",
+            "x": 576,
+            "y": 384,
+            "width": 288,
+            "height": 96,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Sequencia/DentroDaCurva",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Centrifuga (RPM)",
+            "x": 864,
+            "y": 384,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Centrifuga/Rpm",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Detalhe da sequencia",
+            "x": 0,
+            "y": 480,
+            "width": 1152,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Sequencia/Detalhe",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "05 Ultimo tiro",
+      "grid_layout": {
+        "layouts": [],
+        "containers": [
+          {
+            "title": "Tiro detectado",
+            "x": 0,
+            "y": 0,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Tiro/Numero",
+              "period": 0.06,
+              "data_type": "int",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Tiro anotado",
+            "x": 288,
+            "y": 0,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Real/TiroAnotado",
+              "period": 0.06,
+              "data_type": "int",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Resultado observado pela equipe",
+            "x": 576,
+            "y": 0,
+            "width": 576,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Real/UltimaAnotacao",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Previsao alvo: acerta",
+            "x": 0,
+            "y": 96,
+            "width": 288,
+            "height": 96,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Tiro/Planejado/Acerta",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Previsao sensores: acerta",
+            "x": 288,
+            "y": 96,
+            "width": 288,
+            "height": 96,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Tiro/Sensores/Acerta",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Visao recente no tiro",
+            "x": 576,
+            "y": 96,
+            "width": 288,
+            "height": 96,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Tiro/Visao/CorrecaoRecente",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Camera no tiro",
+            "x": 864,
+            "y": 96,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Tiro/Visao/UltimaCamera",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Previsao alvo: erro (m)",
+            "x": 0,
+            "y": 192,
+            "width": 384,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Tiro/Planejado/DistanciaDoCentroDoHubMetros",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Previsao sensores: erro (m)",
+            "x": 384,
+            "y": 192,
+            "width": 384,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Tiro/Sensores/DistanciaDoCentroDoHubMetros",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Correcao antes do tiro (s)",
+            "x": 768,
+            "y": 192,
+            "width": 384,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Tiro/Visao/SegundosDesdeCorrecao",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Queda do top: deteccao (RPM)",
+            "x": 0,
+            "y": 288,
+            "width": 576,
+            "height": 192,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Contagem/QuedaRpmTop",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 10.0,
+              "color": 4294940672,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Acertos anotados",
+            "x": 576,
+            "y": 288,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Real/Acertos",
+              "period": 0.06,
+              "data_type": "int",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Erros anotados",
+            "x": 864,
+            "y": 288,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Real/Erros",
+              "period": 0.06,
+              "data_type": "int",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Tiros sem visao recente",
+            "x": 576,
+            "y": 384,
+            "width": 576,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Tiro/Visao/TirosSemVisaoRecente",
+              "period": 0.06,
+              "data_type": "int",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "SIM: resultado da bola",
+            "x": 0,
+            "y": 480,
+            "width": 576,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Simulacao/UltimoTiro/Resultado",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "SIM: erro da bola (m)",
+            "x": 576,
+            "y": 480,
+            "width": 576,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Fuel/Simulacao/UltimoTiro/DistanciaDoCentroDoHubMetros",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "06 Gravacao e motores",
+      "grid_layout": {
+        "layouts": [],
+        "containers": [
+          {
+            "title": "Estado da gravacao",
+            "x": 0,
+            "y": 0,
+            "width": 576,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Diagnostico/Log/Estado",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Falha da fila de log",
+            "x": 576,
+            "y": 0,
+            "width": 288,
+            "height": 96,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Diagnostico/Log/FilaComFalha",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4294198070,
+              "false_color": 4283215696,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Espaco livre (MiB)",
+            "x": 864,
+            "y": 0,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Diagnostico/Log/LivreMiB",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Arquivo de log",
+            "x": 0,
+            "y": 96,
+            "width": 1152,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Diagnostico/Log/Arquivo",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Pivo",
+            "x": 0,
+            "y": 192,
+            "width": 384,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Pivo/Diagnostico/Resultado",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Top",
+            "x": 384,
+            "y": 192,
+            "width": 384,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Top/Diagnostico/Resultado",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Tower",
+            "x": 768,
+            "y": 192,
+            "width": 384,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Tower/Diagnostico/Resultado",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Centrifuga",
+            "x": 0,
+            "y": 288,
+            "width": 384,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Centrifuga/Diagnostico/Resultado",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Intake",
+            "x": 384,
+            "y": 288,
+            "width": 384,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Intake/Diagnostico/Resultado",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Rolete",
+            "x": 768,
+            "y": 288,
+            "width": 384,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Roller/Diagnostico/Resultado",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Alertas (motores sem resposta, sem ID CAN)",
+            "x": 0,
+            "y": 384,
+            "width": 1152,
+            "height": 192,
+            "type": "Alerts",
+            "properties": {
+              "topic": "/SmartDashboard/Alerts",
+              "period": 0.06
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "07 Chegada 2 m",
+      "grid_layout": {
+        "layouts": [],
+        "containers": [
+          {
+            "title": "Teste ativo",
+            "x": 0,
+            "y": 0,
+            "width": 288,
+            "height": 96,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Validation/Drive2m/Active",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Dentro da tolerancia XY",
+            "x": 288,
+            "y": 0,
+            "width": 288,
+            "height": 96,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Validation/Drive2m/WithinPositionTolerance",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Interrompido / timeout",
+            "x": 576,
+            "y": 0,
+            "width": 288,
+            "height": 96,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Validation/Drive2m/Interrupted",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4294198070,
+              "false_color": 4283215696,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Distancia alvo (m)",
+            "x": 864,
+            "y": 0,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Validation/Drive2m/TargetDistanceMeters",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Distancia percorrida (m)",
+            "x": 0,
+            "y": 96,
+            "width": 384,
+            "height": 288,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Validation/Drive2m/DistanceMeters",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 10.0,
+              "color": 4278238420,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Erro ate o ponto XY (m)",
+            "x": 384,
+            "y": 96,
+            "width": 384,
+            "height": 288,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Validation/Drive2m/PositionErrorMeters",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 10.0,
+              "color": 4294198070,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Desvio lateral (m)",
+            "x": 768,
+            "y": 96,
+            "width": 384,
+            "height": 288,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Validation/Drive2m/LateralDistanceMeters",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 10.0,
+              "color": 4288423856,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Erro de heading (graus)",
+            "x": 0,
+            "y": 384,
+            "width": 384,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Validation/Drive2m/HeadingErrorDegrees",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Tolerancia XY (m)",
+            "x": 384,
+            "y": 384,
+            "width": 384,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Validation/Drive2m/PositionToleranceMeters",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Distancia final (m)",
+            "x": 768,
+            "y": 384,
+            "width": 384,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Validation/Drive2m/FinalDistanceMeters",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "08 Intake e heading",
+      "grid_layout": {
+        "layouts": [],
+        "containers": [
+          {
+            "title": "Comando da intake",
+            "x": 0,
+            "y": 0,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Intake/Comando",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Segurando a posicao",
+            "x": 288,
+            "y": 0,
+            "width": 192,
+            "height": 96,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Intake/Segurando",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "So Brake (batente aberto)",
+            "x": 480,
+            "y": 0,
+            "width": 192,
+            "height": 96,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Intake/RetencaoEmRepouso",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "PID ativo",
+            "x": 672,
+            "y": 0,
+            "width": 192,
+            "height": 96,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Intake/CorrecaoPosicaoAtiva",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Diagnostico da intake",
+            "x": 864,
+            "y": 0,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Intake/Diagnostico/Resultado",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Tensao no motor (V)",
+            "x": 0,
+            "y": 96,
+            "width": 576,
+            "height": 192,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Intake/Modelo/TensaoVolts",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 10.0,
+              "color": 4294940672,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Erro da retencao (voltas do motor)",
+            "x": 576,
+            "y": 96,
+            "width": 576,
+            "height": 192,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Intake/ErroRetencaoVoltas",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 10.0,
+              "color": 4294198070,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Posicao (voltas)",
+            "x": 0,
+            "y": 288,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Intake/PosicaoVoltas",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Alvo de segurar (voltas)",
+            "x": 288,
+            "y": 288,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Intake/AlvoSegurarVoltas",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Angulo de subida (graus)",
+            "x": 576,
+            "y": 288,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Intake/AnguloSubidaGraus",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Corrente real (A)",
+            "x": 864,
+            "y": 288,
+            "width": 288,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Intake/Comparacao/RealCorrenteAmps",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Erro de heading pelas tags (graus)",
+            "x": 0,
+            "y": 384,
+            "width": 384,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Vision/Rear/MegaTag1/ErroHeadingGraus",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Robo parado",
+            "x": 384,
+            "y": 384,
+            "width": 192,
+            "height": 96,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Vision/Rear/MegaTag1/RoboParado",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Traseira ve tags",
+            "x": 576,
+            "y": 384,
+            "width": 192,
+            "height": 96,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Vision/Rear/HasTarget",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Tags (MegaTag2)",
+            "x": 768,
+            "y": 384,
+            "width": 192,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Vision/Rear/MegaTag2/TagCount",
+              "period": 0.06,
+              "data_type": "int",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Heading do robo (graus)",
+            "x": 960,
+            "y": 384,
+            "width": 192,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Vision/Rear/RobotYawDegrees",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Erro da mira (graus)",
+            "x": 0,
+            "y": 480,
+            "width": 384,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Shooter/Mira/ErroDirecaoGraus",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Diagnostico da visao",
+            "x": 384,
+            "y": 480,
+            "width": 768,
+            "height": 96,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Vision/Diagnostico",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

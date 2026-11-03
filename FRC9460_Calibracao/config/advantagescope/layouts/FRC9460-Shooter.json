@@ -42,7 +42,7 @@
                   {
                     "type": "trajectory",
                     "logKey": "/RealOutputs/Shooter/Visualizacao/LinhaDoShooter",
-                    "logType": "Pose3d[]",
+                    "logType": "Translation3d[]",
                     "visible": true,
                     "options": {
                       "color": "#ff8c00",
@@ -52,7 +52,7 @@
                   {
                     "type": "trajectory",
                     "logKey": "/RealOutputs/Shooter/Visualizacao/LinhaAteOAlvo",
-                    "logType": "Pose3d[]",
+                    "logType": "Translation3d[]",
                     "visible": true,
                     "options": {
                       "color": "#00ff00",
@@ -89,7 +89,7 @@
                 ],
                 "game": "FRC:2026 Field"
               },
-              "controllerUUID": "178ca1fef149476abe3150bd815708b9",
+              "controllerUUID": "58904e5797e4449e91ac77c9ddcd58f8",
               "renderer": {
                 "cameraIndex": -2,
                 "orbitFov": 50,
@@ -130,7 +130,7 @@
                   {
                     "type": "trajectory",
                     "logKey": "/RealOutputs/Shooter/Visualizacao/LinhaDoShooter",
-                    "logType": "Pose3d[]",
+                    "logType": "Translation3d[]",
                     "visible": true,
                     "options": {
                       "color": "#ff8c00",
@@ -140,7 +140,7 @@
                   {
                     "type": "trajectory",
                     "logKey": "/RealOutputs/Shooter/Visualizacao/LinhaAteOAlvo",
-                    "logType": "Pose3d[]",
+                    "logType": "Translation3d[]",
                     "visible": true,
                     "options": {
                       "color": "#00ff00",
@@ -157,7 +157,7 @@
                 ],
                 "game": "FRC:2026 Field"
               },
-              "controllerUUID": "b3f70e268f2d4f1190907f94769f9eff",
+              "controllerUUID": "204c4705770b4e8ab0a130eaee758302",
               "renderer": {
                 "cameraIndex": -2,
                 "orbitFov": 50,
@@ -191,7 +191,7 @@
                   {
                     "type": "trajectory",
                     "logKey": "/RealOutputs/Shooter/Visualizacao/LinhaDoShooter",
-                    "logType": "Pose3d[]",
+                    "logType": "Translation3d[]",
                     "visible": true,
                     "options": {
                       "color": "#ff8c00",
@@ -201,7 +201,7 @@
                   {
                     "type": "trajectory",
                     "logKey": "/RealOutputs/Shooter/Visualizacao/LinhaAteOAlvo",
-                    "logType": "Pose3d[]",
+                    "logType": "Translation3d[]",
                     "visible": true,
                     "options": {
                       "color": "#00ff00",
@@ -231,7 +231,7 @@
                 "orientation": 0,
                 "size": "large"
               },
-              "controllerUUID": "4d0b2149d471436589e7e6d4bf86c9ee",
+              "controllerUUID": "643ac319905e413a99e7a7ab5d5bf4db",
               "renderer": null,
               "controlsHeight": 200
             },
@@ -247,7 +247,7 @@
                   "options": {}
                 }
               ],
-              "controllerUUID": "fc0b2940776f4e31bcea233bfb29019f",
+              "controllerUUID": "cd4cad5fd18a42da9b2a3ebc91837a16",
               "renderer": null,
               "controlsHeight": 200
             },
@@ -398,7 +398,7 @@
                 "leftFilter": 0,
                 "rightFilter": 0
               },
-              "controllerUUID": "d991ed8ae4c44b12ba032d926976b115",
+              "controllerUUID": "6877ca3cc3634934b7b84d1bbdda906b",
               "renderer": null,
               "controlsHeight": 230
             },
@@ -459,7 +459,7 @@
                   },
                   {
                     "type": "smooth",
-                    "logKey": "/RealOutputs/Shooter/Centrifuga/Rpm",
+                    "logKey": "/RealOutputs/Centrifuga/Rpm",
                     "logType": "Number",
                     "visible": true,
                     "options": {
@@ -469,7 +469,7 @@
                   },
                   {
                     "type": "stepped",
-                    "logKey": "/RealOutputs/Shooter/Centrifuga/AlvoRpm",
+                    "logKey": "/RealOutputs/Centrifuga/AlvoRpm",
                     "logType": "Number",
                     "visible": true,
                     "options": {
@@ -500,7 +500,7 @@
                   },
                   {
                     "type": "stripes",
-                    "logKey": "/RealOutputs/Shooter/Centrifuga/NoRpm",
+                    "logKey": "/RealOutputs/Centrifuga/NoRpm",
                     "logType": "Boolean",
                     "visible": true,
                     "options": {
@@ -521,7 +521,7 @@
                 "leftFilter": 0,
                 "rightFilter": 0
               },
-              "controllerUUID": "63a09ec56ab841d68f8d4722c4b932b2",
+              "controllerUUID": "f85f4073e9d343ada4b88f0608ff2e75",
               "renderer": null,
               "controlsHeight": 230
             },
@@ -649,7 +649,7 @@
                 "leftFilter": 0,
                 "rightFilter": 0
               },
-              "controllerUUID": "784867d753614e9d8394808acf9f81c5",
+              "controllerUUID": "d93c1a7f1f9045278396abcfbe7c75c4",
               "renderer": null,
               "controlsHeight": 230
             },
@@ -722,6 +722,15 @@
                   },
                   {
                     "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Mira/HubEscolhido",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
                     "logKey": "/RealOutputs/Vision/Rear/Fusion/MeasurementAccepted",
                     "logType": "Boolean",
                     "visible": true,
@@ -743,7 +752,7 @@
                 "leftFilter": 0,
                 "rightFilter": 0
               },
-              "controllerUUID": "bfea8cb318554a92862e598f333ab9c3",
+              "controllerUUID": "b88a7f17d6cf4f7095726bbf03a30661",
               "renderer": null,
               "controlsHeight": 230
             },
@@ -768,12 +777,572 @@
                 "/Shooter/Tower/Inputs/VelocityRpm",
                 "/Shooter/Tower/Inputs/AppliedVolts",
                 "/Shooter/Tower/Inputs/CurrentAmps",
-                "/Shooter/Centrifuga/Inputs/Connected",
-                "/Shooter/Centrifuga/Inputs/VelocityRpm",
-                "/Shooter/Centrifuga/Inputs/AppliedVolts",
-                "/Shooter/Centrifuga/Inputs/CurrentAmps"
+                "/Centrifuga/Inputs/Connected",
+                "/Centrifuga/Inputs/VelocityRpm",
+                "/Centrifuga/Inputs/AppliedVolts",
+                "/Centrifuga/Inputs/CurrentAmps"
               ],
-              "controllerUUID": "49e16a6199484a918f0f49c30f1a87af",
+              "controllerUUID": "01a38203e6304cdaba124bdeef78f8c1",
+              "renderer": null,
+              "controlsHeight": 0
+            },
+            {
+              "type": 1,
+              "title": "SHOOTER 10 - Visao: a pose da mira e confiavel?",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Drive/Vision/CorrectionAgeSeconds",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Drive/Vision/RecentLimitSeconds",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Vision/Simulation/PositionErrorMeters",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Drive/Vision/Front/AcceptedCount",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Drive/Vision/Rear/AcceptedCount",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Drive/Vision/CorrectedSinceReset",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Drive/Vision/RecentCorrection",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Drive/Vision/LastAcceptedCamera",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Front/HasTarget",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/Rear/HasTarget",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#7e57c2"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Mira/PoseConfiavel",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#3b875a"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "89f22952309a4dfb9f054978e4e3318b",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "SHOOTER 11 - Pivo: real x modelo",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Pivo/Comparacao/RealGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Pivo/Comparacao/SimuladoGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Pivo/Comparacao/DiferencaGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Shooter/Pivo/Comparacao/ToleranciaGraus",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Pivo/Modelo/ComparacaoAtiva",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Pivo/Comparacao/Divergindo",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Pivo/Diagnostico/Resultado",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Pivo/Modo",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "9f9b91f400e644de8173654e3893a850",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "SHOOTER 12 - Top: real x modelo",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Top/Comparacao/RealRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Top/Comparacao/SimuladoRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Top/Comparacao/DiferencaRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Shooter/Top/Comparacao/ToleranciaRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Top/Modelo/ComparacaoAtiva",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Top/Comparacao/Divergindo",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Top/Diagnostico/Resultado",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "60b68475a77a4856b2b2a7eb4e51bbf1",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "SHOOTER 13 - Tower: real x modelo",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Tower/Comparacao/RealRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#4fc3f7",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Tower/Comparacao/SimuladoRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Tower/Comparacao/DiferencaRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "/RealOutputs/Shooter/Tower/Comparacao/ToleranciaRpm",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Tower/Modelo/ComparacaoAtiva",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#00bcd4"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Tower/Comparacao/Divergindo",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Tower/Diagnostico/Resultado",
+                    "logType": "String",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "77ddfeef762846fab2f66bed4564a84f",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "SHOOTER 14 - Correntes: real x modelo",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Pivo/Comparacao/RealCorrenteAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Pivo/Comparacao/SimuladoCorrenteAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffcc80",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Top/Comparacao/RealCorrenteAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e53935",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Top/Comparacao/SimuladoCorrenteAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ef9a9a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Tower/Comparacao/RealCorrenteAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#4fc3f7",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Tower/Comparacao/SimuladoCorrenteAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#b3e5fc",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Shooter/Pivo/Comparacao/DiferencaCorrenteAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0c0c0",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Sequencia/Alimentando",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#ba68c8"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "f40e639fc4e345d9a2b960b14d2176fb",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 4,
+              "title": "SHOOTER 15 - Diagnostico dos motores",
+              "controller": [
+                "/RealOutputs/Shooter/Pivo/Diagnostico/Execucao",
+                "/RealOutputs/Shooter/Pivo/Diagnostico/MotorRespondendo",
+                "/RealOutputs/Shooter/Pivo/Diagnostico/Resultado",
+                "/RealOutputs/Shooter/Pivo/Comparacao/Divergindo",
+                "/RealOutputs/Shooter/Top/Diagnostico/Execucao",
+                "/RealOutputs/Shooter/Top/Diagnostico/MotorRespondendo",
+                "/RealOutputs/Shooter/Top/Diagnostico/Resultado",
+                "/RealOutputs/Shooter/Top/Comparacao/Divergindo",
+                "/RealOutputs/Shooter/Tower/Diagnostico/Execucao",
+                "/RealOutputs/Shooter/Tower/Diagnostico/MotorRespondendo",
+                "/RealOutputs/Shooter/Tower/Diagnostico/Resultado",
+                "/RealOutputs/Shooter/Tower/Comparacao/Divergindo",
+                "/RealOutputs/Centrifuga/Diagnostico/Execucao",
+                "/RealOutputs/Centrifuga/Diagnostico/MotorRespondendo",
+                "/RealOutputs/Centrifuga/Diagnostico/Resultado",
+                "/RealOutputs/Centrifuga/Comparacao/Divergindo",
+                "/RealOutputs/Shooter/Comando",
+                "/RealOutputs/Centrifuga/Comando",
+                "/RealOutputs/Shooter/Pivo/Comparacao/DiferencaMaximaGraus",
+                "/RealOutputs/Shooter/Pivo/Comparacao/DiferencaAoPararGraus",
+                "/RealOutputs/Shooter/Pivo/Comparacao/MovimentosComparados",
+                "/RealOutputs/Shooter/Top/Comparacao/DiferencaMaximaRpm",
+                "/RealOutputs/Shooter/Tower/Comparacao/DiferencaMaximaRpm"
+              ],
+              "controllerUUID": "1fde3481b81d48efbb4dd0f8de9f72a9",
               "renderer": null,
               "controlsHeight": 0
             },
@@ -859,7 +1428,7 @@
                 "leftFilter": 0,
                 "rightFilter": 0
               },
-              "controllerUUID": "f95affd7524142a4ada3ef6a380c09f2",
+              "controllerUUID": "3ab2855fe0f84edd907862364e654622",
               "renderer": null,
               "controlsHeight": 230
             }
