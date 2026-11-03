@@ -373,7 +373,7 @@ class Telescopio_9458Test {
         assertEquals(0, TelescopioVisualizer_9458.stageExtension(Double.NaN));
     }
     @Test void talonConfigurationUsesTheKrakenX60Limits() {
-        assertEquals(5, MOTOR_CAN_ID);
+        assertEquals(frc.robot.CanIds.TELESCOPIO_9458, MOTOR_CAN_ID);
         var config = TelescopioIOTalonFX_9458.createConfiguration();
         assertEquals(MOTOR_INVERTED ? InvertedValue.Clockwise_Positive : InvertedValue.CounterClockwise_Positive,
             config.MotorOutput.Inverted);

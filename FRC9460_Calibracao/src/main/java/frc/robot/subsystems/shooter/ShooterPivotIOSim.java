@@ -9,7 +9,10 @@ import org.littletonrobotics.junction.Logger;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.simulation.DCMotorSim;
+
+import frc.robot.util.MechanismModel;
 
 // #endregion
 
@@ -24,10 +27,13 @@ import edu.wpi.first.wpilibj.simulation.DCMotorSim;
  * (PIVOT_SIM_MANUAL_PLACEMENT_ERROR_DEGREES), o código continua achando que
  * o zero é o centro. A simulação mostra o efeito: mira deslocada e o batente
  * da fiação aparecendo antes do soft limit.
+ *
+ * Também é o modelo em paralelo do pivô, criado SEM erro de colocação: na
+ * simulação, a diferença real x modelo mostra o efeito do zero manual errado.
  */
-public class ShooterPivotIOSim implements ShooterPivotIO {
+public class ShooterPivotIOSim implements ShooterPivotIO, MechanismModel {
 
-    // #region FÍSICA
+    // #region 🧪 FÍSICA
 
     // Um ciclo do robô e o passo interno (o Talon controla a 1 kHz).
     private static final double LOOP_SECONDS = 0.02;
@@ -46,12 +52,12 @@ public class ShooterPivotIOSim implements ShooterPivotIO {
 
     // #endregion
 
-    // #region EMULAÇÃO DO TALONFX
+    // #region 🎯🚀 CONTROLE - ESTADO DO TALONFX EMULADO (MOTION MAGIC)
 
     private enum Mode { STOPPED, PERCENT, MOTION_MAGIC }
 
     // O TrapezoidProfile limita velocidade e aceleração, como o Motion Magic.
-    // O jerk (60 rot/s³) não entra: a curva real é um pouco mais suave.
+    // O jerk (PIVOT_JERK_*) não entra: a curva real é um pouco mais suave.
     private final TrapezoidProfile profile = new TrapezoidProfile(
         new TrapezoidProfile.Constraints(PIVOT_CRUISE_ROTATIONS_PER_SEC, PIVOT_ACCELERATION_ROTATIONS_PER_SEC2));
 
@@ -60,6 +66,11 @@ public class ShooterPivotIOSim implements ShooterPivotIO {
     private double goalRotations;
     private double percent;
     private double appliedVolts;
+
+    // #endregion
+
+    // #region 🛑 SEGURANÇA - ESTADO DOS LIMITES
+
     private boolean forwardLimit;
     private boolean reverseLimit;
     private boolean onWiringStop;
@@ -79,23 +90,27 @@ public class ShooterPivotIOSim implements ShooterPivotIO {
 
     // #endregion
 
-    // #region CICLO DA SIMULAÇÃO
+    // #region 🧪 CICLO DA SIMULAÇÃO
 
     @Override
     public void updateInputs(ShooterPivotIOInputs inputs) {
         int steps = (int) Math.round(LOOP_SECONDS / SUBSTEP_SECONDS);
+        double voltsSum = 0.0;
         for (int i = 0; i < steps; i++) {
-            appliedVolts = controlVolts();
+            // Controle pede, a segurança do Talon limita, a física responde.
+            appliedVolts = applySoftLimits(controllerVolts());
             sim.setInputVoltage(appliedVolts);
             sim.update(SUBSTEP_SECONDS);
             applyWiringStop();
+            voltsSum += appliedVolts;
         }
 
         inputs.connected = true;
         inputs.zeroValid = true;
         inputs.motorPositionRotations = motorRotations();
         inputs.motorVelocityRotationsPerSec = motorVelocityRotationsPerSec();
-        inputs.appliedVolts = appliedVolts;
+        // Média do ciclo: é a tensão que o modelo em paralelo recebe.
+        inputs.appliedVolts = voltsSum / steps;
         inputs.statorCurrentAmps = Math.abs(sim.getCurrentDrawAmps());
         inputs.profileReferenceRotations = mode == Mode.MOTION_MAGIC ? reference.position : motorRotations();
         inputs.forwardLimitActive = forwardLimit;
@@ -107,22 +122,40 @@ public class ShooterPivotIOSim implements ShooterPivotIO {
         Logger.recordOutput("Shooter/Simulacao/NoBatenteDaFiacao", onWiringStop);
     }
 
-    /** Tensão que o Talon aplicaria neste passo. */
-    private double controlVolts() {
+    // #endregion
+
+    // #region 🎯🚀 CONTROLE - EMULAÇÃO DO MOTION MAGIC (PID DO TALONFX)
+
+    /** Tensão que o controle do Talon pede neste passo, antes das proteções. */
+    private double controllerVolts() {
         double position = motorRotations();
-        double volts = switch (mode) {
+        return switch (mode) {
             case STOPPED -> 0.0;
             case PERCENT -> percent * BATTERY_VOLTS;
             case MOTION_MAGIC -> {
                 // Perfil avança 1 ms; o kP corrige a diferença até a referência.
                 reference = profile.calculate(SUBSTEP_SECONDS, reference,
                     new TrapezoidProfile.State(goalRotations, 0.0));
-                yield PIVOT_KP * (reference.position - position)
+                // Este modelo não contém o atrito seco identificado no hardware.
+                // Não injetar o kS físico sozinho em uma planta sem esse atrito.
+                // O kV sim: a força contraeletromotriz existe no modelo do motor.
+                double volts = PIVOT_KV_VOLTS_PER_ROTATION_PER_SEC * reference.velocity
+                    + PIVOT_KP * (reference.position - position)
                     + PIVOT_KD * (reference.velocity - motorVelocityRotationsPerSec());
+                // O Talon compara com a banda neutra o pedido COM kS. Fora dela, o
+                // kS só cancela o atrito seco que este modelo não tem.
+                yield Math.abs(volts) + PIVOT_KS_VOLTS < PIVOT_NEUTRAL_DEADBAND * BATTERY_VOLTS ? 0.0 : volts;
             }
         };
+    }
 
-        // Soft limits do Talon: no fim do curso, bloqueia só o sentido que sai.
+    // #endregion
+
+    // #region 🛑📏 SEGURANÇA - SOFT LIMITS DO TALONFX E BATENTE DA FIAÇÃO
+
+    /** Soft limits do Talon: no fim do curso, bloqueia só o sentido que sai. */
+    private double applySoftLimits(double volts) {
+        double position = motorRotations();
         forwardLimit = position >= PIVOT_MAX_MOTOR_ROTATIONS;
         reverseLimit = position <= -PIVOT_MAX_MOTOR_ROTATIONS;
         if ((forwardLimit && volts > 0.0) || (reverseLimit && volts < 0.0)) {
@@ -131,7 +164,7 @@ public class ShooterPivotIOSim implements ShooterPivotIO {
         return MathUtil.clamp(volts, -BATTERY_VOLTS, BATTERY_VOLTS);
     }
 
-    /** A fiação física para o shooter em ±90° do centro REAL, não do encoder. */
+    /** Envelope da fiação no modelo, relativo ao centro REAL, não ao encoder. */
     private void applyWiringStop() {
         double physical = physicalDegrees();
         double limit = PIVOT_SIM_WIRING_LIMIT_DEGREES;
@@ -160,6 +193,43 @@ public class ShooterPivotIOSim implements ShooterPivotIO {
     public double physicalDegrees() {
         return encoderZeroPhysicalDegrees
             + Math.toDegrees(sim.getAngularPositionRad()) * PIVOT_DIRECTION_SIGN;
+    }
+
+    // #endregion
+
+    // #region 🧪 MODELO EM PARALELO (frc.robot.util.ParallelModel)
+
+    // A mesma física (e o batente da fiação), recebendo a tensão MEDIDA no
+    // TalonFX. Os soft limits não entram: o Talon real já corta a tensão.
+    // Um passo de 20 ms: com a tensão constante no ciclo, a física linear é
+    // exata sem subpassos (e fica leve para rodar no roboRIO).
+
+    @Override
+    public void setModelState(double motorRotations, double motorRotationsPerSec) {
+        sim.setState(Units.rotationsToRadians(motorRotations / PIVOT_GEAR_REDUCTION),
+            Units.rotationsToRadians(motorRotationsPerSec / PIVOT_GEAR_REDUCTION));
+    }
+
+    @Override
+    public void stepModel(double volts) {
+        sim.setInputVoltage(MathUtil.clamp(volts, -BATTERY_VOLTS, BATTERY_VOLTS));
+        sim.update(LOOP_SECONDS);
+        applyWiringStop();
+    }
+
+    @Override
+    public double modelPosition() {
+        return motorRotations();
+    }
+
+    @Override
+    public double modelVelocity() {
+        return motorVelocityRotationsPerSec();
+    }
+
+    @Override
+    public double modelCurrentAmps() {
+        return Math.abs(sim.getCurrentDrawAmps());
     }
 
     // #endregion

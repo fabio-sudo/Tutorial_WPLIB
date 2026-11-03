@@ -4,6 +4,10 @@
 
 package frc.robot;
 
+import com.ctre.phoenix6.SignalLogger;
+
+import edu.wpi.first.net.WebServer;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -40,15 +44,25 @@ public Robot() {
 
     // Informações que ficarão gravadas nos logs
     Logger.recordMetadata("ProjectName", "FRC9460");
+    var buildInfo = LoggingSetup.buildInfo();
+    Logger.recordMetadata("SourceSHA256", buildInfo.getProperty("SourceSHA256", "DESCONHECIDO"));
+    Logger.recordMetadata("BuiltAtUTC", buildInfo.getProperty("BuiltAtUTC", "DESCONHECIDO"));
 
-    LoggingConstants.Mode mode = LoggingConstants.getMode();
+    LoggingConstants.Mode mode = LoggingSetup.getMode();
     Logger.recordMetadata("RunMode", mode.name());
 
     if (mode == LoggingConstants.Mode.REAL) {
 
         // ROBÔ REAL
-        // Grava os logs em um pendrive conectado ao roboRIO
-        Logger.addDataReceiver(new WPILOGWriter());
+        // USB primeiro; fallback interno com reserva de espaço e tamanho limitado.
+        Logger.addDataReceiver(new frc.robot.util.RobotLogWriter());
+
+        // O Phoenix também gravava .hoot sozinho em /home/lvuser/logs. No teste de
+        // 29/10/2026 o disco do roboRIO estava cheio ("Available disk space (0 MB)").
+        // O AdvantageKit grava os inputs/outputs instrumentados, não todos os
+        // sinais Phoenix em alta frequência. Um SignalLogger.start() explícito
+        // (SysId do Phoenix) continua funcionando.
+        SignalLogger.enableAutoLogging(false);
 
         // Envia os dados pela NetworkTables
         // Permite visualizar no AdvantageScope em tempo real
@@ -61,7 +75,7 @@ public Robot() {
         // sem executar novamente o mundo óptico ou movimentar o controle.
         // Arquivo: logs/simulacao/Simulacao_aa-MM-dd_HH-mm-ss.wpilog.
         Logger.addDataReceiver(new WPILOGWriter(
-            LoggingConstants.simulationLogPath(LocalDateTime.now()),
+            LoggingSetup.simulationLogPath(LocalDateTime.now()),
             WPILOGWriter.AdvantageScopeOpenBehavior.NEVER));
         // Envia os dados da simulação para o AdvantageScope.
         Logger.addDataReceiver(new NT4Publisher());
@@ -69,7 +83,7 @@ public Robot() {
         // REPLAY: usa o relógio e os sensores gravados. Não cria as câmeras
         // PhotonLib, dispositivos CAN ou sensores de motores simulados.
         setUseTiming(false);
-        String logPath = LoggingConstants.requireReplayLog(
+        String logPath = LoggingSetup.requireReplayLog(
             LogFileUtil.findReplayLog()).toString();
         Logger.recordMetadata("ReplaySource", logPath);
         Logger.setReplaySource(new WPILOGReader(logPath));
@@ -79,6 +93,15 @@ public Robot() {
 
     // Inicia o sistema de logging do AdvantageKit
     Logger.start();
+
+    // ELASTIC: serve os painéis na porta 5800 (porta liberada pela FRC).
+    // No Elastic: File > Download Layout baixa os painéis direto do robô ou
+    // da simulação. Ficam em config/elastic/layouts; o deploy copia para o robô.
+    // Gerados por config/elastic/preparar_layouts_elastic.py.
+    if (mode != LoggingConstants.Mode.REPLAY) {
+        WebServer.start(5800, LoggingSetup.elasticLayoutsDirectory(
+            mode, Filesystem.getDeployDirectory().toPath()).toString());
+    }
 
     // IMPORTANTE:
     // RobotContainer deve ser criado DEPOIS do Logger.start()
@@ -158,6 +181,8 @@ public Robot() {
 public void simulationPeriodic() {
     // Produz as próximas leituras das câmeras virtuais.
     m_robotContainer.updateVisionSimulation();
+    // Move as bolas: coleta, lançamento e voo.
+    m_robotContainer.updateFuelSimulation();
 }
 
 }

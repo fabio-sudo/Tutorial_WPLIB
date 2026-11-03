@@ -1,9 +1,21 @@
 package frc.robot.subsystems.drive;
 
 // #region IMPORTS
+import static frc.robot.subsystems.drive.DriveConstants.DRIVE_GEAR_RATIO;
+import static frc.robot.subsystems.drive.DriveConstants.STEER_GEAR_RATIO;
+import static frc.robot.subsystems.drive.DriveConstants.kWheelRadiusMeters;
+
 import static edu.wpi.first.units.Units.*;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.filter.Debouncer;
+import com.ctre.phoenix6.BaseStatusSignal;
+import com.ctre.phoenix6.StatusCode;
+import com.ctre.phoenix6.StatusSignal;
+import edu.wpi.first.units.measure.Angle;
+import edu.wpi.first.units.measure.AngularVelocity;
+import edu.wpi.first.units.measure.Voltage;
+import edu.wpi.first.units.measure.Current;
 
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.ClosedLoopGeneralConfigs;
@@ -30,32 +42,30 @@ import com.ctre.phoenix6.signals.StaticFeedforwardSignValue;
 
 
 import com.ctre.phoenix6.signals.NeutralModeValue;
+
+import frc.robot.util.PhoenixUtil;
 // #endregion
 
 public class ModuleIOTalonFX implements ModuleIO {
 
-    // #region CONSTANTES MECÂNICAS
+    // #region 📏 CONSTANTES MECÂNICAS
 
-    // Relação do Drive:
-    //
-    // 6.746 rotações do motor
-    // =
-    // 1 rotação da roda
-    private static final double DRIVE_GEAR_RATIO = 6.746031746031747;
+    // Reduções (DRIVE_GEAR_RATIO, STEER_GEAR_RATIO) e raio da roda
+    // (kWheelRadiusMeters) ficam em DriveConstants, na mesma pasta.
 
-    // Relação do Steer:
-    //
-    // 21.428 rotações do motor
-    // =
-    // 1 rotação completa do módulo
-    private static final double STEER_GEAR_RATIO = 21.428571428571427;
+    // #endregion
 
-    // Raio da roda:
-    //
-    // 2 polegadas
-    // =
-    // 0.0508 metros
-    private static final double WHEEL_RADIUS_METERS = 0.0508;
+    // #region FREQUÊNCIA DOS SINAIS
+
+    // Um pacote por ciclo de 20 ms: odometria e tensão.
+    private static final double CONTROL_SIGNAL_HZ = 50.0;
+
+    // Corrente é só log nos módulos: 10 Hz bastam para ver um pico.
+    private static final double CURRENT_SIGNAL_HZ = 10.0;
+
+    // 📊 Falha de leitura mais curta que isto não vira alerta: com o CAN cheio,
+    // um pacote atrasado geraria um aviso a cada oscilação.
+    private static final double CONNECTION_DEBOUNCE_SECONDS = 0.5;
 
     // #endregion
 
@@ -69,10 +79,21 @@ public class ModuleIOTalonFX implements ModuleIO {
 
     // Encoder absoluto da orientação do módulo
     private final CANcoder steerEncoder;
+    private final StatusSignal<Angle> drivePosition, turnPosition;
+    private final StatusSignal<AngularVelocity> driveVelocity, turnVelocity;
+    private final StatusSignal<Voltage> driveVoltage, turnVoltage;
+    private final StatusSignal<Current> driveCurrent, turnCurrent;
+    private final BaseStatusSignal[] driveSignals, turnSignals;
+    private final Debouncer driveConnected =
+        new Debouncer(CONNECTION_DEBOUNCE_SECONDS, Debouncer.DebounceType.kFalling);
+    private final Debouncer turnConnected =
+        new Debouncer(CONNECTION_DEBOUNCE_SECONDS, Debouncer.DebounceType.kFalling);
+    private final Debouncer encoderConnected =
+        new Debouncer(CONNECTION_DEBOUNCE_SECONDS, Debouncer.DebounceType.kFalling);
 
     // #endregion
 
-    // #region CONTROLES PHOENIX - MALHA FECHADA
+    // #region 🎯 CONTROLES PHOENIX - MALHA FECHADA
     // ============================================================
     // DRIVE - VELOCIDADE
     // ============================================================
@@ -94,7 +115,7 @@ public class ModuleIOTalonFX implements ModuleIO {
 
     // #endregion
 
-    // #region CONTROLE ABERTO
+    // #region 🚀 CONTROLE ABERTO
 
     // Mantidos para testes / SysId
     private final VoltageOut driveVoltageRequest = new VoltageOut(0.0)
@@ -164,17 +185,20 @@ public class ModuleIOTalonFX implements ModuleIO {
 
         // ============================================================
         // 4 - ENVIA CONFIGURAÇÃO PARA O CANCODER REAL
+        // 🛑 Nos três envios (CANcoder, drive e steer): com o CAN cheio na partida uma
+        // configuração pode expirar. Tenta de novo e, se falhar, avisa na Driver Station.
         // ============================================================
 
-        steerEncoder
-                .getConfigurator()
-                .apply(
-                        encoderConfig);
+        PhoenixUtil.reportKeptRunning(
+                PhoenixUtil.tryUntilOk(() -> steerEncoder.getConfigurator().apply(encoderConfig)),
+                "Swerve: configuração do CANcoder " + encoderId);
 
         // #region CONFIGURAÇÃO DO TALONFX - DRIVE
 
         // ============================================================
         // 1 - GANHOS DA MALHA FECHADA DO DRIVE
+        // 🎯 PID DO DRIVE REAL: kP corrige o erro de velocidade, kS vence o atrito,
+        // kV dá a tensão para a velocidade pedida. Unidades: volta do motor por segundo.
         // ============================================================
 
         // Estes valores vieram do projeto
@@ -223,6 +247,7 @@ public class ModuleIOTalonFX implements ModuleIO {
 
 // ============================================================
 // 2 - LIMITES DE CORRENTE DO DRIVE
+// ⚡🛑 CORRENTE DO DRIVE
 // ============================================================
 //
 // Baseado no TunerConstants gerado pelo Phoenix Tuner:
@@ -312,10 +337,9 @@ public class ModuleIOTalonFX implements ModuleIO {
         // 5 - ENVIA A CONFIGURAÇÃO PARA O KRAKEN
         // ============================================================
 
-        driveMotor
-                .getConfigurator()
-                .apply(
-                        driveConfig);
+        PhoenixUtil.reportKeptRunning(
+                PhoenixUtil.tryUntilOk(() -> driveMotor.getConfigurator().apply(driveConfig)),
+                "Swerve: configuração do drive " + driveMotorId);
 
         // #endregion
 
@@ -323,6 +347,8 @@ public class ModuleIOTalonFX implements ModuleIO {
 
         // ============================================================
         // 1 - GANHOS DA MALHA FECHADA DO STEER
+        // 🎯 PID DO STEER REAL: kP puxa para o ângulo, kD amortece, kS vence o atrito
+        // e kV acompanha o perfil. Unidades: volta do módulo.
         // ============================================================
 
         // Esses valores vieram do Phoenix Tuner.
@@ -332,7 +358,7 @@ public class ModuleIOTalonFX implements ModuleIO {
         //
         // setTurnPosition(...)
         // ↓
-        // PositionVoltage
+        // MotionMagicExpoVoltage
         // ↓
         // TalonFX Closed Loop
         Slot0Configs steerGains = new Slot0Configs()
@@ -428,6 +454,7 @@ public class ModuleIOTalonFX implements ModuleIO {
 
         // ============================================================
         // 4 - LIMITE DE CORRENTE DO STEER
+        // ⚡🛑 CORRENTE DO STEER
         // ============================================================
 
         // O projeto gerado pelo Phoenix Tuner
@@ -445,10 +472,19 @@ public class ModuleIOTalonFX implements ModuleIO {
                 Amps.of(70))
 
         .withSupplyCurrentLimitEnable(
-                true);
+                true)
+
+        // Recomendação da CTRE (frc.robot.MotorLimits): 70 A por até 1 s,
+        // depois 40 A, o valor do disjuntor. Igual ao motor de drive.
+        .withSupplyCurrentLowerLimit(
+                Amps.of(40))
+
+        .withSupplyCurrentLowerTime(
+                Seconds.of(1.0));
 
         // ============================================================
         // 5 - MOTION MAGIC EXPO DO STEER
+        // 🚀 VELOCIDADE DO GIRO DAS RODAS
         // ============================================================
         //
         // NEW - AJUSTE PARA DEIXAR A TROCA DE DIREÇÃO MAIS SUAVE
@@ -459,9 +495,9 @@ public class ModuleIOTalonFX implements ModuleIO {
 
                 // Velocidade máxima do módulo. 
                 //
-                // 1.5 rotações/s
+                // 1.8 rotações/s (valor atual)
                 // =
-                // 540 graus/s
+                // 648 graus/s
                 //
                 // Uma mudança de 90 graus não será mais instantânea.
                 .withMotionMagicCruiseVelocity(
@@ -549,138 +585,66 @@ public class ModuleIOTalonFX implements ModuleIO {
                 // NEW - ENVIA A CONFIGURAÇÃO PARA O KRAKEN DO STEER
                 // ============================================================
 
-                steerMotor
-                .getConfigurator()
-                .apply(
-                        steerConfig
-                );
+                PhoenixUtil.reportKeptRunning(
+                        PhoenixUtil.tryUntilOk(() -> steerMotor.getConfigurator().apply(steerConfig)),
+                        "Swerve: configuração do steer " + steerMotorId);
 
         // #endregion
 
+        // Reutiliza sinais: uma atualização em lote por motor, em vez de oito chamadas
+        // por módulo. Em lotes separados, o resultado diz qual motor parou de responder.
+        //
+        // Tração em getPosition/getVelocity, e não nos sinais do rotor: sem sensor
+        // externo os valores são os mesmos, mas no CAN 2.0 o rotor sai a 4 Hz por
+        // padrão e estes a 50 Hz. Se o Talon reiniciar no meio da partida, as
+        // frequências pedidas voltam ao padrão e a odometria continua a 50 Hz.
+        drivePosition = driveMotor.getPosition();
+        driveVelocity = driveMotor.getVelocity();
+        driveVoltage = driveMotor.getMotorVoltage();
+        driveCurrent = driveMotor.getStatorCurrent();
+        turnPosition = steerMotor.getPosition();
+        turnVelocity = steerMotor.getVelocity();
+        turnVoltage = steerMotor.getMotorVoltage();
+        turnCurrent = steerMotor.getStatorCurrent();
+        driveSignals = new BaseStatusSignal[] { drivePosition, driveVelocity, driveVoltage, driveCurrent };
+        turnSignals = new BaseStatusSignal[] { turnPosition, turnVelocity, turnVoltage, turnCurrent };
+
+        // O CANcoder fica de fora de propósito: o steer usa FusedCANcoder e recebe
+        // a posição dele pelo CAN. Desacelerar o CANcoder pioraria o steer.
+        PhoenixUtil.applySignalRates("Módulo do drive " + driveMotorId, () -> {
+            StatusCode fast = BaseStatusSignal.setUpdateFrequencyForAll(CONTROL_SIGNAL_HZ,
+                drivePosition, driveVelocity, driveVoltage, turnPosition, turnVelocity, turnVoltage);
+            StatusCode currents = BaseStatusSignal.setUpdateFrequencyForAll(CURRENT_SIGNAL_HZ,
+                driveCurrent, turnCurrent);
+            return fast.isOK() ? currents : fast;
+        }, driveMotor, steerMotor);
     }
     // #endregion
 
     // #region ATUALIZAÇÃO DOS SENSORES
 
     @Override
-    public void updateInputs(
-            ModuleIOInputs inputs) {
-
-        // ============================================================
-        // 1 - DRIVE - POSIÇÃO
-        // ============================================================
-
-        // O TalonFX informa a posição do rotor
-        // em rotações.
-        double driveRotorRotations = driveMotor
-                .getRotorPosition()
-                .getValueAsDouble();
-
-        // Converte:
-        //
-        // rotações do Kraken
-        // ↓ divide pela redução
-        // rotações da roda
-        // ↓ multiplica por 2π
-        // radianos da roda
-        inputs.drivePositionRad = (driveRotorRotations
-                /
-                DRIVE_GEAR_RATIO)
-                *
-                (2.0 * Math.PI);
-
-        // ============================================================
-        // 2 - DRIVE - VELOCIDADE
-        // ============================================================
-
-        // Velocidade do rotor em rotações por segundo
-        double driveRotorRps = driveMotor
-                .getRotorVelocity()
-                .getValueAsDouble();
-
-        // Converte:
-        //
-        // rotações/s do Kraken
-        // ↓
-        // rotações/s da roda
-        // ↓
-        // rad/s da roda
-        inputs.driveVelocityRadPerSec = (driveRotorRps
-                /
-                DRIVE_GEAR_RATIO)
-                *
-                (2.0 * Math.PI);
-
-        // ============================================================
-        // 3 - DRIVE - TENSÃO
-        // ============================================================
-
-        inputs.driveAppliedVolts = driveMotor
-                .getMotorVoltage()
-                .getValueAsDouble();
-
-        // ============================================================
-        // 4 - DRIVE - CORRENTE
-        // ============================================================
-
-        inputs.driveCurrentAmps = driveMotor
-                .getStatorCurrent()
-                .getValueAsDouble();
-
-        // ============================================================
-        // 5 - STEER - POSIÇÃO
-        // ============================================================
-
-        // Como configuramos:
-        //
-        // FusedCANcoder
-        // RotorToSensorRatio
-        // SensorToMechanismRatio
-        //
-        // o TalonFX já fornece a posição
-        // relativa ao mecanismo do Steer.
-        double steerRotations = steerMotor
-                .getPosition()
-                .getValueAsDouble();
-
-        // Converte rotações do módulo
-        // para radianos
-        inputs.turnPositionRad = steerRotations
-                *
-                (2.0 * Math.PI);
-
-        // ============================================================
-        // 6 - STEER - VELOCIDADE
-        // ============================================================
-
-        double steerRotationsPerSecond = steerMotor
-                .getVelocity()
-                .getValueAsDouble();
-
-        inputs.turnVelocityRadPerSec = steerRotationsPerSecond
-                *
-                (2.0 * Math.PI);
-
-        // ============================================================
-        // 7 - STEER - TENSÃO
-        // ============================================================
-
-        inputs.turnAppliedVolts = steerMotor
-                .getMotorVoltage()
-                .getValueAsDouble();
-
-        // ============================================================
-        // 8 - STEER - CORRENTE
-        // ============================================================
-
-        inputs.turnCurrentAmps = steerMotor
-                .getStatorCurrent()
-                .getValueAsDouble();
+    public void updateInputs(ModuleIOInputs inputs) {
+        // Não espera pacote novo no ciclo de 20 ms.
+        StatusCode driveStatus = BaseStatusSignal.refreshAll(driveSignals);
+        StatusCode turnStatus = BaseStatusSignal.refreshAll(turnSignals);
+        // 📊 O Module transforma isto em alerta e aviso na Driver Station.
+        inputs.driveConnected = driveConnected.calculate(driveStatus.isOK());
+        inputs.turnConnected = turnConnected.calculate(turnStatus.isOK());
+        inputs.encoderConnected = encoderConnected.calculate(steerEncoder.isConnected());
+        inputs.drivePositionRad = drivePosition.getValueAsDouble() / DRIVE_GEAR_RATIO * 2.0 * Math.PI;
+        inputs.driveVelocityRadPerSec = driveVelocity.getValueAsDouble() / DRIVE_GEAR_RATIO * 2.0 * Math.PI;
+        inputs.driveAppliedVolts = driveVoltage.getValueAsDouble();
+        inputs.driveCurrentAmps = driveCurrent.getValueAsDouble();
+        inputs.turnPositionRad = turnPosition.getValueAsDouble() * 2.0 * Math.PI;
+        inputs.turnVelocityRadPerSec = turnVelocity.getValueAsDouble() * 2.0 * Math.PI;
+        inputs.turnAppliedVolts = turnVoltage.getValueAsDouble();
+        inputs.turnCurrentAmps = turnCurrent.getValueAsDouble();
     }
 
     // #endregion
 
-    // #region CONTROLE ABERTO - DRIVE
+    // #region 🚀 CONTROLE ABERTO - DRIVE
 
     @Override
     public void setDriveVoltage(
@@ -709,7 +673,7 @@ public class ModuleIOTalonFX implements ModuleIO {
 
     // #endregion
 
-    // #region CONTROLE ABERTO - STEER
+    // #region 🚀 CONTROLE ABERTO - STEER
 
     @Override
     public void setTurnVoltage(
@@ -730,7 +694,7 @@ public class ModuleIOTalonFX implements ModuleIO {
 
     // #endregion
 
-    // #region MALHA FECHADA - DRIVE
+    // #region 🎯🚀 MALHA FECHADA - DRIVE
 
     @Override
     public void setDriveVelocity(
@@ -762,7 +726,7 @@ public class ModuleIOTalonFX implements ModuleIO {
                 *
                 Math.PI
                 *
-                WHEEL_RADIUS_METERS
+                kWheelRadiusMeters
             );
 
         // ============================================================
@@ -813,7 +777,7 @@ public class ModuleIOTalonFX implements ModuleIO {
 
     // #endregion
 
-    // #region MALHA FECHADA - STEER
+    // #region 🎯 MALHA FECHADA - STEER
 
                 @Override
                 public void setTurnPosition(

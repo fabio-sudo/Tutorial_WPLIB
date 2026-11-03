@@ -9,7 +9,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.wpilibj.simulation.DriverStationSim;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.Constants.DriveConstants;
+import frc.robot.subsystems.drive.DriveConstants;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.drive.GyroIO;
 import frc.robot.subsystems.drive.ModuleIO;
@@ -292,6 +292,21 @@ class VisionMultiCameraTest {
     }
 
     @Test
+    void megaTag2OutsideTheFieldNeverReachesTheEstimator() {
+        double[][] outside = {{1.0, -0.5}, {1.0, VisionFieldConstants.FIELD_WIDTH_METERS + 0.5},
+            {-0.5, 1.0}, {VisionFieldConstants.FIELD_LENGTH_METERS + 0.5, 1.0}};
+        double capture = 10.08;
+        for (double[] point : outside) {
+            rear.publishFrame(new Pose2d(point[0], point[1], new Rotation2d()), 2, 9, 1.8, capture, 20);
+            vision.periodic();
+            tick(capture + 0.12);
+            assertEquals(0, drive.getVisionAcceptedCount("Rear"), point[0] + ", " + point[1]);
+            capture += 0.13;
+        }
+        assertTrue(vision.getDiagnosis("Rear").endsWith("OutsideField"), vision.getDiagnosis("Rear"));
+    }
+
+    @Test
     void healthyFramesFromSameCameraRecoverAfterRejectedFutureTimestamp() {
         frame(rear, 1.0, 2, 9, 1000.0);
         vision.periodic();
@@ -481,6 +496,31 @@ class VisionMultiCameraTest {
         assertTrue(drive.getPose().getX() > 0.1);
     }
 
+    // 29/10/2026: a Limelight mostrava tags, a pose não era corrigida e o
+    // motivo ficava espalhado em vários Reject/*. Vision/Diagnostico diz qual é.
+    @Test
+    void diagnosisNamesWhatBlocksTheCorrection() {
+        assertTrue(vision.getDiagnosis("Rear").startsWith("SEM_TAG_ACEITA"), vision.getDiagnosis("Rear"));
+
+        frame(rear, 1.0, 2, 9, 10.08);
+        vision.periodic();
+        tick(10.20);
+        assertEquals(1, drive.getVisionAcceptedCount("Rear"));
+        assertEquals("OK_CORRIGINDO", vision.getDiagnosis("Rear"));
+        assertTrue(vision.getDiagnosis().startsWith("Rear: OK_CORRIGINDO"), vision.getDiagnosis());
+
+        rear.setConnected(false);
+        tick(10.30);
+        assertTrue(vision.getDiagnosis("Rear").startsWith("SEM_CONEXAO"), vision.getDiagnosis("Rear"));
+
+        rear.setConnected(true);
+        gyro.connected = false;
+        frame(rear, 1.0, 2, 9, 10.38);
+        tick(10.40);
+        assertTrue(vision.getDiagnosis("Rear").startsWith("GIROSCOPIO_INDISPONIVEL"),
+                vision.getDiagnosis("Rear"));
+    }
+
     static class SensorGyro implements GyroIO {
         double yaw;
         boolean connected = true;
@@ -496,6 +536,9 @@ class VisionMultiCameraTest {
         double distanceMeters;
         double speed;
         public void updateInputs(ModuleIOInputs inputs) {
+            inputs.driveConnected = true;
+            inputs.turnConnected = true;
+            inputs.encoderConnected = true;
             inputs.drivePositionRad = distanceMeters / DriveConstants.kWheelRadiusMeters;
             inputs.driveVelocityRadPerSec = speed / DriveConstants.kWheelRadiusMeters;
             inputs.turnPositionRad = 0.0;

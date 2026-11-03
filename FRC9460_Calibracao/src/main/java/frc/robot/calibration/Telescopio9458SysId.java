@@ -142,7 +142,7 @@ public final class Telescopio9458SysId {
 
 
 
-    // #region BOTÕES (SEGURAR)
+    // #region 🎮 BOTÕES (SEGURAR)
 
     /** R1: rampa lenta subindo, pausa em cima e rampa lenta descendo. */
     public Command quasistaticUpAndDown() {
@@ -202,7 +202,7 @@ public final class Telescopio9458SysId {
 
 
 
-    // #region SEGURANÇA
+    // #region 🛑 SEGURANÇA
 
     /**
      * Termina o teste perto da ponta do curso ou se travar e, ao sair por

@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj.DriverStation;
 // NEW - Configuração de ajuste fino do giroscópio
 import com.ctre.phoenix6.configs.GyroTrimConfigs;
 
+import frc.robot.util.PhoenixUtil;
+
 // #endregion
 
 
@@ -55,6 +57,8 @@ public class GyroIOPigeon2 implements GyroIO {
         //
         // Correção calculada:
         // aproximadamente 5.78 graus por volta
+        // 🚧 ATENÇÃO (pente fino 31/10/2026): a medição dá 5.78, o valor aplicado é -5.48 e o sinal não
+        // foi confirmado. Refazer as 10 voltas nos dois sentidos.
         //
         // O eixo Z corresponde ao Yaw do robô.
         //
@@ -85,8 +89,8 @@ public class GyroIOPigeon2 implements GyroIO {
 
         yawSignal = pigeon.getYaw();
         yawVelocitySignal = pigeon.getAngularVelocityZWorld();
-        var frequencyStatus = BaseStatusSignal.setUpdateFrequencyForAll(
-                50.0, yawSignal, yawVelocitySignal);
+        var frequencyStatus = PhoenixUtil.applySignalRates("Pigeon",
+                () -> BaseStatusSignal.setUpdateFrequencyForAll(50.0, yawSignal, yawVelocitySignal), pigeon);
         configurationOk = trimStatus.isOK() && frequencyStatus.isOK();
         if (!configurationOk) {
             DriverStation.reportWarning(

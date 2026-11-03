@@ -39,5 +39,11 @@ public interface ShooterWheelIO {
 
     default void stop() {}
 
+    /**
+     * Só a simulação usa: uma bola passou e tirou energia da roda.
+     * No robô real a própria bola faz isso; o IO real ignora.
+     */
+    default void simulateBallPassing() {}
+
     // #endregion
 }

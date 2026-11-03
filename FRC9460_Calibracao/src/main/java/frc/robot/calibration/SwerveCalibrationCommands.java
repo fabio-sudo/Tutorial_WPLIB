@@ -180,7 +180,7 @@ public final class SwerveCalibrationCommands {
 
 
 
-    // #region TESTES DE STEER
+    // #region 🔧 TESTES DE STEER
 
 
     // ============================================================
@@ -250,7 +250,7 @@ public final class SwerveCalibrationCommands {
 
 
 
-    // #region MÉTODO INTERNO - TESTE DE STEER
+    // #region 🔧 MÉTODO INTERNO - TESTE DE STEER
 
 
     /**
@@ -372,7 +372,7 @@ public final class SwerveCalibrationCommands {
 
 
 
-    // #region TESTES DE VELOCIDADE - FORWARD
+    // #region 🔧 TESTES DE VELOCIDADE - FORWARD
 
 
     // ============================================================
@@ -426,7 +426,7 @@ public final class SwerveCalibrationCommands {
 
 
 
-    // #region TESTES DE VELOCIDADE - REVERSE
+    // #region 🔧 TESTES DE VELOCIDADE - REVERSE
 
 
     // ============================================================
@@ -480,7 +480,7 @@ public final class SwerveCalibrationCommands {
 
 
 
-    // #region MÉTODO INTERNO - TESTE DE VELOCIDADE
+    // #region 🔧 MÉTODO INTERNO - TESTE DE VELOCIDADE
 
 
     /**
@@ -599,7 +599,7 @@ public final class SwerveCalibrationCommands {
 
 
 
-    // #region TESTES DE ROTAÇÃO
+    // #region 🔧 TESTES DE ROTAÇÃO
 
 
     // ============================================================
@@ -649,7 +649,7 @@ public final class SwerveCalibrationCommands {
 
 
 
-    // #region MÉTODO INTERNO - TESTE DE ROTAÇÃO
+    // #region 🔧 MÉTODO INTERNO - TESTE DE ROTAÇÃO
 
 
     /**
@@ -784,7 +784,7 @@ public final class SwerveCalibrationCommands {
 
 
 
-    // #region TESTE DE PARADA
+    // #region 🔧 TESTE DE PARADA
 
 
     /**

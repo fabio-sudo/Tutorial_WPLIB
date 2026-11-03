@@ -8,6 +8,9 @@ import edu.wpi.first.wpilibj.simulation.DriverStationSim;
 import edu.wpi.first.wpilibj.simulation.RoboRioSim;
 import edu.wpi.first.wpilibj.simulation.SimHooks;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.telescopio.TelescopioAbrirCommand;
+import frc.robot.commands.telescopio.TelescopioCicloCommand;
+import frc.robot.commands.telescopio.TelescopioFecharCommand;
 import org.junit.jupiter.api.*;
 
 class TelescopioControlTest {
@@ -95,7 +98,7 @@ class TelescopioControlTest {
         assertFalse(telescopio.isPositionControlActive());
     }
     @Test void automaticCycleReachesBothEndsAndCancellationStopsControl() {
-        var command = telescopio.demoCommand();
+        var command = new TelescopioCicloCommand(telescopio);
         scheduler.schedule(command);
         double max = 0;
         boolean returned = false;
@@ -111,7 +114,7 @@ class TelescopioControlTest {
         assertEquals(0, telescopio.getRequestedVolts());
     }
     @Test void holdingOpensReleasingHoldsAndHoldingCloseRetracts() {
-        var open = telescopio.extendWhileHeldCommand();
+        var open = new TelescopioAbrirCommand(telescopio);
         scheduler.schedule(open);
         tick(100);
         double released = telescopio.getExtensionMeters();
@@ -127,7 +130,7 @@ class TelescopioControlTest {
         tick(300);
         assertEquals(MAX_EXTENSION_METERS, telescopio.getExtensionMeters(), POSITION_TOLERANCE_METERS);
         open.cancel();
-        var close = telescopio.retractWhileHeldCommand();
+        var close = new TelescopioFecharCommand(telescopio);
         scheduler.schedule(close);
         tick(400);
         assertEquals(0, telescopio.getExtensionMeters(), POSITION_TOLERANCE_METERS);
@@ -141,7 +144,7 @@ class TelescopioControlTest {
         var fake = new FakeIO();
         telescopio = new Telescopio(fake);
         tick(1);
-        var open = telescopio.extendWhileHeldCommand();
+        var open = new TelescopioAbrirCommand(telescopio);
         scheduler.schedule(open);
         tick(5);
         fake.current = STATOR_CURRENT_LIMIT_AMPS; // empurrando sem sair do lugar
@@ -157,7 +160,7 @@ class TelescopioControlTest {
         open.cancel();
         tick(1);
         assertEquals(fake.position, telescopio.getGoalMeters(), 1e-9);
-        scheduler.schedule(telescopio.extendWhileHeldCommand()); // apertou de novo
+        scheduler.schedule(new TelescopioAbrirCommand(telescopio)); // apertou de novo
         tick(1);
         assertFalse(telescopio.isJammed());
         assertEquals(MAX_EXTENSION_METERS, telescopio.getGoalMeters());
@@ -172,7 +175,7 @@ class TelescopioControlTest {
         assertEquals(2.0, Telescopio.limitAtEnds(2.0, 0.6, 1.0, 0.3)); // meio do curso livre
     }
     @Test void disablingWhileHoldingCutsVoltage() {
-        scheduler.schedule(telescopio.extendWhileHeldCommand());
+        scheduler.schedule(new TelescopioAbrirCommand(telescopio));
         tick(50);
         enabled(false);
         tick(1);
@@ -182,7 +185,7 @@ class TelescopioControlTest {
     }
     @Test void hardwarePlaceholderDoesNotPretendToHaveReferencedSensors() {
         telescopio.close();
-        telescopio = new Telescopio(new TelescopioIOTalonFX());
+        telescopio = new Telescopio(new TelescopioIO() {});
         tick(1);
         telescopio.setGoalMeters(0.5);
         assertFalse(telescopio.hasValidPosition());

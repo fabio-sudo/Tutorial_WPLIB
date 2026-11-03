@@ -2,13 +2,12 @@ package frc.robot.subsystems.vision;
 
 // #region NEW - IMPORTS
 
-import frc.robot.Constants.LimelightConstants;
 
 // #endregion
 
 public class VisionIOLimelightRear extends VisionIOLimelight {
 
-    // #region NEW - CONFIGURAÇÃO DA LIMELIGHT TRASEIRA
+    // #region 📷 NEW - CONFIGURAÇÃO DA LIMELIGHT TRASEIRA
 
     public VisionIOLimelightRear() {
         super(

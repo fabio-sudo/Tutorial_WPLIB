@@ -30,10 +30,10 @@ class ShooterPivotIOSimTest {
         var io = new ShooterPivotIOSim(0.0);
         io.setTargetRotations(ShotCalculator.pivotDegreesToMotorRotations(45.0));
         run(io, 2.0);
-        assertEquals(3.0, inputs.motorPositionRotations, PIVOT_TOLERANCE_MOTOR_ROTATIONS);
+        assertEquals(8.979981 * 45.0 / 132.0, inputs.motorPositionRotations, PIVOT_TOLERANCE_MOTOR_ROTATIONS);
         assertEquals(45.0, io.physicalDegrees(), 1.0);
         run(io, 1.0);
-        assertEquals(3.0, inputs.motorPositionRotations, PIVOT_TOLERANCE_MOTOR_ROTATIONS);
+        assertEquals(8.979981 * 45.0 / 132.0, inputs.motorPositionRotations, PIVOT_TOLERANCE_MOTOR_ROTATIONS);
     }
 
     @Test
@@ -43,6 +43,10 @@ class ShooterPivotIOSimTest {
         run(io, 3.0);
         assertEquals(PIVOT_MAX_MOTOR_ROTATIONS, inputs.motorPositionRotations, PIVOT_TOLERANCE_MOTOR_ROTATIONS);
         assertTrue(Math.abs(io.physicalDegrees()) <= PIVOT_SIM_WIRING_LIMIT_DEGREES + 1e-9);
+        assertEquals(130.0, io.physicalDegrees(), 0.75);
+        io.setTargetRotations(-50.0);
+        run(io, 5.0);
+        assertEquals(-130.0, io.physicalDegrees(), 0.75);
     }
 
     @Test
@@ -65,12 +69,12 @@ class ShooterPivotIOSimTest {
         assertEquals(0.0, inputs.motorPositionRotations, 1e-9);
         assertEquals(20.0, io.physicalDegrees(), 1e-9);
 
-        // O código pede +90° pelo encoder, mas a fiação para em 90° reais
-        // (70° no encoder). O código nunca chega ao alvo.
+        // Com zero errado, o envelope de 132° é alcançado antes do alvo de 130°.
         io.setTargetRotations(PIVOT_MAX_MOTOR_ROTATIONS);
         run(io, 3.0);
         assertEquals(PIVOT_SIM_WIRING_LIMIT_DEGREES, io.physicalDegrees(), 0.5);
-        assertEquals(70.0 / PIVOT_DEGREES_PER_MOTOR_ROTATION, inputs.motorPositionRotations, 0.05);
+        assertEquals((PIVOT_SIM_WIRING_LIMIT_DEGREES - 20.0) / PIVOT_DEGREES_PER_MOTOR_ROTATION,
+            inputs.motorPositionRotations, 0.05);
     }
 
     @Test

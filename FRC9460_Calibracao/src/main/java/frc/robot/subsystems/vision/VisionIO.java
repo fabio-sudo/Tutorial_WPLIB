@@ -62,6 +62,10 @@ public interface VisionIO {
         public double targetAreaPercent = 0.0;
         public int tagId = -1;
 
+        // IDs de TODAS as tags usadas na pose, não só a principal. Mostra na hora
+        // se a câmera está usando as tags certas (e desenha as linhas no 2D e 3D).
+        public int[] tagIds = new int[0];
+
         // Disponibilidade dos dados de localização.
         public boolean hasPoseEstimate = false;
         public boolean hasPose = false;
@@ -78,6 +82,15 @@ public interface VisionIO {
         // Dados utilizados para calcular a confiança.
         public int tagCount = 0;
         public double avgTagDistanceMeters = 0.0;
+
+        // MegaTag1: pose calculada só pelas tags, com o heading DELAS (não o
+        // do Pigeon). Somente diagnóstico: mostra se o heading definido à mão
+        // (Start + A) está errado. Não entra no estimador.
+        public Pose2d megaTag1Pose = new Pose2d();
+        public int megaTag1TagCount = 0;
+        public double megaTag1AvgTagDistanceMeters = 0.0;
+        // Instante da captura (mesmo relógio do robô): distingue um quadro novo de um repetido.
+        public double megaTag1TimestampSeconds = 0.0;
 
         // #region - LEITURA DE OBSERVAÇÕES EM LOTE
 

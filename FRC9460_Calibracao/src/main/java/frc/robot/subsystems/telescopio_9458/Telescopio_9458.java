@@ -60,7 +60,7 @@ public class Telescopio_9458 extends SubsystemBase implements AutoCloseable {
     // #endregion
 
 
-    // #region GANHOS (GRAVADOS NO LOG PARA O REPLAY)
+    // #region 🎯 GANHOS (GRAVADOS NO LOG PARA O REPLAY)
 
     private final TelescopioGainsInputsAutoLogged gainsInputs = new TelescopioGainsInputsAutoLogged();
     private TelescopioGains_9458 gains;
@@ -68,7 +68,7 @@ public class Telescopio_9458 extends SubsystemBase implements AutoCloseable {
     // #endregion
 
 
-    // #region CONTROLADOR PID E PERFIL DE MOVIMENTO
+    // #region 🎯🚀 CONTROLADOR PID E PERFIL DE MOVIMENTO
 
     // Usado quando o executor é o roboRIO. O kP inicial e as restrições são trocados
     // no construtor pelos ganhos e pelo perfil ativos.
@@ -86,7 +86,7 @@ public class Telescopio_9458 extends SubsystemBase implements AutoCloseable {
     // #endregion
 
 
-    // #region PERFIL DE MOVIMENTO (GRAVADO NO LOG PARA O REPLAY)
+    // #region 🎯🚀 PERFIL DE MOVIMENTO (GRAVADO NO LOG PARA O REPLAY)
 
     // true: Motion Magic (Talon real ou emulado na simulação); false: perfil no roboRIO.
     // Segue o que o IO informa nas entradas: no replay, o que foi gravado no log.
@@ -104,7 +104,7 @@ public class Telescopio_9458 extends SubsystemBase implements AutoCloseable {
     // #endregion
 
 
-    // #region ESTADO DO CONTROLE
+    // #region 🎯 ESTADO DO CONTROLE
 
     private boolean positionControlActive;
 
@@ -122,7 +122,7 @@ public class Telescopio_9458 extends SubsystemBase implements AutoCloseable {
     // #endregion
 
 
-    // #region PROTECOES: TRAVAMENTO E TOPO
+    // #region 🛑 PROTECOES: TRAVAMENTO E TOPO
 
     private final Debouncer jamDebouncer =
             new Debouncer(
@@ -145,7 +145,7 @@ public class Telescopio_9458 extends SubsystemBase implements AutoCloseable {
     // #endregion
 
 
-    // #region DIAGNOSTICO E ALERTAS
+    // #region 📊 DIAGNOSTICO E ALERTAS
 
     private String adjustmentStatus = "SEM_AJUSTE";
     private String referenceStatus = "ZERO_NA_PARTIDA";
@@ -155,7 +155,7 @@ public class Telescopio_9458 extends SubsystemBase implements AutoCloseable {
     // #endregion
 
 
-    // #region MODELO EM PARALELO (REAL X SIMULADO)
+    // #region 🧪 MODELO EM PARALELO (REAL X SIMULADO)
 
     // Física da simulação recebendo a mesma tensão do motor. No robô real,
     // mostra ao vivo o que o modelo prevê ao lado do que o telescópio faz.
@@ -211,7 +211,8 @@ public class Telescopio_9458 extends SubsystemBase implements AutoCloseable {
         }
 
         if (RobotBase.isReal()) {
-            return new TelescopioIOTalonFX_9458();
+            return frc.robot.CanIds.ELEVATORS_HARDWARE_ENABLED
+                ? new TelescopioIOTalonFX_9458() : new TelescopioIO_9458() {};
         }
 
         return new TelescopioIOSim_9458();
@@ -220,7 +221,7 @@ public class Telescopio_9458 extends SubsystemBase implements AutoCloseable {
     // #endregion
 
 
-    // #region PERIODIC - ORDEM DE CADA CICLO (20 ms)
+    // #region 🔁 PERIODIC - ORDEM DE CADA CICLO (20 ms)
 
     @Override
     public void periodic() {
@@ -236,7 +237,7 @@ public class Telescopio_9458 extends SubsystemBase implements AutoCloseable {
     // #endregion
 
 
-    // #region 1. SENSORES E GANHOS
+    // #region 🎯 1. SENSORES E GANHOS
 
     private void readSensorsAndGains() {
 
@@ -266,7 +267,7 @@ public class Telescopio_9458 extends SubsystemBase implements AutoCloseable {
     // #endregion
 
 
-    // #region 2. MODELO EM PARALELO - PASSO DA FISICA
+    // #region 🧪 2. MODELO EM PARALELO - PASSO DA FISICA
 
     private void stepParallelModel() {
 
@@ -304,7 +305,7 @@ public class Telescopio_9458 extends SubsystemBase implements AutoCloseable {
     // #endregion
 
 
-    // #region 3. DETECCAO DE TRAVAMENTO
+    // #region 🛑 3. DETECCAO DE TRAVAMENTO
 
     /** Travamento: corrente elevada e velocidade baixa durante JAM_TIME_SECONDS. */
     private boolean detectJam() {
@@ -329,7 +330,7 @@ public class Telescopio_9458 extends SubsystemBase implements AutoCloseable {
     // #endregion
 
 
-    // #region 4. SEGURANCA E CONTROLE DO MOTOR
+    // #region 🛑 4. SEGURANCA E CONTROLE DO MOTOR
 
     private void runControl(boolean jamDetected, boolean characterizationStallDetected) {
 
@@ -573,7 +574,7 @@ public class Telescopio_9458 extends SubsystemBase implements AutoCloseable {
     // #endregion
 
 
-    // #region 5. MODELO EM PARALELO - TENSAO DO PROXIMO PASSO
+    // #region 🧪 5. MODELO EM PARALELO - TENSAO DO PROXIMO PASSO
 
     /**
      * Simulação: o modelo recebe a mesma tensão solicitada ao IO simulado.
@@ -589,7 +590,7 @@ public class Telescopio_9458 extends SubsystemBase implements AutoCloseable {
     // #endregion
 
 
-    // #region 6. TELEMETRIA (NOMES USADOS PELOS LAYOUTS DO ADVANTAGESCOPE)
+    // #region 📊 6. TELEMETRIA (NOMES USADOS PELOS LAYOUTS DO ADVANTAGESCOPE)
 
     private void logTelemetry() {
         visualizer.update(inputs.extensionMeters, hasValidPosition());
@@ -741,7 +742,7 @@ public class Telescopio_9458 extends SubsystemBase implements AutoCloseable {
     // #endregion
 
 
-    // #region API - META E PARADA
+    // #region 🎯 API - META E PARADA
 
     public void setGoalMeters(double meters) {
 
@@ -817,7 +818,7 @@ public class Telescopio_9458 extends SubsystemBase implements AutoCloseable {
     // #endregion
 
 
-    // #region API - SYSID (TENSAO EM MALHA ABERTA)
+    // #region 🔧 API - SYSID (TENSAO EM MALHA ABERTA)
 
     /**
      * Chamado a cada ciclo pela rotina de SysId. Desliga o PID e aplica a tensão
@@ -857,7 +858,7 @@ public class Telescopio_9458 extends SubsystemBase implements AutoCloseable {
     // #endregion
 
 
-    // #region API - ZERO E GANHOS (SOMENTE DESABILITADO)
+    // #region 🧭🎯 API - ZERO E GANHOS (SOMENTE DESABILITADO)
 
     /** Não é homing: o operador confirma que já recolheu fisicamente o mecanismo. */
     public boolean confirmRetractedZero() {
@@ -992,7 +993,7 @@ public class Telescopio_9458 extends SubsystemBase implements AutoCloseable {
     // #endregion
 
 
-    // #region GETTERS - TELEMETRIA E ESTADO
+    // #region 📊 GETTERS - TELEMETRIA E ESTADO
 
     public double getExtensionMeters() {
         return inputs.extensionMeters;
@@ -1211,7 +1212,7 @@ public class Telescopio_9458 extends SubsystemBase implements AutoCloseable {
     // #endregion
 
 
-    // #region AUXILIARES - LIMITES, FRENAGEM E TRAVAMENTO
+    // #region 🛑 AUXILIARES - LIMITES, FRENAGEM E TRAVAMENTO
 
     /**
      * Limites de operação:

@@ -1,7 +1,8 @@
 package frc.robot.subsystems.drive;
 
 // #region IMPORTS
-import static frc.robot.Constants.DriveConstants.*;
+import static frc.robot.subsystems.drive.DriveConstants.*;
+import frc.robot.CanIds;
 import org.littletonrobotics.junction.Logger;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,14 +23,18 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.Alert;
+import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.vision.VisionFieldConstants;
 
 // #endregion
 /** Um único estimador combina os módulos, o Pigeon e as câmeras. */
 public class Drive extends SubsystemBase {
 
-        // #region HISTÓRICO E CONTROLE TEMPORAL DA VISÃO
+        // #region 📷 HISTÓRICO E CONTROLE TEMPORAL DA VISÃO
         // Timer.getTimestamp acompanha o relógio do AdvantageKit durante replay.
         private DoubleSupplier timestampSupplier = Timer::getTimestamp;
         private double firstOdometryTimestamp = Double.NaN;
@@ -39,11 +44,18 @@ public class Drive extends SubsystemBase {
         private final Map<String, Long> visionAcceptedByCamera = new HashMap<>();
         private long poseResetGeneration = 0;
         private String lastVisionResult = "NOT_REQUESTED";
+        private String visionInitResult = "NAO_SOLICITADA";
+        private long visionInitCount = 0;
+        private String lastVisionCamera = "NENHUMA";
+
+        // Correção "recente": a última medição aceita foi capturada há no
+        // máximo 1 s. Só entra nos logs; o shooter exige uma correção desde o reset.
+        public static final double VISION_RECENT_CORRECTION_SECONDS = 1.0;
         // A WPILib 2026 guarda 1,5 s. Usamos margem de 100 ms na consulta.
         private static final double SAFE_HISTORY_SECONDS = 1.4;
         // #endregion
 
-        // #region VELOCIDADE DESEJADA DO CHASSI
+        // #region 🚀 VELOCIDADE DESEJADA DO CHASSI
         // Guarda a última ordem de movimento recebida pelo Drive
         private ChassisSpeeds chassisSpeeds = new ChassisSpeeds();
         private boolean xLockActive = false;
@@ -51,15 +63,21 @@ public class Drive extends SubsystemBase {
         private Rotation2d driverHeadingOffset = new Rotation2d();
         private String fieldHeadingResetResult = "NOT_REQUESTED";
         private String driverHeadingResetResult = "NOT_REQUESTED";
+        // De onde veio a frente do piloto (ver REFERÊNCIA DO PILOTO).
+        private static final String DRIVER_REFERENCE_UNKNOWN = "SEM_TAGS_FRENTE_MAIS_X";
+        private String driverReferenceSource = DRIVER_REFERENCE_UNKNOWN;
+        // Y apertado: a frente é a que a equipe escolheu, e as tags não mexem nela.
+        private boolean driverReferenceManual = false;
+        private boolean driverSideLocked = false;
         // #endregion
 
-        // #region MODO CALIBRAÇÃO POR TENSÃO
+        // #region 🔧 MODO CALIBRAÇÃO POR TENSÃO
         // Indica se estamos executando um teste direto de tensão.
         private boolean calibrationVoltageMode = false;
         // Tensão solicitada para os motores de Drive.
         private double calibrationDriveVolts = 0.0;
 
-        // #region MODO CALIBRAÇÃO DIRETA DO STEER
+        // #region 🔧 MODO CALIBRAÇÃO DIRETA DO STEER
         // ============================================================
         // MODO DE CALIBRAÇÃO DIRETA DO STEER
         // ============================================================
@@ -94,7 +112,7 @@ public class Drive extends SubsystemBase {
         //
         private static final double CALIBRATION_TURN_ANGLE_RAD = 0.0;
 
-        // #region GIRO MANUAL ACUMULADO
+        // #region 🧭 GIRO MANUAL ACUMULADO
         private double manualPreviousYawRad = 0.0;
         private double manualAccumulatedYawRad = 0.0;
         private boolean manualAccumulatedInitialized = false;
@@ -110,7 +128,7 @@ public class Drive extends SubsystemBase {
         private static final double CALIBRATION_TURN_TOLERANCE_RAD = Math.toRadians(3.0);
         // #endregion
 
-        // #region REFERÊNCIA INDEPENDENTE DA SIMULAÇÃO
+        // #region 🧪 REFERÊNCIA INDEPENDENTE DA SIMULAÇÃO
         // Referência cinemática dos sensores virtuais, sem correções de visão.
         // Não representa atrito, derrapagem ou colisões de um campo físico.
         private static final Pose2d SIM_INITIAL_POSE =
@@ -122,7 +140,7 @@ public class Drive extends SubsystemBase {
         private Pose2d simulationPose = SIM_INITIAL_POSE;
         // #endregion
 
-        // #region POSE DO ROBÔ
+        // #region 🧭 POSE DO ROBÔ
         // Pose atual estimada pela odometria
         private Pose2d pose = new Pose2d(
                         0.0,
@@ -130,7 +148,7 @@ public class Drive extends SubsystemBase {
                         new Rotation2d());
         // #endregion
 
-        // #region POSIÇÃO DOS MÓDULOS NO CHASSI
+        // #region 📏 POSIÇÃO DOS MÓDULOS NO CHASSI
         // FL - Front Left
         private final Translation2d frontLeftLocation = new Translation2d(
                         kWheelBaseMeters / 2.0,
@@ -149,7 +167,7 @@ public class Drive extends SubsystemBase {
                         -kTrackWidthMeters / 2.0);
         // #endregion
 
-        // #region CINEMÁTICA DO SWERVE
+        // #region 🧭 CINEMÁTICA DO SWERVE
         private final SwerveDriveKinematics kinematics = new SwerveDriveKinematics(
                         frontLeftLocation,
                         frontRightLocation,
@@ -157,7 +175,7 @@ public class Drive extends SubsystemBase {
                         backRightLocation);
         // #endregion
 
-        // #region POSE ESTIMATOR
+        // #region 🧭 POSE ESTIMATOR
         // ============================================================
         // ESTIMADOR DE POSIÇÃO DO SWERVE
         // ============================================================
@@ -196,7 +214,7 @@ public class Drive extends SubsystemBase {
         private final Module backRight;
         // #endregion
 
-        // #region GYRO
+        // #region 🧭 GYRO
         // A implementação será escolhida
         // no construtor do Drive:
         //
@@ -206,6 +224,13 @@ public class Drive extends SubsystemBase {
         // Dados do gyro registrados
         // pelo AdvantageKit
         private final GyroIOInputsAutoLogged gyroInputs = new GyroIOInputsAutoLogged();
+        // Giro que alimenta a odometria: o do Pigeon ou, sem ele, o medido pelas rodas.
+        private Rotation2d odometryYaw = new Rotation2d();
+        private SwerveModulePosition[] previousModulePositions;
+        private boolean gyroWasHealthy = false;
+        private final Alert gyroAlert = new Alert(
+                        "Pigeon sem resposta: pose e direção seguem pelas rodas e a visão fica parada.",
+                        AlertType.kError);
         // #endregion
 
         // #region CONSTRUTOR
@@ -232,13 +257,13 @@ public class Drive extends SubsystemBase {
                         // --------------------------------------------------------
                         frontLeft = new Module(
                                         new ModuleIOTalonFX(
-                                                        13, // Drive Motor ID
-                                                        11, // Steer Motor ID
-                                                        12, // CANcoder ID
-                                                        -0.067626953125, // Offset do CANcoder
-                                                        false, // Drive invertido?
-                                                        true, // Steer invertido?
-                                                        false // CANcoder invertido?
+                                                        CanIds.FRONT_LEFT_DRIVE,
+                                                        CanIds.FRONT_LEFT_STEER,
+                                                        CanIds.FRONT_LEFT_ENCODER,
+                                                        FRONT_LEFT_ENCODER_OFFSET_ROTATIONS,
+                                                        FRONT_LEFT_DRIVE_INVERTED,
+                                                        FRONT_LEFT_STEER_INVERTED,
+                                                        FRONT_LEFT_ENCODER_INVERTED
                                         ),
                                         0);
                         // --------------------------------------------------------
@@ -246,13 +271,13 @@ public class Drive extends SubsystemBase {
                         // --------------------------------------------------------
                         frontRight = new Module(
                                         new ModuleIOTalonFX(
-                                                        19, // Drive Motor ID
-                                                        20, // Steer Motor ID
-                                                        18, // CANcoder ID
-                                                        -0.204833984375, // Offset do CANcoder
-                                                        true, // Drive invertido?
-                                                        true, // Steer invertido?
-                                                        false // CANcoder invertido?
+                                                        CanIds.FRONT_RIGHT_DRIVE,
+                                                        CanIds.FRONT_RIGHT_STEER,
+                                                        CanIds.FRONT_RIGHT_ENCODER,
+                                                        FRONT_RIGHT_ENCODER_OFFSET_ROTATIONS,
+                                                        FRONT_RIGHT_DRIVE_INVERTED,
+                                                        FRONT_RIGHT_STEER_INVERTED,
+                                                        FRONT_RIGHT_ENCODER_INVERTED
                                         ),
                                         1);
                         // --------------------------------------------------------
@@ -260,13 +285,13 @@ public class Drive extends SubsystemBase {
                         // --------------------------------------------------------
                         backLeft = new Module(
                                         new ModuleIOTalonFX(
-                                                        17, // Drive Motor ID
-                                                        16, // Steer Motor ID
-                                                        21, // CANcoder ID
-                                                        -0.291259765625, // Offset do CANcoder
-                                                        false, // Drive invertido?
-                                                        true, // Steer invertido?
-                                                        false // CANcoder invertido?
+                                                        CanIds.BACK_LEFT_DRIVE,
+                                                        CanIds.BACK_LEFT_STEER,
+                                                        CanIds.BACK_LEFT_ENCODER,
+                                                        BACK_LEFT_ENCODER_OFFSET_ROTATIONS,
+                                                        BACK_LEFT_DRIVE_INVERTED,
+                                                        BACK_LEFT_STEER_INVERTED,
+                                                        BACK_LEFT_ENCODER_INVERTED
                                         ),
                                         2);
                         // --------------------------------------------------------
@@ -274,22 +299,21 @@ public class Drive extends SubsystemBase {
                         // --------------------------------------------------------
                         backRight = new Module(
                                         new ModuleIOTalonFX(
-                                                        14, // Drive Motor ID
-                                                        10, // Steer Motor ID
-                                                        15, // CANcoder ID
-                                                        0.360595703125, // Offset do CANcoder
-                                                        true, // Drive invertido?
-                                                        true, // Steer invertido?
-                                                        false // CANcoder invertido?
+                                                        CanIds.BACK_RIGHT_DRIVE,
+                                                        CanIds.BACK_RIGHT_STEER,
+                                                        CanIds.BACK_RIGHT_ENCODER,
+                                                        BACK_RIGHT_ENCODER_OFFSET_ROTATIONS,
+                                                        BACK_RIGHT_DRIVE_INVERTED,
+                                                        BACK_RIGHT_STEER_INVERTED,
+                                                        BACK_RIGHT_ENCODER_INVERTED
                                         ),
                                         3);
                         // ============================================================
                         // GYRO REAL
                         // ============================================================
-                        // Cria o Pigeon 2 real do drivetrain
-                        // CAN ID = 3
+                        // Cria o Pigeon 2 real do drivetrain (ID no mapa CanIds)
                         gyroIO = new GyroIOPigeon2(
-                                        3);
+                                        CanIds.PIGEON);
                 }
                 // ============================================================
                 // SIMULAÇÃO
@@ -342,7 +366,7 @@ public class Drive extends SubsystemBase {
                 backRight = new Module(backRightIO, 3);
         }
 
-        // #region PERIODIC
+        // #region 🔁 PERIODIC
         @Override
         public void periodic() {
                 // ==========================================================
@@ -428,25 +452,28 @@ public class Drive extends SubsystemBase {
                 //
                 // Atualiza a posição utilizando:
                 //
-                // - Pigeon 2
+                // - Pigeon 2 (sem ele, o giro medido pelas rodas: updateOdometryYaw)
                 // - Encoders dos quatro módulos
                 //
                 // A atualização usa rodas e gyro; Vision adiciona medições ao estimador.
                 //
                 // ==========================================================
-                if (isGyroHealthy()) {
-                        double now = timestampSupplier.getAsDouble();
-                        // Mesmo relógio utilizado na fila da visão e no replay.
-                        if (Double.isFinite(now)
-                                        && (!Double.isFinite(lastOdometryTimestamp) || now >= lastOdometryTimestamp)) {
-                                pose = poseEstimator.updateWithTime(now, getRawGyroRotation(), getModulePositions());
-                                if (!Double.isFinite(firstOdometryTimestamp)) {
-                                        firstOdometryTimestamp = now;
-                                }
-                                lastOdometryTimestamp = now;
+                SwerveModulePosition[] modulePositions = getModulePositions();
+                updateOdometryYaw(modulePositions);
+                double now = timestampSupplier.getAsDouble();
+                // Mesmo relógio utilizado na fila da visão e no replay.
+                if (Double.isFinite(now)
+                                && (!Double.isFinite(lastOdometryTimestamp) || now >= lastOdometryTimestamp)) {
+                        pose = poseEstimator.updateWithTime(now, odometryYaw, modulePositions);
+                        if (!Double.isFinite(firstOdometryTimestamp)) {
+                                firstOdometryTimestamp = now;
                         }
+                        lastOdometryTimestamp = now;
                 }
-                // Também zera saídas na simulação. Disabled nunca mantém um teste ativo.
+                updateDriverReference();
+                // Saúde da visão a cada ciclo (layouts do shooter e do ciclo da bola).
+                logVisionHealth();
+                // 🛑 Também zera saídas na simulação. Disabled nunca mantém um teste ativo.
                 if (DriverStation.isDisabled()) {
                         calibrationVoltageMode = false;
                         calibrationSteerMode = false;
@@ -455,20 +482,25 @@ public class Drive extends SubsystemBase {
                         stop();
                 }
                 // ==========================================================
-                // 5 - CINEMÁTICA DESEJADA
+                // 🚀 5 - CINEMÁTICA DESEJADA
                 // ==========================================================
                 // Converte a ordem de movimento do chassi
                 // em quatro estados de módulos
-                SwerveModuleState[] moduleStates = kinematics.toSwerveModuleStates(
-                                chassisSpeeds);
+                SwerveModuleState[] moduleStates = moduleStatesFor(kinematics, chassisSpeeds);
                 // ==========================================================
-                // 6 - LIMITA VELOCIDADE DAS RODAS
+                // 🛑🚀 6 - LIMITA VELOCIDADE DAS RODAS
                 // ==========================================================
                 SwerveDriveKinematics.desaturateWheelSpeeds(
                                 moduleStates,
                                 kMaxLinearSpeed);
+                // Vetores dos módulos no 2D e no 3D do AdvantageScope (FL, FR, BL, BR).
+                Logger.recordOutput("Drive/Swerve/EstadosPedidos", moduleStates);
+                Logger.recordOutput("Drive/Swerve/EstadosMedidos", getModuleStates());
+                // Widget Field do Elastic: x (m), y (m), heading (graus).
+                Logger.recordOutput("Campo/Robot",
+                                new double[] { pose.getX(), pose.getY(), pose.getRotation().getDegrees() });
                 // ==========================================================
-                // 7 - COMANDA OS QUATRO MÓDULOS
+                // 🔁 7 - COMANDA OS QUATRO MÓDULOS
                 // ==========================================================
                 if (DriverStation.isDisabled()) {
                         frontLeft.setDriveVoltage(0.0);
@@ -529,7 +561,7 @@ public class Drive extends SubsystemBase {
                                         && backLeftAligned
                                         && backRightAligned;
                         // ==========================================================
-                        // 4 - TRAVA DE SEGURANÇA
+                        // 🛑 4 - TRAVA DE SEGURANÇA
                         // ==========================================================
                         //
                         // Se QUALQUER módulo estiver fora do alinhamento:
@@ -667,7 +699,10 @@ public class Drive extends SubsystemBase {
                                         moduleStates[3]);
                 }
                 // ==========================================================
-                // 8 - ADVANTAGEKIT
+                // 📊 8 - ADVANTAGEKIT
+                // 🚧 ATENÇÃO (pente fino 31/10/2026): SwerveStates repete EstadosPedidos, ActualSwerveStates repete
+                // EstadosMedidos e Diagnostic/* repete ChassisSpeeds. Menos campos = ciclo mais leve,
+                // mas antes é preciso trocar as chaves nos layouts que ainda as usam.
                 // ==========================================================
                 // Pose calculada pela odometria
                 Logger.recordOutput("Drive/XLockActive", xLockActive);
@@ -677,6 +712,7 @@ public class Drive extends SubsystemBase {
                 Logger.recordOutput("Drive/Heading/GyroHealthy", isGyroHealthy());
                 Logger.recordOutput("Drive/Heading/FieldResetResult", fieldHeadingResetResult);
                 Logger.recordOutput("Drive/Heading/DriverResetResult", driverHeadingResetResult);
+                Logger.recordOutput("Drive/Heading/DriverReference", driverReferenceSource);
                 Logger.recordOutput(
                                 "Robot/Pose",
                                 pose);
@@ -730,6 +766,17 @@ public class Drive extends SubsystemBase {
         // #endregion
 
         // #region ESTADOS DOS MÓDULOS
+        /**
+         * Estados dos módulos para o próximo ciclo de 20 ms.
+         *
+         * Cada estado vale até o ciclo seguinte, mas o robô gira nesse intervalo.
+         * Sem discretizar, andando e girando juntos ele escapa para o lado do
+         * giro. Só andando ou só girando, o resultado é o mesmo.
+         */
+        static SwerveModuleState[] moduleStatesFor(SwerveDriveKinematics kinematics, ChassisSpeeds speeds) {
+                return kinematics.toSwerveModuleStates(ChassisSpeeds.discretize(speeds, TimedRobot.kDefaultPeriod));
+        }
+
         public SwerveModuleState[] getModuleStates() {
                 return new SwerveModuleState[] {
                                 frontLeft.getState(),
@@ -740,7 +787,7 @@ public class Drive extends SubsystemBase {
         }
         // #endregion
 
-        // #region POSIÇÕES DOS MÓDULOS
+        // #region 🧭 POSIÇÕES DOS MÓDULOS
         public SwerveModulePosition[] getModulePositions() {
                 return new SwerveModulePosition[] {
                                 frontLeft.getPosition(),
@@ -751,7 +798,7 @@ public class Drive extends SubsystemBase {
         }
         // #endregion
 
-        // #region ATUALIZAÇÃO DA REFERÊNCIA SIMULADA
+        // #region 🧪 ATUALIZAÇÃO DA REFERÊNCIA SIMULADA
         private void updateStartupPose() {
                 if (!Logger.hasReplaySource()) {
                         startupInputs.initializeSimulationPose = simulationReferenceEnabled;
@@ -796,13 +843,13 @@ public class Drive extends SubsystemBase {
         }
         // #endregion
 
-        // #region POSE
+        // #region 🧭 POSE
         public Pose2d getPose() {
                 return pose;
         }
         // #endregion
 
-        // #region VISION MEASUREMENT
+        // #region 📷 VISION MEASUREMENT
         // ============================================================
         // SINCRONIZAÇÃO INICIAL DA POSE COM A VISÃO
         // ============================================================
@@ -845,7 +892,60 @@ public class Drive extends SubsystemBase {
                                 pose);
         }
 
-        // #region FUSÃO DE VISÃO
+        /**
+         * Define X, Y e o HEADING de campo de uma vez, pelas tags (MegaTag1).
+         * Só com o robô desabilitado e parado, como o reset manual de heading:
+         * mudar o heading durante o jogo giraria a referência do piloto.
+         * O histórico de visão é descartado (a pose deixa de ser "corrigida"
+         * até o próximo MegaTag2 aplicado). Com o lado ainda livre, a frente do piloto
+         * sai da pose nova; com Y apertado ou lado travado, ela não muda de direção.
+         */
+        public boolean initializePoseFromVision(Pose2d visionPose) {
+                if (visionPose == null || !Double.isFinite(visionPose.getX())
+                                || !Double.isFinite(visionPose.getY())
+                                || !Double.isFinite(visionPose.getRotation().getRadians())) {
+                        return rejectVisionInit("DADOS_INVALIDOS");
+                }
+                if (!DriverStation.isDisabled()) {
+                        return rejectVisionInit("RECUSADA_HABILITADO");
+                }
+                if (!isGyroHealthy()) {
+                        return rejectVisionInit("RECUSADA_GYRO");
+                }
+                if (!isStationary()) {
+                        return rejectVisionInit("RECUSADA_EM_MOVIMENTO");
+                }
+                Rotation2d headingBefore = getRotation();
+                clearVisionHistoryAfterReset();
+                poseEstimator.resetPosition(getRawGyroRotation(), getModulePositions(), visionPose);
+                pose = poseEstimator.getEstimatedPosition();
+                if (driverReferenceManual || driverSideLocked) {
+                        // O número do heading mudou, o robô não: a frente segue a mesma no chão.
+                        driverHeadingOffset = driverHeadingOffset.plus(getRotation().minus(headingBefore));
+                } else {
+                        applyDriverSideFromPose();
+                }
+                resetManualAccumulatedGyro();
+                visionInitCount++;
+                visionInitResult = "APLICADA";
+                Logger.recordOutput("Drive/Vision/InicializacaoPose", pose);
+                return true;
+        }
+
+        private boolean rejectVisionInit(String reason) {
+                visionInitResult = reason;
+                return false;
+        }
+
+        public long getVisionInitCount() {
+                return visionInitCount;
+        }
+
+        public String getVisionInitResult() {
+                return visionInitResult;
+        }
+
+        // #region 📷 FUSÃO DE VISÃO
 
         /** Compatibilidade com chamadas antigas. Vision usa a versão identificada. */
         public void addVisionMeasurement(Pose2d visionPose, double timestampSeconds) {
@@ -902,6 +1002,7 @@ public class Drive extends SubsystemBase {
                 lastVisionByCamera.put(cameraName, timestampSeconds);
                 visionAcceptedByCamera.merge(cameraName, 1L, Long::sum);
                 lastVisionResult = "ACCEPTED";
+                lastVisionCamera = cameraName;
 
                 Logger.recordOutput("Robot/Pose", pose);
                 Logger.recordOutput("Drive/Vision/LastResult", lastVisionResult);
@@ -942,6 +1043,7 @@ public class Drive extends SubsystemBase {
                 lastOdometryTimestamp = Double.NaN;
                 lastVisionTimestamp = Double.NEGATIVE_INFINITY;
                 lastVisionByCamera.clear();
+                lastVisionCamera = "NENHUMA";
                 poseResetGeneration++;
                 Logger.recordOutput("Drive/Vision/PoseResetGeneration", poseResetGeneration);
         }
@@ -964,6 +1066,36 @@ public class Drive extends SubsystemBase {
          */
         public boolean hasVisionCorrectionSinceReset() {
                 return Double.isFinite(lastVisionTimestamp);
+        }
+
+        /**
+         * Segundos desde a captura da última medição aceita.
+         * NaN = nenhuma desde o reset (aparece como falha no gráfico).
+         */
+        public double getVisionCorrectionAgeSeconds() {
+                return hasVisionCorrectionSinceReset()
+                                ? timestampSupplier.getAsDouble() - lastVisionTimestamp
+                                : Double.NaN;
+        }
+
+        /** A Limelight corrigiu a pose há no máximo VISION_RECENT_CORRECTION_SECONDS. */
+        public boolean hasRecentVisionCorrection() {
+                return getVisionCorrectionAgeSeconds() <= VISION_RECENT_CORRECTION_SECONDS;
+        }
+
+        /** Câmera da última medição aceita ("NENHUMA" desde o reset). */
+        public String getLastVisionCamera() {
+                return lastVisionCamera;
+        }
+
+        private void logVisionHealth() {
+                Logger.recordOutput("Drive/Vision/CorrectedSinceReset", hasVisionCorrectionSinceReset());
+                Logger.recordOutput("Drive/Vision/RecentCorrection", hasRecentVisionCorrection());
+                Logger.recordOutput("Drive/Vision/CorrectionAgeSeconds", getVisionCorrectionAgeSeconds());
+                Logger.recordOutput("Drive/Vision/RecentLimitSeconds", VISION_RECENT_CORRECTION_SECONDS);
+                Logger.recordOutput("Drive/Vision/LastAcceptedCamera", lastVisionCamera);
+                Logger.recordOutput("Drive/Vision/InicializacaoResultado", visionInitResult);
+                Logger.recordOutput("Drive/Vision/InicializacoesTotal", visionInitCount);
         }
 
         /** Velocidade medida pelas rodas, no referencial do campo. */
@@ -994,7 +1126,7 @@ public class Drive extends SubsystemBase {
         }
         // #endregion
 
-        // #region ROTAÇÃO DO ROBÔ
+        // #region 🧭 ROTAÇÃO DO ROBÔ
         public Rotation2d getRotation() {
                 return pose.getRotation();
         }
@@ -1015,7 +1147,7 @@ public class Drive extends SubsystemBase {
         }
         // #endregion
 
-        // #region VELOCIDADE ANGULAR DO ROBÔ
+        // #region 🧭 VELOCIDADE ANGULAR DO ROBÔ
         public double getYawVelocityDegreesPerSecond() {
                 if (!isGyroHealthy()) {
                         return Double.NaN;
@@ -1025,7 +1157,7 @@ public class Drive extends SubsystemBase {
         }
         // #endregion
 
-        // #region RESET GIRO MANUAL ACUMULADO
+        // #region 🧭 RESET GIRO MANUAL ACUMULADO
         public void resetManualAccumulatedGyro() {
                 manualAccumulatedYawRad = 0.0;
                 manualPreviousYawRad = gyroInputs.yawPositionRad;
@@ -1045,11 +1177,87 @@ public class Drive extends SubsystemBase {
         }
         // #endregion
 
-        // #region ZERO HEADING
+        // #region 🧭 GIRO PARA A ODOMETRIA
+        /**
+         * Com o Pigeon saudável, vale a leitura dele. Sem ele, soma o giro medido
+         * pelas rodas desde o ciclo anterior: erra mais com o tempo, mas a pose segue
+         * andando e a direção do piloto não fica presa no heading antigo. Quando o
+         * Pigeon volta, a leitura dele manda de novo.
+         */
+        private void updateOdometryYaw(SwerveModulePosition[] modulePositions) {
+                boolean gyroHealthy = isGyroHealthy();
+                if (gyroHealthy) {
+                        odometryYaw = getRawGyroRotation();
+                } else if (previousModulePositions != null) {
+                        double wheelYawDelta = kinematics.toTwist2d(previousModulePositions, modulePositions).dtheta;
+                        if (Double.isFinite(wheelYawDelta)) {
+                                odometryYaw = odometryYaw.plus(Rotation2d.fromRadians(wheelYawDelta));
+                        }
+                }
+                previousModulePositions = modulePositions;
+                gyroAlert.set(!gyroHealthy);
+                if (gyroWasHealthy && !gyroHealthy) {
+                        DriverStation.reportWarning(
+                                        "[FRC9460] Pigeon sem resposta: pose e direção seguem pelas rodas.", false);
+                }
+                gyroWasHealthy = gyroHealthy;
+                Logger.recordOutput("Drive/Heading/YawSource", gyroHealthy ? "PIGEON" : "RODAS");
+        }
+        // #endregion
+
+        // #region 🧭🎮 REFERÊNCIA DO PILOTO (LADO DO CAMPO PELAS TAGS)
+        /**
+         * Define a frente do piloto sem usar a aliança da Driver Station. O lado sai
+         * da pose corrigida pelas tags: na metade azul a frente é +X; na vermelha é -X.
+         * Nos dois casos, para longe da parede em que o piloto está.
+         *
+         * Só muda desabilitado e até o primeiro enable. Entre o autônomo e o
+         * teleoperado o robô também fica desabilitado, e ter cruzado o meio do campo
+         * não pode inverter o analógico. Start + Y e Start + A liberam o lado de novo.
+         * Y vale sobre tudo isso: é a frente que a equipe escolheu.
+         */
+        private void updateDriverReference() {
+                if (!DriverStation.isDisabled()) {
+                        if (!driverSideLocked && !driverReferenceManual
+                                        && driverReferenceSource.equals(DRIVER_REFERENCE_UNKNOWN)) {
+                                DriverStation.reportWarning("[FRC9460] Piloto: as tags não definiram o lado do campo "
+                                                + "antes de habilitar. Frente = +X do campo; na metade vermelha, "
+                                                + "pare o robô e aperte Y.", false);
+                        }
+                        driverSideLocked = true;
+                        return;
+                }
+                if (!driverSideLocked && !driverReferenceManual && hasVisionCorrectionSinceReset()) {
+                        applyDriverSideFromPose();
+                }
+        }
+
+        private void applyDriverSideFromPose() {
+                boolean redSide = pose.getX() > VisionFieldConstants.FIELD_LENGTH_METERS / 2.0;
+                driverHeadingOffset = redSide ? Rotation2d.k180deg : new Rotation2d();
+                driverReferenceSource = redSide ? "TAGS_LADO_VERMELHO" : "TAGS_LADO_AZUL";
+        }
+
+        /** Origem da frente do piloto: sem tags, pelas tags ou pelo botão Y. */
+        public String getDriverReferenceSource() {
+                return driverReferenceSource;
+        }
+        // #endregion
+
+        // #region 🧭 ZERO HEADING
         /**
          * Define 0 graus de campo: executar desabilitado, parado e alinhado ao +X azul.
          */
         public void zeroHeading() {
+                setFieldHeading(new Rotation2d());
+        }
+
+        /**
+         * Define a direção ATUAL do robô no campo (referencial azul), com o robô
+         * desabilitado e parado. 0° = frente para a parede vermelha (+X);
+         * 180° = frente para a parede azul. X/Y continuam; a visão corrige depois.
+         */
+        public void setFieldHeading(Rotation2d fieldHeading) {
                 if (!DriverStation.isDisabled()) {
                         fieldHeadingResetResult = "REJECTED_ENABLED";
                         return;
@@ -1068,9 +1276,14 @@ public class Drive extends SubsystemBase {
                 poseEstimator.resetPosition(
                                 getRawGyroRotation(),
                                 getModulePositions(),
-                                new Pose2d(pose.getTranslation(), new Rotation2d()));
+                                new Pose2d(pose.getTranslation(), fieldHeading));
                 pose = poseEstimator.getEstimatedPosition();
+                // Referência do piloto volta ao campo (igual ao zero antigo) e o lado fica
+                // livre para as tags; Y sozinho continua definindo "frente = onde o robô aponta".
                 driverHeadingOffset = new Rotation2d();
+                driverReferenceManual = false;
+                driverSideLocked = false;
+                driverReferenceSource = DRIVER_REFERENCE_UNKNOWN;
                 resetManualAccumulatedGyro();
                 fieldHeadingResetResult = "ACCEPTED";
         }
@@ -1086,6 +1299,8 @@ public class Drive extends SubsystemBase {
                         return;
                 }
                 driverHeadingOffset = getRotation();
+                driverReferenceManual = true;
+                driverReferenceSource = "BOTAO_Y";
                 resetManualAccumulatedGyro();
                 driverHeadingResetResult = "ACCEPTED";
         }
@@ -1125,7 +1340,7 @@ public class Drive extends SubsystemBase {
                                 omegaRadiansPerSecond, getDriverRotation());
         }
 
-        // #region CALIBRAÇÃO - VOLTAGEM DO DRIVE
+        // #region 🔧 CALIBRAÇÃO - VOLTAGEM DO DRIVE
         // ============================================================
         // ATIVAR CALIBRAÇÃO POR TENSÃO
         // ============================================================
@@ -1157,7 +1372,7 @@ public class Drive extends SubsystemBase {
                 //
                 calibrationSteerMode = false;
                 // --------------------------------------------------------
-                // LIMITE DE SEGURANÇA
+                // 🛑⚡ LIMITE DE SEGURANÇA
                 //
                 // Para nosso teste manual de kS não queremos mandar
                 // tensão alta acidentalmente.
@@ -1246,7 +1461,7 @@ public class Drive extends SubsystemBase {
         }
         // #endregion
 
-        // #region CALIBRAÇÃO - TESTES CONTROLADOS DO SWERVE
+        // #region 🔧 CALIBRAÇÃO - TESTES CONTROLADOS DO SWERVE
         // ============================================================
         // 1 - TESTE DIRETO DO ÂNGULO DO STEER
         // ============================================================
@@ -1419,7 +1634,7 @@ public class Drive extends SubsystemBase {
         }
         // #endregion
 
-        // #region STOP
+        // #region 🛑 STOP
         public void stop() {
                 chassisSpeeds = new ChassisSpeeds();
         }

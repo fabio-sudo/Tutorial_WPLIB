@@ -14,24 +14,23 @@ import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.util.Color8Bit;
 
 // #endregion
 
 /**
- * Tudo que o AdvantageScope desenha do shooter.
+ * Desenhos do shooter no AdvantageScope. O giro do shooter no modelo 3D
+ * fica em frc.robot.RobotComponentsVisualizer, junto com o intake.
  *
- * Segue a documentação de componentes articulados do AdvantageScope: o
- * modelo "FRC9460 - Robo 2026" tem uma parte fixa e duas móveis
- * (model_0 = intake, model_1 = shooter). O código publica um Pose3d por
- * peça, RELATIVO AO ROBÔ, em Mecanismos/Componentes; o AdvantageScope
- * soma a pose do robô no campo.
- *
- * Também publica:
- * - um desenho 2D visto de cima (shooter, hub e limites de ±90°);
+ * Publica:
+ * - um desenho 2D visto de cima (shooter, hub e limites de ±130°);
  * - linhas no campo 3D: para onde o shooter aponta e onde está o hub.
  */
 public class ShooterVisualizer implements AutoCloseable {
+
+    private static final int REAL_MECHANISM_PERIOD_CYCLES = 5;
+    private int cycle;
 
     // #region DESENHO 2D (VISTO DE CIMA)
 
@@ -50,10 +49,10 @@ public class ShooterVisualizer implements AutoCloseable {
         root.append(new LoggedMechanismLigament2d(
             "FrenteDoRobo", 0.18, canvasAngle(0.0), 3, new Color8Bit(220, 220, 220)));
         root.append(new LoggedMechanismLigament2d(
-            "LimiteMais90", 0.42, canvasAngle(PIVOT_ZERO_FACING_DEGREES + PIVOT_MAX_ANGLE_DEGREES),
+            "LimitePositivo", 0.42, canvasAngle(PIVOT_ZERO_FACING_DEGREES + PIVOT_MAX_ANGLE_DEGREES),
             2, new Color8Bit(229, 57, 53)));
         root.append(new LoggedMechanismLigament2d(
-            "LimiteMenos90", 0.42, canvasAngle(PIVOT_ZERO_FACING_DEGREES - PIVOT_MAX_ANGLE_DEGREES),
+            "LimiteNegativo", 0.42, canvasAngle(PIVOT_ZERO_FACING_DEGREES - PIVOT_MAX_ANGLE_DEGREES),
             2, new Color8Bit(229, 57, 53)));
         // Móveis: direção do hub (verde) e do shooter (laranja).
         hubLine = root.append(new LoggedMechanismLigament2d(
@@ -65,24 +64,6 @@ public class ShooterVisualizer implements AutoCloseable {
     /** Ângulo no robô (0° = frente, anti-horário) -> ângulo na tela (frente para cima). */
     private static double canvasAngle(double robotFrameDegrees) {
         return 90.0 + robotFrameDegrees;
-    }
-
-    // #endregion
-
-    // #region POSES 3D DOS COMPONENTES
-
-    /**
-     * Ordem obrigatória: model_0 (intake), model_1 (shooter).
-     * O intake ainda não tem subsistema: fica na posição do CAD (abaixado).
-     * O shooter gira em Z no seu pivô. O CAD foi exportado apontando para
-     * 175,5°; a diferença para 180° é descontada aqui.
-     */
-    public static Pose3d[] componentPoses(double pivotDegrees) {
-        double yawDegrees = PIVOT_ZERO_FACING_DEGREES + pivotDegrees - CAD_ZERO_FACING_DEGREES;
-        return new Pose3d[] {
-            new Pose3d(INTAKE_PIVOT_IN_ROBOT, new Rotation3d()),
-            new Pose3d(TURRET_PIVOT_IN_ROBOT, new Rotation3d(0.0, 0.0, Math.toRadians(yawDegrees)))
-        };
     }
 
     // #endregion
@@ -101,10 +82,10 @@ public class ShooterVisualizer implements AutoCloseable {
         // 2D visto de cima.
         shooterLine.setAngle(canvasAngle(PIVOT_ZERO_FACING_DEGREES + pivotDegrees));
         hubLine.setAngle(canvasAngle(hubAim.robotFrameAngleDegrees()));
-        Logger.recordOutput("Shooter/Visualizacao/Mecanismo2d", mechanism);
-
-        // Modelo 3D articulado.
-        Logger.recordOutput("Mecanismos/Componentes", componentPoses(pivotDegrees));
+        // Cada gravação escreve dezenas de campos: no robô real, 10 Hz bastam para ver.
+        if (!RobotBase.isReal() || cycle++ % REAL_MECHANISM_PERIOD_CYCLES == 0) {
+            Logger.recordOutput("Shooter/Visualizacao/Mecanismo2d", mechanism);
+        }
 
         // Linhas no campo 3D, saindo do ponto onde a bola sai (altura de saída).
         Translation2d shooter = ShotCalculator.shooterFieldPosition(robotPose);
@@ -112,11 +93,13 @@ public class ShooterVisualizer implements AutoCloseable {
         double length = Math.max(1.0, hubAim.distanceMeters());
         Translation2d pointing = shooter.plus(new Translation2d(length * Math.cos(heading), length * Math.sin(heading)));
 
-        Logger.recordOutput("Shooter/Visualizacao/LinhaDoShooter", new Pose3d[] {
-            atHeight(shooter, RELEASE_HEIGHT_METERS), atHeight(pointing, TARGET_HEIGHT_METERS) });
+        Logger.recordOutput("Shooter/Visualizacao/LinhaDoShooter", new Translation3d[] {
+            atHeight(shooter, RELEASE_HEIGHT_METERS).getTranslation(),
+            atHeight(pointing, TARGET_HEIGHT_METERS).getTranslation() });
         // Parado, o alvo virtual é o próprio hub; andando, fica deslocado.
-        Logger.recordOutput("Shooter/Visualizacao/LinhaAteOAlvo", new Pose3d[] {
-            atHeight(shooter, RELEASE_HEIGHT_METERS), atHeight(virtualTarget, TARGET_HEIGHT_METERS) });
+        Logger.recordOutput("Shooter/Visualizacao/LinhaAteOAlvo", new Translation3d[] {
+            atHeight(shooter, RELEASE_HEIGHT_METERS).getTranslation(),
+            atHeight(virtualTarget, TARGET_HEIGHT_METERS).getTranslation() });
         Logger.recordOutput("Shooter/Visualizacao/Hub", atHeight(hub, TARGET_HEIGHT_METERS));
         Logger.recordOutput("Shooter/Visualizacao/AlvoVirtual", atHeight(virtualTarget, TARGET_HEIGHT_METERS));
     }
@@ -127,8 +110,12 @@ public class ShooterVisualizer implements AutoCloseable {
 
     // #endregion
 
+    // #region ENCERRAMENTO (TESTES)
+
     @Override
     public void close() {
         mechanism.close();
     }
+
+    // #endregion
 }

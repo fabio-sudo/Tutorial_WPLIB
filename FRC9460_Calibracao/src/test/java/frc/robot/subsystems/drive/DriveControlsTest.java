@@ -8,7 +8,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.simulation.DriverStationSim;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.Constants.DriveConstants;
+import frc.robot.subsystems.drive.DriveConstants;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -140,6 +140,29 @@ class DriveControlsTest {
     }
 
     @Test
+    void fieldHeading180ForTheRobotFacingTheBlueWall() {
+        // Start + A: robô de costas para o hub azul (Limelight traseira nas tags 25/26).
+        gyro.yaw = Math.toRadians(73.0);
+        drive.periodic();
+        drive.seedPoseFromVision(new Pose2d(2.0, 4.0, new Rotation2d()));
+        drive.setFieldHeading(Rotation2d.k180deg);
+        assertEquals(180.0, Math.abs(drive.getRotation().getDegrees()), EPSILON);
+        for (int i = 0; i < 5; i++) {
+            drive.periodic();
+            assertEquals(180.0, Math.abs(drive.getRotation().getDegrees()), EPSILON);
+            assertEquals(2.0, drive.getPose().getX(), EPSILON);
+        }
+        // Girar 90° anti-horário a partir de 180° leva a -90° no campo.
+        gyro.yaw += Math.PI / 2.0;
+        drive.periodic();
+        assertEquals(-90.0, drive.getRotation().getDegrees(), EPSILON);
+        // Habilitado é recusado, como o Start + Y.
+        setEnabled(true);
+        drive.setFieldHeading(new Rotation2d());
+        assertEquals(-90.0, drive.getRotation().getDegrees(), EPSILON);
+    }
+
+    @Test
     void driverZeroPreservesFieldHeadingAndChangesOnlyDrivingReference() {
         gyro.yaw = Math.PI / 2.0;
         drive.periodic();
@@ -239,6 +262,34 @@ class DriveControlsTest {
         assertEquals(0.8, drive.getRotation().getRadians(), EPSILON);
     }
 
+    @Test
+    void lostGyroKeepsTheHeadingGoingByTheWheelsAndTheGyroRulesWhenItReturns() {
+        gyro.yaw = 0.5;
+        // Rodas tangentes ao centro: o robô gira no lugar, sentido anti-horário.
+        double[] tangentDegrees = {135.0, 45.0, -135.0, -45.0};
+        for (int i = 0; i < 4; i++) {
+            modules[i].turnPositionRad = Math.toRadians(tangentDegrees[i]);
+        }
+        drive.periodic();
+        gyro.connected = false;
+        drive.periodic();
+        assertEquals(0.5, drive.getRotation().getRadians(), EPSILON);
+
+        double turnRad = 0.3;
+        double radius = Math.hypot(DriveConstants.kWheelBaseMeters, DriveConstants.kTrackWidthMeters) / 2.0;
+        for (FakeModule module : modules) {
+            module.drivePositionRad = turnRad * radius / DriveConstants.kWheelRadiusMeters;
+        }
+        drive.periodic();
+        assertEquals(0.8, drive.getRotation().getRadians(), 1e-3);
+        assertEquals(0.8, drive.getDriverRotation().getRadians(), 1e-3);
+
+        gyro.connected = true;
+        gyro.yaw = 0.75;
+        drive.periodic();
+        assertEquals(0.75, drive.getRotation().getRadians(), EPSILON);
+    }
+
     private static class FakeGyro implements GyroIO {
         double yaw;
         boolean connected = true;
@@ -254,6 +305,8 @@ class DriveControlsTest {
 
     private static class FakeModule implements ModuleIO {
         double measuredSpeed;
+        double drivePositionRad;
+        double turnPositionRad;
         double velocitySetpoint;
         double turnSetpoint;
         double driveVoltage;
@@ -261,7 +314,12 @@ class DriveControlsTest {
 
         @Override
         public void updateInputs(ModuleIOInputs inputs) {
+            inputs.driveConnected = true;
+            inputs.turnConnected = true;
+            inputs.encoderConnected = true;
             inputs.driveVelocityRadPerSec = measuredSpeed / DriveConstants.kWheelRadiusMeters;
+            inputs.drivePositionRad = drivePositionRad;
+            inputs.turnPositionRad = turnPositionRad;
         }
 
         @Override

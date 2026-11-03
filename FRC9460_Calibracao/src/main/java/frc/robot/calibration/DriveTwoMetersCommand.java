@@ -4,6 +4,8 @@ import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Transform2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import frc.robot.subsystems.drive.Drive;
@@ -80,6 +82,16 @@ public class DriveTwoMetersCommand extends Command {
     // ============================================================
 
     private Pose2d startPose;
+    private Pose2d targetPose;
+
+    private void logTargetComparison(Pose2d currentPose) {
+        double error = currentPose.getTranslation().getDistance(targetPose.getTranslation());
+        Logger.recordOutput("Validation/Drive2m/TargetPose", targetPose);
+        Logger.recordOutput("Validation/Drive2m/PlannedPath", new Pose2d[] {startPose, targetPose});
+        Logger.recordOutput("Validation/Drive2m/PositionErrorMeters", error);
+        Logger.recordOutput("Validation/Drive2m/PositionToleranceMeters", DISTANCE_TOLERANCE_METERS);
+        Logger.recordOutput("Validation/Drive2m/WithinPositionTolerance", error <= DISTANCE_TOLERANCE_METERS);
+    }
 
     private double startHeadingRad;
 
@@ -113,6 +125,9 @@ public class DriveTwoMetersCommand extends Command {
 
         startPose =
             drive.getPose();
+        targetPose = startPose.transformBy(new Transform2d(TARGET_DISTANCE_METERS, 0.0, new Rotation2d()));
+        Logger.recordOutput("Validation/Drive2m/Interrupted", false);
+        logTargetComparison(startPose);
 
 
         // --------------------------------------------------------
@@ -173,6 +188,7 @@ public class DriveTwoMetersCommand extends Command {
 
         Pose2d currentPose =
             drive.getPose();
+        logTargetComparison(currentPose);
 
 
         // --------------------------------------------------------
@@ -496,6 +512,7 @@ public class DriveTwoMetersCommand extends Command {
 
         Pose2d finalPose =
             drive.getPose();
+        logTargetComparison(finalPose);
 
 
         double deltaX =

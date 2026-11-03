@@ -3,7 +3,7 @@ package frc.robot.subsystems.drive;
 
 // #region IMPORTS
 
-import static frc.robot.Constants.DriveConstants.kWheelRadiusMeters;
+import static frc.robot.subsystems.drive.DriveConstants.kWheelRadiusMeters;
 
 import org.littletonrobotics.junction.Logger;
 
@@ -11,6 +11,8 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+
+import frc.robot.util.MechanismDiagnostics;
 
 // #endregion
 
@@ -47,6 +49,10 @@ public class Module {
     // 3 = Back Right
     private final int index;
 
+    // Na mesma ordem do índice acima.
+    private static final String[] MODULE_NAMES = {"FL", "FR", "BL", "BR"};
+    private final MechanismDiagnostics diagnostics;
+
     // #region CONSTRUTOR
 
     public Module(
@@ -56,13 +62,15 @@ public class Module {
 
         this.io = io;
         this.index = index;
+        diagnostics = new MechanismDiagnostics(
+            "Drive/Module" + index, "Swerve " + MODULE_NAMES[index], "TALONFX_E_CANCODER");
     }
 
     // #endregion
 
 
 
-    // #region PERIODIC
+    // #region 🔁 PERIODIC
 
     public void periodic() {
 
@@ -78,13 +86,33 @@ public class Module {
             "Drive/Module" + index,
             inputs
         );
+
+        // 📊 Alerta e aviso na Driver Station quando um dispositivo some do CAN.
+        diagnostics.update(
+            inputs.driveConnected && inputs.turnConnected && inputs.encoderConnected,
+            getHardwareStatus()
+        );
     }
 
     // #endregion
 
 
 
-    // #region COMANDOS DE TENSÃO
+    // #region 📊 DIAGNÓSTICO DO MÓDULO
+
+    /** Qual dispositivo parou de responder, para o pit saber onde procurar. */
+    public String getHardwareStatus() {
+        if (!inputs.driveConnected) return "DRIVE_SEM_RESPOSTA";
+        if (!inputs.turnConnected) return "STEER_SEM_RESPOSTA";
+        if (!inputs.encoderConnected) return "CANCODER_SEM_RESPOSTA";
+        return MechanismDiagnostics.OK;
+    }
+
+    // #endregion
+
+
+
+    // #region 🚀 COMANDOS DE TENSÃO
 
     // ============================================================
     // DRIVE MOTOR
@@ -125,7 +153,7 @@ public class Module {
 
 
 
-    // #region ESTADO DESEJADO DO MÓDULO
+    // #region 🎯🚀 ESTADO DESEJADO DO MÓDULO
 
         public void setDesiredState(
             SwerveModuleState state
@@ -162,7 +190,7 @@ public class Module {
             );
 
             // ==========================================================
-            // 3 - COMPENSAÇÃO POR COSSENO
+            // 🚀 3 - COMPENSAÇÃO POR COSSENO
             // ==========================================================
 
             // Calcula o erro entre o ângulo desejado
@@ -213,7 +241,7 @@ public class Module {
 
 
             // ==========================================================
-            // 6 - MALHA FECHADA - DRIVE
+            // 🎯🚀 6 - MALHA FECHADA - DRIVE
             // >>> MALHA FECHADA <<<
             // ==========================================================
 
@@ -239,7 +267,7 @@ public class Module {
 
 
             // ==========================================================
-            // 7 - MALHA FECHADA - STEER
+            // 🎯 7 - MALHA FECHADA - STEER
             // >>> MALHA FECHADA <<<
             // ==========================================================
 
@@ -262,7 +290,9 @@ public class Module {
 
 
             // ==========================================================
-            // 8 - ADVANTAGEKIT
+            // 📊 8 - ADVANTAGEKIT
+            // 🚧 ATENÇÃO (pente fino 31/10/2026): abaixo são 9 nomes montados a cada ciclo em cada módulo (36 por
+            // ciclo). O Vision guarda os nomes prontos (key()): aqui daria para fazer igual.
             // ==========================================================
 
             // Estado originalmente solicitado
@@ -361,7 +391,7 @@ public class Module {
 
 
 
-    // #region CALIBRAÇÃO - ALINHAMENTO DO STEER
+    // #region 🔧 CALIBRAÇÃO - ALINHAMENTO DO STEER
 
     // ============================================================
     // POSICIONAR STEER DIRETAMENTE PARA CALIBRAÇÃO
@@ -399,7 +429,7 @@ public class Module {
         //
         // ModuleIOTalonFX
         //      ↓
-        // PositionVoltage
+        // MotionMagicExpoVoltage
         //      ↓
         // Kraken do Steer
         io.setTurnPosition(
@@ -494,7 +524,7 @@ public class Module {
 
 
 
-    // #region SYSID - DADOS DO DRIVE
+    // #region 🔧 SYSID - DADOS DO DRIVE
 
     // ============================================================
     // TENSÃO REAL APLICADA AO DRIVE
@@ -516,7 +546,7 @@ public class Module {
     
 
 
-    // #region ESTADO ATUAL DO MÓDULO
+    // #region 🧭 ESTADO ATUAL DO MÓDULO
 
     public SwerveModuleState getState() {
 
@@ -548,7 +578,7 @@ public class Module {
 
 
 
-    // #region POSIÇÃO ATUAL DO MÓDULO
+    // #region 🧭 POSIÇÃO ATUAL DO MÓDULO
 
     public SwerveModulePosition getPosition() {
 

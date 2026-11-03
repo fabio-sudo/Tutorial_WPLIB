@@ -60,7 +60,7 @@ public class TelescopioIOTalonFX_9458 implements TelescopioIO_9458 {
 
     // #endregion
 
-    // #region CONFIGURACAO E ZERO AO LIGAR
+    // #region 🧭 CONFIGURACAO E ZERO AO LIGAR
 
     public TelescopioIOTalonFX_9458() {
         this(new TalonHardware());
@@ -362,7 +362,7 @@ public class TelescopioIOTalonFX_9458 implements TelescopioIO_9458 {
 
         // #endregion
 
-        // #region LIMITES DE CORRENTE
+        // #region 🛑⚡ LIMITES DE CORRENTE
 
         config.CurrentLimits.StatorCurrentLimit = STATOR_CURRENT_LIMIT_AMPS;
         config.CurrentLimits.StatorCurrentLimitEnable = true;
@@ -382,7 +382,7 @@ public class TelescopioIOTalonFX_9458 implements TelescopioIO_9458 {
 
         // #endregion
 
-        // #region LIMITES DE CURSO (SOFT LIMITS)
+        // #region 🛑📏 LIMITES DE CURSO (SOFT LIMITS)
 
         // Em voltas do rotor (SensorToMechanismRatio = 1, padrão): 78,4 no fim de curso.
         config.SoftwareLimitSwitch.ForwardSoftLimitThreshold =

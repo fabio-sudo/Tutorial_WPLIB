@@ -31,8 +31,13 @@ public interface ShooterPivotIO {
         // bateria): o encoder volta a 0 onde o shooter estiver, e o centro some.
         public boolean zeroValid = false;
 
+        // Como o zero veio ao iniciar o código: ZERAR_AQUI (Talon recém-ligado),
+        // MANTER_ZERO (só o código reiniciou) ou POSICAO_DESCONHECIDA.
+        public String startupZero = "SIMULACAO";
+
         // Posição e velocidade do encoder do motor. 0 = onde o shooter estava
-        // quando o robô ligou (ou quando a equipe zerou de novo).
+        // quando o robô ligou (ou quando a equipe zerou de novo). No Tuner X
+        // o mesmo ponto aparece como 100 voltas (frc.robot.util.TalonZeroMark).
         public double motorPositionRotations = 0.0;
         public double motorVelocityRotationsPerSec = 0.0;
 

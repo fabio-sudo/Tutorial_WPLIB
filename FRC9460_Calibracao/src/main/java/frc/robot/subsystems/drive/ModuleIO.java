@@ -10,6 +10,12 @@ public interface ModuleIO {
   @AutoLog
   public static class ModuleIOInputs{
 
+    // 📊 Cada dispositivo do módulo respondendo no CAN, separado para o aviso
+    // dizer qual procurar no robô.
+    public boolean driveConnected = false;
+    public boolean turnConnected = false;
+    public boolean encoderConnected = false;
+
     // Posição percorrida pela roda
     public double drivePositionRad = 0.0;
 

@@ -19,7 +19,7 @@ import frc.robot.subsystems.drive.Drive;
 public final class CalibrationCommands {
 
 
-    // #region LIMITES DE SEGURANÇA
+    // #region 🛑 LIMITES DE SEGURANÇA
 
     // ============================================================
     // LIMITES ADICIONAIS DE SEGURANÇA
@@ -64,7 +64,7 @@ public final class CalibrationCommands {
 
 
 
-    // #region FUNÇÕES AUXILIARES - LOGS
+    // #region 📊 FUNÇÕES AUXILIARES - LOGS
 
 
     // ============================================================
@@ -530,7 +530,7 @@ public final class CalibrationCommands {
 
 
 
-    // #region TESTE DRIVE LOW
+    // #region 🔧 TESTE DRIVE LOW
 
 
     // ============================================================
@@ -622,7 +622,7 @@ public final class CalibrationCommands {
 
 
 
-            // #region PARADA FINAL
+            // #region 🛑 PARADA FINAL
 
             stop(
                 drive,
@@ -655,7 +655,7 @@ public final class CalibrationCommands {
 
 
 
-    // #region TESTE DRIVE SWEEP
+    // #region 🔧 TESTE DRIVE SWEEP
 
 
     // ============================================================
@@ -833,7 +833,7 @@ public final class CalibrationCommands {
 
 
 
-    // #region TESTE KS DO DRIVE
+    // #region 🔧 TESTE KS DO DRIVE
 
 
     // ============================================================
@@ -1060,7 +1060,7 @@ public final class CalibrationCommands {
     // #endregion
 
 
-    // #region TESTE KS REVERSO DO DRIVE
+    // #region 🔧 TESTE KS REVERSO DO DRIVE
 
 // ============================================================
 // TESTE EXPERIMENTAL DE kS - SENTIDO REVERSO

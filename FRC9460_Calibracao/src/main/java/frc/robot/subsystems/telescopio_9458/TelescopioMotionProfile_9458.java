@@ -73,7 +73,7 @@ public final class TelescopioMotionProfile_9458 {
     private TelescopioMotionProfile_9458() {
     }
 
-    // #region DISTÂNCIA DE FRENAGEM
+    // #region 🔧 DISTÂNCIA DE FRENAGEM
 
     /**
      * Distância para reduzir a velocidade de {@code speed} até {@code finalSpeed}, partindo
@@ -160,7 +160,7 @@ public final class TelescopioMotionProfile_9458 {
 
     // #endregion
 
-    // #region GERADOR DE REFERÊNCIA (EMULA O MOTION MAGIC)
+    // #region 🎯🚀 GERADOR DE REFERÊNCIA (EMULA O MOTION MAGIC)
 
     /**
      * Emula o Motion Magic com jerk: um perfil trapezoidal (velocidade e aceleração) cuja

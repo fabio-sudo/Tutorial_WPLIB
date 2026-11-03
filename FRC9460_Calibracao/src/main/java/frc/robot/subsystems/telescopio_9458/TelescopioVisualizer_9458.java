@@ -41,7 +41,7 @@ public class TelescopioVisualizer_9458 implements AutoCloseable {
 
     // #endregion
 
-    // #region CURSO DOS ESTAGIOS
+    // #region 📏 CURSO DOS ESTAGIOS
 
     /** Cascata: cada estágio anda metade do deslocamento da ponta (até 0,498 m). */
     public static double stageExtension(double extensionMeters) {

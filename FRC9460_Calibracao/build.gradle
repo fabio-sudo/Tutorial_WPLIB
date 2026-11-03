@@ -8,6 +8,27 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
+// Identifica exatamente as fontes/configurações que produziram cada log.
+// Funciona também numa cópia do projeto sem a pasta .git.
+def buildInfoDir = layout.buildDirectory.dir('generated/build-info')
+def generateBuildInfo = tasks.register('generateBuildInfo') {
+    inputs.files(fileTree('src/main'), fileTree('vendordeps'), file('build.gradle'))
+    outputs.dir(buildInfoDir)
+    doLast {
+        def digest = java.security.MessageDigest.getInstance('SHA-256')
+        inputs.files.files.findAll { it.isFile() }.sort { relativePath(it) }.each { source ->
+            digest.update(relativePath(source).replace('\\', '/').getBytes('UTF-8'))
+            digest.update((byte) 0)
+            digest.update(source.bytes)
+        }
+        def output = buildInfoDir.get().file('frc9460-build.properties').asFile
+        output.parentFile.mkdirs()
+        output.text = "SourceSHA256=${digest.digest().encodeHex()}\nBuiltAtUTC=${java.time.Instant.now()}\n"
+    }
+}
+sourceSets.main.resources.srcDir(buildInfoDir)
+tasks.named('processResources') { dependsOn generateBuildInfo }
+
 def ROBOT_MAIN_CLASS = "frc.robot.Main"
 
 // Replay é explícito e vale somente para a execução solicitada.
@@ -16,8 +37,10 @@ def replayRequested = project.hasProperty("replayLog") || "REPLAY".equalsIgnoreC
 
 tasks.withType(JavaExec).configureEach {
     if (project.hasProperty("replayLog")) {
+        // "Copiar como caminho" do Windows põe aspas: tira antes de resolver.
+        def replayLogPath = project.property("replayLog").toString().trim().replaceAll(/^["']|["']$/, '')
         environment "FRC9460_MODE", "REPLAY"
-        environment "AKIT_LOG_PATH", project.file(project.property("replayLog")).absolutePath
+        environment "AKIT_LOG_PATH", project.file(replayLogPath).absolutePath
     }
 }
 
@@ -54,6 +77,14 @@ deploy {
                     directory = '/home/lvuser/deploy'
                     deleteOldFiles = false // Change to true to delete files on roboRIO that no
                                            // longer exist in deploy directory of this project
+                }
+
+                // Painéis do Elastic: ficam em config/elastic/layouts e, no robô, em
+                // deploy/elastic, de onde o Robot.java serve na porta 5800.
+                elasticLayoutsDeploy(getArtifactTypeClass('FileTreeArtifact')) {
+                    files = project.fileTree('config/elastic/layouts')
+                    directory = '/home/lvuser/deploy/elastic'
+                    deleteOldFiles = false
                 }
             }
         }
@@ -110,7 +141,65 @@ test {
     exclude '**/TelescopioReplayIntegrationTest.class'
     exclude '**/Telescopio9458LogIntegrationTest.class'
     exclude '**/ShooterLogIntegrationTest.class'
+    exclude '**/CicloDaBolaIntegrationTest.class'
+    exclude '**/RobotReplayIntegrationTest.class'
+    // AdvantageScopeLayoutFormatTest lê estes arquivos: mudou um layout, roda de novo.
+    inputs.dir('config/advantagescope/layouts')
+    inputs.file('config/advantagescope/mecanismos/Robot_Robo_9460/config.json')
 }
+
+// O GradleRIO já imprime uma linha por teste (PASSED / FAILED / SKIPPED).
+// Aqui: erro completo de quem falha e um resumo no fim de cada tarefa de teste.
+// Vale para o test e para os testes de integração abaixo. O deploy não roda
+// testes (fica rápido). Para forçar rodar de novo: "gradlew test --rerun".
+tasks.withType(Test).configureEach { testTask ->
+    testLogging {
+        exceptionFormat 'full'
+    }
+    afterSuite { desc, result ->
+        if (desc.parent == null) {
+            println "== ${testTask.name}: ${result.testCount} testes, ${result.successfulTestCount} OK, " +
+                "${result.failedTestCount} falharam, ${result.skippedTestCount} pulados =="
+        }
+    }
+}
+
+// Sem mudança no código, o Gradle não roda os testes de novo (UP-TO-DATE) e
+// não imprime nada. Este resumo, no fim do test/build, mostra sempre o
+// resultado de cada tarefa de teste: o desta execução ou o último guardado.
+def resumoDosTestes = tasks.register('resumoDosTestes') {
+    description = 'Resumo de todas as tarefas de teste deste build, mesmo as que não precisaram rodar.'
+    mustRunAfter tasks.withType(Test)
+    doLast {
+        def testTasks = tasks.withType(Test).findAll { gradle.taskGraph.hasTask(it) }
+        if (testTasks.isEmpty()) return
+        int total = 0, failed = 0, totalSkipped = 0
+        def failedTasks = []
+        println ''
+        println '==================== RESUMO DOS TESTES ===================='
+        testTasks.each { t ->
+            int count = 0, problems = 0, skipped = 0
+            fileTree(t.reports.junitXml.outputLocation).matching { include '*.xml' }.each { file ->
+                def suite = new groovy.xml.XmlSlurper().parse(file)
+                count += suite.@tests.toInteger()
+                problems += suite.@failures.toInteger() + suite.@errors.toInteger()
+                skipped += suite.@skipped.toInteger()
+            }
+            total += count
+            failed += problems
+            totalSkipped += skipped
+            if (t.state.failure != null) failedTasks.add(t.name)
+            def origem = t.state.upToDate ? 'sem mudanca, ultimo resultado' : 'rodou agora'
+            println String.format('  %-22s %4d testes  %4d OK  %d falharam  (%s)',
+                t.name, count, count - problems - skipped, problems, origem)
+        }
+        println failed == 0 && failedTasks.isEmpty()
+            ? "  TUDO OK: ${total - totalSkipped} testes passaram; ${totalSkipped} pulados."
+            : "  ATENCAO: ${failed} teste(s) falharam; tarefas com falha: ${failedTasks}."
+        println '==========================================================='
+    }
+}
+tasks.withType(Test).configureEach { finalizedBy resumoDosTestes }
 
 // O Logger é global e só inicia uma vez por JVM. O teste de arquivo/replay
 // usa outro processo para não alterar o relógio dos testes de simulação normal.
@@ -173,6 +262,39 @@ def shooterLogTest = tasks.register('shooterLogTest', Test) {
 }
 tasks.named('check') { dependsOn shooterLogTest }
 
+// Robô inteiro em JVM isolada: coleta, tiro, contagem pelos sensores e chaves dos layouts.
+def cicloDaBolaTest = tasks.register('cicloDaBolaTest', Test) {
+    inputs.dir('config/advantagescope/layouts')
+    inputs.file('config/advantagescope/layouts/FRC9460-TesteFisicoVsModelo.json')
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+    useJUnitPlatform()
+    include '**/CicloDaBolaIntegrationTest.class'
+    environment 'HALSIM_EXTENSIONS', ''
+    systemProperty 'cicloDaBola.validationDir', layout.buildDirectory.dir('ciclo-da-bola').get().asFile.absolutePath
+    inputs.file('config/advantagescope/layouts/FRC9460-Shooter.json')
+    inputs.file('config/advantagescope/layouts/FRC9460-CicloDaBola.json')
+    inputs.dir('src/main/deploy')
+    inputs.dir('config/elastic/layouts')
+    outputs.file(layout.buildDirectory.file('ciclo-da-bola/CicloDaBola-Teste.wpilog'))
+    outputs.file(layout.buildDirectory.file('ciclo-da-bola/validacao-resumo.json'))
+}
+tasks.named('check') { dependsOn cicloDaBolaTest }
+
+// O mesmo roteiro completo, agora lendo somente os inputs do arquivo gravado.
+def robotReplayTest = tasks.register('robotReplayTest', Test) {
+    dependsOn cicloDaBolaTest
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+    useJUnitPlatform()
+    include '**/RobotReplayIntegrationTest.class'
+    environment 'HALSIM_EXTENSIONS', ''
+    systemProperty 'cicloDaBola.validationDir', layout.buildDirectory.dir('ciclo-da-bola').get().asFile.absolutePath
+    inputs.file(layout.buildDirectory.file('ciclo-da-bola/CicloDaBola-Teste.wpilog'))
+    outputs.file(layout.buildDirectory.file('ciclo-da-bola/CicloDaBola-Teste_replay.wpilog'))
+}
+tasks.named('check') { dependsOn robotReplayTest }
+
 // Simulation configuration (e.g. environment variables).
 wpi.sim.addGui().defaultEnabled = !replayRequested
 wpi.sim.addDriverstation().defaultEnabled = false
@@ -198,6 +320,8 @@ wpi.java.configureTestTasks(telescopioLogTest.get())
 wpi.java.configureTestTasks(telescopioReplayTest.get())
 wpi.java.configureTestTasks(telescopio9458LogTest.get())
 wpi.java.configureTestTasks(shooterLogTest.get())
+wpi.java.configureTestTasks(cicloDaBolaTest.get())
+wpi.java.configureTestTasks(robotReplayTest.get())
 
 // Configure string concat to always inline compile
 tasks.withType(JavaCompile) {

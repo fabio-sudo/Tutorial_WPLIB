@@ -36,7 +36,7 @@ public class TelescopioVisualizer implements AutoCloseable {
 
     // #endregion
 
-    // #region CURSO DOS ESTAGIOS
+    // #region 📏 CURSO DOS ESTAGIOS
 
     /** Ambos avançam a mesma fração do curso, encerrando juntos (624 e 628 mm). */
     public static double stage2Extension(double extensionMeters) {

@@ -12,7 +12,7 @@ import edu.wpi.first.math.system.plant.DCMotor;
  */
 public final class TelescopioConstants_9458 {
 
-    // #region MOTOR E TRANSMISSÃO
+    // #region 📏 MOTOR E TRANSMISSÃO
 
     // Motor: 1 Kraken X60 (no CAD: WCP-0940).
     public static final int MOTOR_COUNT = 1;
@@ -56,7 +56,7 @@ public final class TelescopioConstants_9458 {
 
     // #endregion
 
-    // #region GEOMETRIA DO TELESCÓPIO 9458
+    // #region 📏 GEOMETRIA DO TELESCÓPIO 9458
 
     // N1 = tubo 4" fixo, N2 = tubo 3", N3 = tubo 2".
     // Cascata: N3 sobe em relação a N2 o mesmo que N2 sobe em relação a N1.
@@ -83,7 +83,7 @@ public final class TelescopioConstants_9458 {
 
     // #endregion
 
-    // #region LIMITES DE OPERAÇÃO (EM METROS DA PONTA)
+    // #region 🛑📏 LIMITES DE OPERAÇÃO (EM METROS DA PONTA)
 
     // Margem escolhida pela equipe: 5 cm NA PONTA antes do batente físico.
     // MAX_EXTENSION_METERS continua representando a geometria e o batente reais.
@@ -127,7 +127,7 @@ public final class TelescopioConstants_9458 {
 
     // #endregion
 
-    // #region CONTROLE: PERFIL, TOLERÂNCIAS E TENSÃO
+    // #region 🎯🚀 CONTROLE: PERFIL, TOLERÂNCIAS E TENSÃO
 
     public static final double LOOP_PERIOD_SECONDS = 0.02;
 
@@ -193,7 +193,7 @@ public final class TelescopioConstants_9458 {
 
     // #endregion
 
-    // #region FÍSICA DA SIMULAÇÃO
+    // #region 🧪 FÍSICA DA SIMULAÇÃO
 
     // Massa equivalente na ponta medida no SysId de 22/10/2026: kG real 0,201–0,203 V
     // corresponde a ~6,0 kg (antes: 5 kg informados).
@@ -206,7 +206,7 @@ public final class TelescopioConstants_9458 {
 
     // #endregion
 
-    // #region GANHOS: kP, kI, kD, kS, kG, kV, kA (TelescopioGains_9458)
+    // #region 🎯 GANHOS: kP, kI, kD, kS, kG, kV, kA (TelescopioGains_9458)
 
     // SIMULAÇÃO: feedforward derivado da mesma massa, atrito e transmissão da física:
     // kS = 0,05 V, kG ≈ 0,20 V, kV ≈ 9,40 V/(m/s), kA ≈ 0,021 V/(m/s²).
@@ -245,7 +245,7 @@ public final class TelescopioConstants_9458 {
 
     // #endregion
 
-    // #region SYSID (calibration/Telescopio9458SysId)
+    // #region 🔧 SYSID (calibration/Telescopio9458SysId)
 
     // Quasistático: rampa de 0,5 V/s. Com o kV teórico, sobe até a parada em ~6 s.
     public static final double SYSID_RAMP_VOLTS_PER_SEC = 0.5;
@@ -270,7 +270,7 @@ public final class TelescopioConstants_9458 {
 
     // #endregion
 
-    // #region PROTEÇÕES
+    // #region 🛑 PROTEÇÕES
 
     // Limite de corrente do estator (Phoenix 6, CurrentLimitsConfigs).
     // Segurar a carga (~6 kg) usa ~6 A e o pico simulado é ~12 A: 30 A deixa ~2,5x
@@ -294,7 +294,7 @@ public final class TelescopioConstants_9458 {
 
     // TalonFX (Kraken X60) no barramento do roboRIO.
     // Livre no CAN: o swerve usa 10 a 21 e o Pigeon usa 3.
-    public static final int MOTOR_CAN_ID = 5;
+    public static final int MOTOR_CAN_ID = frc.robot.CanIds.TELESCOPIO_9458;
 
     // Tensão positiva deve abrir. Confirmar no robô com um toque curto no R2;
     // se o telescópio fechar, trocar para true.

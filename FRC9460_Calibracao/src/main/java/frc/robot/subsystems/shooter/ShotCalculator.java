@@ -24,7 +24,7 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
  *
  * Lógica portada do ShooterSetpointCalculator e do ShooterPivotSubsystem do
  * código de competição. Diferenças: o alvo segue a aliança, e a mira informa
- * quando o hub está fora do curso de ±90° (o código antigo apenas limitava).
+ * quando o hub está fora do curso de ±130° (o código antigo apenas limitava).
  */
 public final class ShotCalculator {
 
@@ -47,7 +47,7 @@ public final class ShotCalculator {
      * Direção que o pivô precisa para apontar no alvo.
      *
      * desiredPivotDegrees: ângulo pedido, sem limite.
-     * limitedPivotDegrees: o mesmo ângulo, preso ao curso de ±90°.
+     * limitedPivotDegrees: o mesmo ângulo, preso ao curso de ±130° (PIVOT_MAX_ANGLE_DEGREES).
      * reachable: o hub cabe no curso sem girar o robô.
      */
     public record Aim(
@@ -64,12 +64,20 @@ public final class ShotCalculator {
 
     // #endregion
 
-    // #region ALVO DA ALIANÇA
+    // #region 🧭 ALVO DA ALIANÇA
 
     /**
      * Hub da aliança atual. O mapa usa sempre a origem azul, então o hub
      * vermelho é outro ponto do mesmo campo. Sem aliança informada: azul.
      */
+    /**
+     * Competição (FMS conectado): hub da aliança. Treino: sempre o
+     * PRACTICE_HUB_ALLIANCE, porque fora do FMS a aliança da DS é só o padrão.
+     */
+    public static Translation2d hubFor(Optional<Alliance> alliance, boolean fmsAttached) {
+        return hubFor(fmsAttached ? alliance : Optional.of(PRACTICE_HUB_ALLIANCE));
+    }
+
     public static Translation2d hubFor(Optional<Alliance> alliance) {
         return alliance.orElse(Alliance.Blue) == Alliance.Red
             ? RED_HUB_CENTER
@@ -78,7 +86,7 @@ public final class ShotCalculator {
 
     // #endregion
 
-    // #region POSIÇÃO DO SHOOTER NO CAMPO
+    // #region 🧭 POSIÇÃO DO SHOOTER NO CAMPO
 
     /**
      * O shooter não fica no centro do robô. Gira o deslocamento junto com o
@@ -93,14 +101,14 @@ public final class ShotCalculator {
 
     // #endregion
 
-    // #region MIRA DO PIVÔ
+    // #region 🧭 MIRA DO PIVÔ
 
     /**
      * Passos (os mesmos do código de competição):
      * 1. vetor do shooter até o alvo, no campo;
      * 2. esse vetor no referencial do robô (desconta a rotação do robô);
      * 3. ângulo em relação ao zero do pivô (que aponta para trás);
-     * 4. limite de ±90°.
+     * 4. limite angular calibrado em ShooterConstants.
      */
     public static Aim aim(Pose2d robotPose, Translation2d target) {
         Translation2d toTarget = target.minus(shooterFieldPosition(robotPose));
@@ -128,8 +136,8 @@ public final class ShotCalculator {
             -180.0, 180.0);
     }
 
-    // Conversão ângulo do shooter <-> voltas do motor (15° por volta).
-    // As voltas ficam presas a ±6, o mesmo curso dos soft limits do TalonFX.
+    // Conversão medida no conjunto, relativa ao centro zerado ao ligar.
+    // Mesmo curso dos soft limits do TalonFX, sem aplicar a redução duas vezes.
     public static double pivotDegreesToMotorRotations(double pivotDegrees) {
         return MathUtil.clamp(
             pivotDegrees / PIVOT_DEGREES_PER_MOTOR_ROTATION * PIVOT_DIRECTION_SIGN,
@@ -142,7 +150,7 @@ public final class ShotCalculator {
 
     // #endregion
 
-    // #region RPM POR DISTÂNCIA
+    // #region 🚀 RPM POR DISTÂNCIA
 
     /**
      * Curva por distância, sem fórmula balística: evita a divisão que explode
@@ -153,7 +161,7 @@ public final class ShotCalculator {
         double normalized = (clamped - SHOT_MIN_DISTANCE_METERS)
             / Math.max(0.001, SHOT_MAX_DISTANCE_METERS - SHOT_MIN_DISTANCE_METERS);
 
-        // Curva progressiva: suave perto do alvo e mais forte longe dele.
+        // 🚀 Curva progressiva: suave perto do alvo e mais forte longe dele.
         double shotDemand = 0.25 * normalized + 0.75 * normalized * normalized;
         double towerDemand = 0.40 * normalized + 0.60 * shotDemand;
 
@@ -165,14 +173,26 @@ public final class ShotCalculator {
         double centrifuge = MathUtil.clamp(tower * CENTRIFUGE_FORCE_SCALE,
             CENTRIFUGE_SHOT_MIN_RPM, CENTRIFUGE_SHOT_MAX_RPM);
 
-        // Velocidade de saída estimada: usada só no tempo de voo do tiro andando.
-        double effectiveRpm = top * TOP_EXIT_CONTRIBUTION
-            + tower * TOWER_EXIT_CONTRIBUTION
-            + centrifuge * CENTRIFUGE_EXIT_CONTRIBUTION;
-        double exitVelocity = effectiveRpm * 2.0 * Math.PI / 60.0
-            * FLYWHEEL_RADIUS_METERS * VELOCITY_TRANSFER_EFFICIENCY;
+        return new Shot(distanceMeters, top, tower, centrifuge,
+            exitVelocityForRpm(top, tower, centrifuge), distanceMeters > 0.05);
+    }
 
-        return new Shot(distanceMeters, top, tower, centrifuge, exitVelocity, distanceMeters > 0.05);
+    /**
+     * Velocidade com que a bola sai, estimada pelo código de competição:
+     * soma ponderada dos três RPMs × raio da roda × eficiência.
+     * Usada no tempo de voo do tiro andando (lógica da competição). A física
+     * das bolas usa outra eficiência: veja fuel/ShotComparison.
+     */
+    public static double exitVelocityForRpm(double topRpm, double towerRpm, double centrifugeRpm) {
+        return effectiveRpm(topRpm, towerRpm, centrifugeRpm) * 2.0 * Math.PI / 60.0
+            * FLYWHEEL_RADIUS_METERS * VELOCITY_TRANSFER_EFFICIENCY;
+    }
+
+    /** RPM "equivalente" da saída: quanto cada roda contribui para empurrar a bola. */
+    public static double effectiveRpm(double topRpm, double towerRpm, double centrifugeRpm) {
+        return topRpm * TOP_EXIT_CONTRIBUTION
+            + towerRpm * TOWER_EXIT_CONTRIBUTION
+            + centrifugeRpm * CENTRIFUGE_EXIT_CONTRIBUTION;
     }
 
     public static Shot forPose(Pose2d robotPose, Translation2d target) {
@@ -210,9 +230,13 @@ public final class ShotCalculator {
 
     // #endregion
 
+    // #region AUXILIARES
+
     private static double lerp(double min, double max, double blend) {
         return min + (max - min) * MathUtil.clamp(blend, 0.0, 1.0);
     }
 
     private ShotCalculator() {}
+
+    // #endregion
 }

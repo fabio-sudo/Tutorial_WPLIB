@@ -3,7 +3,7 @@ package frc.robot.subsystems.drive;
 
 // #region IMPORTS
 
-import static frc.robot.Constants.DriveConstants.*;
+import static frc.robot.subsystems.drive.DriveConstants.*;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
@@ -75,7 +75,7 @@ public class ModuleIOSim implements ModuleIO {
 
 
 
-    // #region CONTROLE FECHADO - DRIVE
+    // #region 🎯🚀 CONTROLE FECHADO - DRIVE
 
     // PID responsável por corrigir
     // a velocidade da roda
@@ -104,7 +104,7 @@ public class ModuleIOSim implements ModuleIO {
 
 
 
-    // #region CONTROLE FECHADO - STEER
+    // #region 🎯 CONTROLE FECHADO - STEER
 
     // PID responsável por controlar
     // o ângulo do módulo
@@ -184,13 +184,17 @@ public class ModuleIOSim implements ModuleIO {
 
 
 
-    // #region ATUALIZAÇÃO DOS SENSORES SIMULADOS
+    // #region 🧪 ATUALIZAÇÃO DOS SENSORES SIMULADOS
 
     @Override
     public void updateInputs(
         ModuleIOInputs inputs
     ) {
 
+        // Módulo simulado: sempre responde.
+        inputs.driveConnected = true;
+        inputs.turnConnected = true;
+        inputs.encoderConnected = true;
 
         // ============================================================
         // ATUALIZAÇÃO DA FÍSICA
@@ -254,7 +258,7 @@ public class ModuleIOSim implements ModuleIO {
 
 
 
-    // #region CONTROLE ABERTO - DRIVE
+    // #region 🚀 CONTROLE ABERTO - DRIVE
 
     @Override
     public void setDriveVoltage(
@@ -284,7 +288,7 @@ public class ModuleIOSim implements ModuleIO {
 
 
 
-    // #region CONTROLE ABERTO - STEER
+    // #region 🚀 CONTROLE ABERTO - STEER
 
     @Override
     public void setTurnVoltage(
@@ -314,7 +318,7 @@ public class ModuleIOSim implements ModuleIO {
 
 
 
-    // #region MALHA FECHADA - DRIVE
+    // #region 🎯🚀 MALHA FECHADA - DRIVE
 
     @Override
     public void setDriveVelocity(
@@ -406,7 +410,7 @@ public class ModuleIOSim implements ModuleIO {
 
 
 
-    // #region MALHA FECHADA - STEER
+    // #region 🎯 MALHA FECHADA - STEER
 
     @Override
     public void setTurnPosition(

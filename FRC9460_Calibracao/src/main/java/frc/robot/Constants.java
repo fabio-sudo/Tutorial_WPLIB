@@ -5,12 +5,30 @@
 package frc.robot;
 
 /**
- * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
- * constants. This class should not be used for any other purpose. All constants should be declared
- * globally (i.e. public static). Do not put anything functional in this class.
+ * 🔎 LEGENDA DOS ÍCONES NOS COMENTÁRIOS (Ctrl+Shift+F com o ícone acha tudo):
+ *   🛑 SEGURANÇA  o que impede ou limita o motor (parada, trava, zero perdido)
+ *   ⚡ CORRENTE   limites de corrente e de tensão
+ *   🎯 PID        ganhos kP, kI, kD, kS, kV, kG, kA e onde o PID roda
+ *   🚀 VELOCIDADE velocidade, aceleração, RPM, perfil e saída em %
+ *   📏 MEDIDAS    curso, reduções, geometria e offsets
+ *   🧭 POSE       zero, heading, pose e referência do piloto
+ *   🎮 BOTÕES     o que cada botão faz
+ *   📷 VISÃO      Limelight, filtros e peso das medições
+ *   🔁 CICLO      a ordem do que roda a cada 20 ms
+ *   🧪 SIMULAÇÃO  física e modelo em paralelo (real x simulado)
+ *   📊 TELEMETRIA log, diagnóstico e alertas
+ *   🔧 CALIBRAR   rotinas e valores para medir no robô
+ *   🚧 ATENÇÃO    ponto do pente fino que merece revisão
+ *   📦 ARQUIVADO  código antigo guardado só para consulta
+ * Guia completo: ESTRUTURA_DO_CODIGO.md, seção 3c.
  *
- * <p>It is advised to statically import this class (or one of its inner classes) wherever the
- * constants are needed, to reduce verbosity.
+ * Só o que é do robô inteiro: as portas dos controles.
+ *
+ * As constantes de cada subsistema ficam na pasta dele (XxxConstants):
+ * drive/DriveConstants, vision/LimelightConstants e VisionConstants,
+ * shooter/ShooterConstants, intake/IntakeConstants, e assim por diante.
+ * IDs CAN: frc.robot.CanIds. Limites de corrente recomendados: frc.robot.MotorLimits.
+ * As anotações das aulas, no fim deste arquivo, foram mantidas.
  */
 public final class Constants {
   
@@ -23,154 +41,6 @@ public final class Constants {
   }
 
 
-    // #region CONSTANTES DO SWERVE / DRIVETRAIN
-
-   // ============================================================
-   // CONSTANTES DO SWERVE / DRIVETRAIN
-   // ============================================================
-
-  public static class DriveConstants {
-
-
-    // #region GEOMETRIA DO ROBÔ
-
-    // Distância entre os módulos dianteiros e traseiros
-    // Medida de centro a centro dos módulos
-    public static final double kWheelBaseMeters =
-    0.5461;
-
-    // Distância entre os módulos da esquerda e direita
-    // Medida de centro a centro dos módulos
-    public static final double kTrackWidthMeters =
-    0.5461;
-
-    // Raio da roda do módulo Swerve
-    public static final double kWheelRadiusMeters = 0.0508;
-
-    // #endregion
-
-
-    // #region LIMITES DE VELOCIDADE
-
-    // Velocidade máxima usada inicialmente na simulação
-    public static final double kMaxLinearSpeed = 2.0; // m/s
-
-    // Velocidade máxima de rotação
-    public static final double kMaxAngularSpeed = Math.PI; // rad/s
-    // #endregion
-
-
-  // ============================================================
-  // CONTROLE DO DRIVE
-  // ============================================================
-
-  // #region PID DO DRIVE
-
-  // PID de velocidade do Drive
-  public static final double kDriveKp = 1.0;
-  public static final double kDriveKi = 0.0;
-  public static final double kDriveKd = 0.0;
-
-
-  // Feedforward do Drive
-
-  // Tensão mínima aproximada para começar a movimentar
-  // Valor inicial para a simulação
-  public static final double kDriveKs = 0.2;
-
-  // Aproximação inicial baseada em:
-  // 12 V / 4.58 m/s
-  public static final double kDriveKv =
-      12.0 / 4.58;
-  
-  // #endregion
-  
-
-
-    }
-
-
-  //#region Limelight
-
-  public static class LimelightConstants {
-  // ============================================================
-  // Lime Ligh Constants
-  // ============================================================
-
-      public static final String REAR_NAME = "limelight-rear";
-
-      public static final int[] VALID_TAG_IDS = {25, 26, 9, 10};
-
-      public static final int IMU_MODE = 0;
-
-      public static final double REAR_FORWARD = -0.29;
-      public static final double REAR_RIGHT = 0.16;
-      public static final double REAR_UP = 0.46;
-
-      public static final double REAR_ROLL = 0.0;
-      public static final double REAR_PITCH = 4.0;
-      public static final double REAR_YAW = 180.0;
-
-    // ============================================================
-    // VALIDAÇÃO DO MEGATAG2
-    // ============================================================
-
-    // Referência de distância preferida no diagnóstico do Vision.
-    // Não representa o alcance físico da lente nem rejeita a pose sozinha.
-    public static final double MAX_TAG_DISTANCE_METERS =4.0;
-
-
-    // ============================================================
-    // LIMITE DE VELOCIDADE ANGULAR PARA VISÃO
-    // ============================================================
-    //
-    // Acima desse valor a imagem pode sofrer blur durante
-    // a rotação e a pose do MegaTag2 fica menos confiável.
-    //
-    // Unidade: graus por segundo.
-    //
-    // ============================================================
-
-   
-   //720 o que usamos para testes
-    public static final double MAX_VISION_YAW_RATE_DEG_PER_SEC =
-        720.0;
-
-
-    // #region NEW - LIMITES TEMPORAIS DA VISÃO
-
-    // Idade máxima da captura: 0.250 s = 250 ms.
-    public static final double MAX_VISION_CAPTURE_AGE_SECONDS = 0.250;
-
-    // Margem para timestamp à frente: 0.020 s = 20 ms.
-    public static final double MAX_VISION_FUTURE_TOLERANCE_SECONDS = 0.020;
-
-    // #endregion
-
-
-    // #region NEW - LIMELIGHT FRONTAL PROVISÓRIA
-
-    public static final String FRONT_NAME = "limelight-front";
-
-    public static final int[] FRONT_VALID_TAG_IDS = {25, 26, 9, 10};
-
-    // Valores provisórios baseados na câmera traseira.
-    // Substituir pelas medidas reais da câmera frontal.
-    public static final double FRONT_FORWARD = 0.29;
-    public static final double FRONT_RIGHT = 0.16;
-    public static final double FRONT_UP = 0.46;
-
-    public static final double FRONT_ROLL = 0.0;
-    public static final double FRONT_PITCH = 4.0;
-    public static final double FRONT_YAW = 0.0;
-
-    // #endregion
-
-  }
-  
-  //#region
-  
-    // #endregion
 }
 
 //=====================================Anotações

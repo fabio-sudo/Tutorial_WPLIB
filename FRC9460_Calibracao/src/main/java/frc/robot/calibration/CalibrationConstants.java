@@ -28,7 +28,7 @@ public final class CalibrationConstants {
 
 
 
-    // #region VELOCIDADES DO DRIVE
+    // #region 🚀 VELOCIDADES DO DRIVE
 
     // ============================================================
     // VELOCIDADES DO DRIVE
@@ -72,7 +72,7 @@ public final class CalibrationConstants {
 
     // #endregion
 
-        // #region TESTE KS
+        // #region 🔧 TESTE KS
 
     // ============================================================
     // TESTE EXPERIMENTAL DE kS

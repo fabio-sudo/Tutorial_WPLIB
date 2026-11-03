@@ -2,10 +2,10 @@ package frc.robot.subsystems.vision;
 
 /**
  * Propriedades das câmeras virtuais. Não altera os pipelines das Limelights reais.
- * Posição e orientação vêm de VisionCameraTransforms/Constants.LimelightConstants.
+ * Posição e orientação vêm de VisionCameraTransforms/LimelightConstants.
  */
 public final class VisionSimulationConstants {
-    // #region VALORES CONFIRMADOS NOS PRINTS DO PIPELINE
+    // #region 📷 VALORES CONFIRMADOS NOS PRINTS DO PIPELINE
 
     public static final int IMAGE_WIDTH_PIXELS = 1280;
     public static final int IMAGE_HEIGHT_PIXELS = 800;
@@ -21,7 +21,7 @@ public final class VisionSimulationConstants {
 
     // #endregion
 
-    // #region LENTE PADRÃO DA LIMELIGHT 4
+    // #region 📷 LENTE PADRÃO DA LIMELIGHT 4
 
     // FOV nominal da documentação oficial (lente original):
     // https://docs.limelightvision.io/docs/docs-limelight/getting-started/limelight-4
@@ -33,7 +33,7 @@ public final class VisionSimulationConstants {
 
     // #endregion
 
-    // #region PARÂMETROS DE ENSAIO AINDA NÃO MEDIDOS NA CÂMERA REAL
+    // #region 📷 PARÂMETROS DE ENSAIO AINDA NÃO MEDIDOS NA CÂMERA REAL
 
     // Latência total captura -> entrega. O valor tl do pipeline sozinho não
     // inclui necessariamente todas as etapas. Mantemos o ensaio anterior.
@@ -54,7 +54,7 @@ public final class VisionSimulationConstants {
 
     // #endregion
 
-    // #region PERFIL COMPARTILHADO PELAS DUAS CÂMERAS
+    // #region 📷 PERFIL COMPARTILHADO PELAS DUAS CÂMERAS
 
     /** Permite adotar outro perfil por câmera sem duplicar a implementação. */
     public record CameraProfile(

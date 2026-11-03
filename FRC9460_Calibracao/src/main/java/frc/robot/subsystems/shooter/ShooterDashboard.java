@@ -2,9 +2,12 @@ package frc.robot.subsystems.shooter;
 
 // #region IMPORTS
 
+import java.util.function.Supplier;
+
 import org.littletonrobotics.junction.networktables.LoggedNetworkBoolean;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -32,7 +35,11 @@ public class ShooterDashboard {
 
     // #region LIGAÇÃO COM OS COMANDOS
 
-    public ShooterDashboard(Shooter shooter) {
+    /**
+     * Os comandos vêm prontos do RobotContainer (ficam em frc.robot.commands):
+     * shootCommand = mirar e atirar; aimCommand = só mirar.
+     */
+    public ShooterDashboard(Shooter shooter, Supplier<Command> shootCommand, Supplier<Command> aimCommand) {
         // Um pedido antigo do painel não deve agir na partida.
         aim.set(false);
         shoot.set(false);
@@ -41,10 +48,10 @@ public class ShooterDashboard {
         // Ligado + teleoperado habilitado: o comando roda enquanto estiver true.
         new Trigger(() -> shoot.get())
             .and(DriverStation::isTeleopEnabled)
-            .whileTrue(shooter.trackAndShootCommand());
+            .whileTrue(shootCommand.get());
         new Trigger(() -> aim.get() && !shoot.get())
             .and(DriverStation::isTeleopEnabled)
-            .whileTrue(shooter.aimAtHubCommand());
+            .whileTrue(aimCommand.get());
 
         // Zero: o Shooter recusa se o robô estiver habilitado. O pedido é
         // consumido na hora para não ser aplicado depois, ao desabilitar.

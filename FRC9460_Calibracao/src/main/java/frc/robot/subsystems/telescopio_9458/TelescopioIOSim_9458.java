@@ -24,7 +24,7 @@ import frc.robot.subsystems.telescopio_9458.TelescopioMotionProfile_9458.State;
  */
 public class TelescopioIOSim_9458 implements TelescopioIO_9458 {
 
-    // #region MODELO FISICO
+    // #region 🧪 MODELO FISICO
 
     // Passo interno da integração; menor que a constante de tempo do motor (~2 ms).
     private static final double SUBSTEP_SECONDS = 0.001;
@@ -50,7 +50,7 @@ public class TelescopioIOSim_9458 implements TelescopioIO_9458 {
 
     // #endregion
 
-    // #region MOTION MAGIC EMULADO
+    // #region 🎯🚀 MOTION MAGIC EMULADO
 
     private boolean motionMagicActive;
     private double motionMagicTarget;
@@ -131,7 +131,7 @@ public class TelescopioIOSim_9458 implements TelescopioIO_9458 {
 
     // #endregion
 
-    // #region SINCRONIZACAO COM O ROBO REAL
+    // #region 🧪 SINCRONIZACAO COM O ROBO REAL
 
     /** Coloca o modelo na posição medida; usado pelo modelo em paralelo do Telescopio_9458. */
     public void setState(double extensionMeters, double velocityMetersPerSec) {
@@ -236,7 +236,7 @@ public class TelescopioIOSim_9458 implements TelescopioIO_9458 {
 
     // #endregion
 
-    // #region INTEGRACAO DA FISICA
+    // #region 🧪 INTEGRACAO DA FISICA
 
     /**
      * Passo exato de v' = a·v + b·(V − atrito) − g em subpassos de 1 ms, com atrito de
@@ -278,7 +278,7 @@ public class TelescopioIOSim_9458 implements TelescopioIO_9458 {
 
     // #endregion
 
-    // #region SOFT LIMITS DO TALONFX
+    // #region 🛑📏 SOFT LIMITS DO TALONFX
 
     /**
      * Como o TalonFX: além do limite, a saída naquele sentido vira neutra (0 V);

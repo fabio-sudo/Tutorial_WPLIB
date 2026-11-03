@@ -38,7 +38,7 @@ import frc.robot.subsystems.vision.VisionSimulationConstants.CameraProfile;
  * independente dessas correções; não é usada como medição de visão.
  */
 public final class VisionSimulationScenario implements AutoCloseable {
-        // #region AMBIENTE E CÂMERAS
+        // #region 📷 AMBIENTE E CÂMERAS
         private final VisionSystemSim visionSim = new VisionSystemSim("SteelBulls");
         private final SimulationPoseHistory referenceHistory = new SimulationPoseHistory();
         private final SimulatedCamera rear = new SimulatedCamera(
@@ -167,7 +167,7 @@ public final class VisionSimulationScenario implements AutoCloseable {
         }
         // #endregion
 
-        // #region ATUALIZAÇÃO DO MUNDO VIRTUAL
+        // #region 🧪 ATUALIZAÇÃO DO MUNDO VIRTUAL
         /** simulationPose movimenta o mundo; estimatedPose é somente uma comparação. */
         public void update(Pose2d simulationPose, Pose2d estimatedPose) {
                 // PhotonLib 2026 utiliza o relógio FPGA internamente. O histórico precisa
@@ -194,7 +194,7 @@ public final class VisionSimulationScenario implements AutoCloseable {
         }
         // #endregion
 
-        // #region DETECÇÕES E ESTIMATIVAS PHOTONLIB
+        // #region 📷 DETECÇÕES E ESTIMATIVAS PHOTONLIB
         private void processPhotonCamera(SimulatedCamera camera) {
                 String p = "Vision/Simulation/Photon/" + camera.name + "/";
                 var frames = camera.photon.getAllUnreadResults();
@@ -284,6 +284,8 @@ public final class VisionSimulationScenario implements AutoCloseable {
                                         usedTargets.size(), distance, PoseObservationType.PHOTONVISION),
                                         usedTargets.isEmpty() ? -1 : usedTargets.get(0).getFiducialId(),
                                         (Timer.getFPGATimestamp() - result.timestampSeconds) * 1000.0);
+                        camera.io.setUsedTagIds(usedTargets.stream()
+                                        .mapToInt(PhotonTrackedTarget::getFiducialId).toArray());
                 }
         }
 

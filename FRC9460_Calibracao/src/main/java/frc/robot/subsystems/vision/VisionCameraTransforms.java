@@ -6,7 +6,6 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
 
-import frc.robot.Constants.LimelightConstants;
 
 // #endregion
 
@@ -21,7 +20,7 @@ import frc.robot.Constants.LimelightConstants;
  */
 public final class VisionCameraTransforms {
 
-    // #region CÂMERA TRASEIRA
+    // #region 📷 CÂMERA TRASEIRA
 
     public static final Transform3d ROBOT_TO_REAR =
         fromMounting(
@@ -35,7 +34,7 @@ public final class VisionCameraTransforms {
 
     // #endregion
 
-    // #region CÂMERA FRONTAL
+    // #region 📷 CÂMERA FRONTAL
 
     // Os valores FRONT_* continuam provisórios,
     // até serem substituídos pelas medidas da montagem real.
@@ -51,7 +50,7 @@ public final class VisionCameraTransforms {
 
     // #endregion
 
-    // #region CONVERSÃO PARA A GEOMETRIA DA SIMULAÇÃO
+    // #region 🧪 CONVERSÃO PARA A GEOMETRIA DA SIMULAÇÃO
 
     /**
      * Convenção adotada para as constantes de montagem:

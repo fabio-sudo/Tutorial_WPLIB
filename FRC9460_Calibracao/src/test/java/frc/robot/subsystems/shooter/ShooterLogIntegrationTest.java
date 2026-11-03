@@ -28,6 +28,11 @@ import edu.wpi.first.wpilibj.simulation.DriverStationSim;
 import edu.wpi.first.wpilibj.simulation.SimHooks;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
+import frc.robot.commands.shooter.ShooterAimAtHubCommand;
+import frc.robot.commands.shooter.ShooterTrackAndShootCommand;
+import frc.robot.subsystems.centrifuga.Centrifuga;
+import frc.robot.subsystems.centrifuga.CentrifugaIOSim;
+
 /**
  * Processo isolado (o Logger é global): grava um WPILOG com o shooter
  * atirando pelo painel do AdvantageScope e confere que TODA chave do shooter
@@ -63,8 +68,10 @@ class ShooterLogIntegrationTest {
             new Translation2d(SHOOTER_OFFSET_FORWARD_METERS, SHOOTER_OFFSET_LEFT_METERS)), Rotation2d.kZero);
 
         var shooter = new Shooter(new ShooterPivotIOSim(0.0), Shooter.createTopIO(), Shooter.createTowerIO(),
-            Shooter.createCentrifugeIO(), () -> pose, ChassisSpeeds::new, () -> true);
-        new ShooterDashboard(shooter);
+            () -> pose, ChassisSpeeds::new, () -> true);
+        var centrifuga = new Centrifuga(new CentrifugaIOSim());
+        new ShooterDashboard(shooter, () -> new ShooterTrackAndShootCommand(shooter, centrifuga),
+            () -> new ShooterAimAtHubCommand(shooter));
         var scheduler = CommandScheduler.getInstance();
         var shoot = NetworkTableInstance.getDefault().getEntry("/Tuning/Shooter/MirarEAtirar");
         boolean fed = false;
@@ -82,14 +89,15 @@ class ShooterLogIntegrationTest {
                 Logger.AdvancedHooks.invokePeriodicBeforeUser();
                 scheduler.run();
                 Logger.AdvancedHooks.invokePeriodicAfterUser(0, 0);
-                fed |= shooter.getCentrifugeTargetRpm() > 0.0;
+                fed |= centrifuga.getTargetRpm() > 0.0;
             }
             assertTrue(fed, "O botão do painel deve disparar a sequência");
             assertEquals(45.0, shooter.getPivotDegrees(), 1.0);
-            assertEquals(0.0, shooter.getCentrifugeTargetRpm(), "Soltar o botão para tudo");
+            assertEquals(0.0, centrifuga.getTargetRpm(), "Soltar o botão para tudo");
         } finally {
             scheduler.cancelAll();
             shooter.close();
+            centrifuga.close();
             scheduler.getDefaultButtonLoop().clear();
             Logger.end();
             DriverStationSim.setEnabled(false);
@@ -110,7 +118,7 @@ class ShooterLogIntegrationTest {
         Set<String> missing = new TreeSet<>();
         for (String key : layoutKeys()) {
             boolean ownedByShooter = key.startsWith("/RealOutputs/Shooter/") || key.startsWith("/Shooter/")
-                || key.equals("/RealOutputs/Mecanismos/Componentes");
+                || key.startsWith("/RealOutputs/Centrifuga/") || key.startsWith("/Centrifuga/");
             // Mechanism2d é gravado como uma tabela: Mecanismo2d/.type, .../angle...
             boolean present = logged.contains(key) || logged.stream().anyMatch(k -> k.startsWith(key + "/"));
             if (ownedByShooter && !present) {

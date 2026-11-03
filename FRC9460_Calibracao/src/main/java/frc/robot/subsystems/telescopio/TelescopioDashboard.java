@@ -4,6 +4,8 @@ package frc.robot.subsystems.telescopio;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.telescopio.TelescopioCicloCommand;
+import frc.robot.commands.telescopio.TelescopioSeguirMetaCommand;
 import org.littletonrobotics.junction.networktables.LoggedNetworkBoolean;
 import org.littletonrobotics.junction.networktables.LoggedNetworkNumber;
 
@@ -28,10 +30,10 @@ public class TelescopioDashboard {
     public TelescopioDashboard(Telescopio telescopio) {
         new Trigger(() -> active.get() && !demo.get())
             .and(DriverStation::isTeleopEnabled)
-            .whileTrue(telescopio.followGoalCommand(goal::get));
+            .whileTrue(new TelescopioSeguirMetaCommand(telescopio, goal::get));
         new Trigger(() -> active.get() && demo.get())
             .and(DriverStation::isTeleopEnabled)
-            .whileTrue(telescopio.demoCommand());
+            .whileTrue(new TelescopioCicloCommand(telescopio));
     }
 
     // #endregion
