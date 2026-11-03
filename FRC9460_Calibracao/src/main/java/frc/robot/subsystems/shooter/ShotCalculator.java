@@ -12,6 +12,10 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 
+import frc.robot.subsystems.fuel.BallisticModel;
+import frc.robot.subsystems.fuel.FuelConstants;
+import frc.robot.subsystems.fuel.ShotComparison;
+
 // #endregion
 
 /**
@@ -180,8 +184,8 @@ public final class ShotCalculator {
     /**
      * Velocidade com que a bola sai, estimada pelo código de competição:
      * soma ponderada dos três RPMs × raio da roda × eficiência.
-     * Usada no tempo de voo do tiro andando (lógica da competição). A física
-     * das bolas usa outra eficiência: veja fuel/ShotComparison.
+     * Não entra mais no tempo de voo do tiro andando (veja flightTimeSeconds).
+     * A física das bolas usa outra eficiência: veja fuel/ShotComparison.
      */
     public static double exitVelocityForRpm(double topRpm, double towerRpm, double centrifugeRpm) {
         return effectiveRpm(topRpm, towerRpm, centrifugeRpm) * 2.0 * Math.PI / 60.0
@@ -203,10 +207,16 @@ public final class ShotCalculator {
 
     // #region TIRO ANDANDO
 
+    // Passadas que refinam o tempo de voo: com o arco de ~1 s, duas não bastavam
+    // andando para o hub ou para longe dele. Para quando muda menos de 1 ms.
+    private static final int MOTION_COMPENSATION_MAX_PASSES = 6;
+    private static final double FLIGHT_TIME_CONVERGED_SECONDS = 0.001;
+
     /**
      * A bola herda a velocidade do robô. Mira-se num alvo virtual deslocado
      * no sentido contrário ao movimento, por (velocidade × tempo de voo).
-     * Duas passadas estabilizam o tempo de voo. Parado: alvo virtual = hub.
+     * O tempo de voo depende da distância até o alvo virtual: as passadas
+     * repetem até ele estabilizar. Parado: alvo virtual = hub.
      */
     public static MovingTarget compensateForMotion(
         Pose2d robotPose,
@@ -215,17 +225,38 @@ public final class ShotCalculator {
     ) {
         double flightTime = flightTimeSeconds(forPose(robotPose, target));
         Translation2d virtualTarget = target;
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < MOTION_COMPENSATION_MAX_PASSES; i++) {
             virtualTarget = target.minus(new Translation2d(
                 fieldRelativeSpeeds.vxMetersPerSecond * flightTime,
                 fieldRelativeSpeeds.vyMetersPerSecond * flightTime));
-            flightTime = flightTimeSeconds(forPose(robotPose, virtualTarget));
+            double refined = flightTimeSeconds(forPose(robotPose, virtualTarget));
+            boolean converged = Math.abs(refined - flightTime) < FLIGHT_TIME_CONVERGED_SECONDS;
+            flightTime = refined;
+            if (converged) {
+                break;
+            }
         }
         return new MovingTarget(virtualTarget, flightTime);
     }
 
+    /**
+     * Tempo até a bola descer pela altura da boca do hub, pela mesma física
+     * das bolas (BallisticModel): velocidade de saída da simulação
+     * (ShotComparison.ballExitSpeed) e ângulo LAUNCH_ANGLE_DEGREES.
+     *
+     * Antes era distância ÷ velocidade de saída da competição, como se a bola
+     * fosse em linha reta: ~0,3 s contra ~1,2 s do arco. No replay de
+     * 03/11/2026 a bola caía ~0,45 m à frente com o robô andando.
+     * 🚧 O ângulo e a eficiência não foram medidos: conferir o tempo de voo
+     * real em vídeo e ajustar em FuelConstants.
+     */
     public static double flightTimeSeconds(Shot shot) {
-        return shot.distanceMeters() / Math.max(0.10, shot.exitVelocityMetersPerSec());
+        double exitSpeed = ShotComparison.ballExitSpeed(shot.topRpm(), shot.towerRpm(), shot.centrifugeRpm());
+        double time = BallisticModel.timeToDescendThrough(exitSpeed, FuelConstants.LAUNCH_ANGLE_DEGREES,
+            RELEASE_HEIGHT_METERS, TARGET_HEIGHT_METERS,
+            FuelConstants.PREDICTION_STEP_SECONDS, FuelConstants.PREDICTION_MAX_SECONDS);
+        // Bola que não chega à altura do hub: sem tempo de voo, sem compensação.
+        return Double.isNaN(time) ? 0.0 : time;
     }
 
     // #endregion

@@ -114,10 +114,23 @@ falha se algum ID repetir ou algum limite sair da faixa.
 | Carga da bola no rolete (0,6 N·m por 0,06 s) | `RollerConstants` | Escolhida para o detector funcionar na simulação |
 | Queda de 6% do top por bola | `ShooterConstants` | Estimativa |
 
-Achado da simulação: a ~3 m o voo leva cerca de 1,2 s. O tiro andando do
-código de competição estima o tempo de voo como distância ÷ velocidade
-(≈ 0,3 s), bem menor. Se o voo real for parecido, a compensação de tiro
-andando fica curta; a aba **BOLA 8** mostra isso tiro a tiro.
+Achado da simulação: o voo leva ~1,0 s a 3 m e ~1,3 s a 4 m. O tiro andando
+do código de competição estimava o tempo de voo como distância ÷ velocidade
+(≈ 0,3 s): a compensação ficava curta e a bola caía ~0,45 m à frente, no
+sentido do movimento (replay de 03/11/2026: 98% de acerto parado, ~5% acima
+de 0,75 m/s). Desde 03/11/2026 `ShotCalculator.flightTimeSeconds` usa o
+mesmo `BallisticModel` das bolas. No `ShotOnTheMoveTest` (2 a 4,5 m, quatro
+sentidos), os tiros que caem no hub passaram de 42/48 para 48/48 a 0,5 m/s,
+de 18/48 para todos a 1,0 m/s e de 3/48 para todos a 1,5 m/s. Se afastando
+do hub a partir de ~4 m, o alvo virtual passa do alcance da curva e a
+sequência trava em `LONGE_DEMAIS_CHEGUE_MAIS_PERTO`. Na simulação de
+03/11/2026 15:43, já com a correção, os tiros andando a 0,25 m/s ou mais
+acertaram 97 a 100% (antes: 74 a 87% e 0 a 9% acima de 0,75 m/s), e o erro
+no sentido do movimento caiu de +0,45 m para −0,02 m. Os 22 erros que
+sobraram foram todos longos, de 4,1 a 4,7 m, com o top +7% acima do alvo
+(kV do NEO no Vortex). Com o RPM pedido, a bola cairia a 0,10 m do centro.
+🚧 Falta medir o voo real (vídeo em câmera lenta) e conferir no robô; a aba
+**BOLA 8** mostra o erro tiro a tiro.
 
 ## Cada tiro: planejado × sensores × onde chegou
 

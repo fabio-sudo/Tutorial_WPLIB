@@ -117,6 +117,36 @@ public final class BallisticModel {
 
     // #endregion
 
+    // #region TEMPO DE VOO
+
+    /**
+     * Tempo (s) até a bola descer pela altura do alvo: a mesma conta de step(),
+     * só com números (double), sem criar objetos. Roda a cada ciclo na mira do
+     * tiro andando, também no roboRIO (objetos por passo pausam o programa no
+     * coletor de lixo, como no ArmModel). Ignora a velocidade do robô, que muda
+     * pouco o arrasto. NaN se a bola não chega a essa altura.
+     */
+    public static double timeToDescendThrough(double exitSpeed, double launchAngleDegrees,
+            double startHeightMeters, double targetHeightMeters, double stepSeconds, double maxSeconds) {
+        double elevation = Math.toRadians(launchAngleDegrees);
+        double horizontal = exitSpeed * Math.cos(elevation);
+        double vertical = exitSpeed * Math.sin(elevation);
+        double height = startHeightMeters;
+        for (double t = 0.0; t < maxSeconds; t += stepSeconds) {
+            double drag = DRAG_PER_METER * Math.hypot(horizontal, vertical);
+            horizontal -= drag * horizontal * stepSeconds;
+            vertical -= (GRAVITY + drag * vertical) * stepSeconds;
+            double next = height + vertical * stepSeconds;
+            if (height >= targetHeightMeters && next < targetHeightMeters) {
+                return t + stepSeconds * (height - targetHeightMeters) / (height - next);
+            }
+            height = next;
+        }
+        return Double.NaN;
+    }
+
+    // #endregion
+
     // #region SEM INSTÂNCIAS
 
     private BallisticModel() {}
