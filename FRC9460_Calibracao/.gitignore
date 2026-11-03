@@ -176,6 +176,9 @@ simgui.json
 # Simulation data log directory
 logs/
 
+# Cache do Python (scripts de config/)
+__pycache__/
+
 # Folder that has CTRE Phoenix Sim device config storage
 ctre_sim/
 
